@@ -1,0 +1,103 @@
+p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+div.row {
+    page-break-inside: avoid;
+    page-break-after:auto;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+html, body {
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    margin: 0 auto;
+}
+
+table {
+  width: 100%;
+}
+td {
+  table-layout: fixed;
+  border-color: #000000;
+  border-style: solid;
+  border-width: 0;
+  word-wrap: break-word;
+  padding: 2px 4px;
+}
+td.cell_full {
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  max-width: 1000px;
+}
+td.cell_left {
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+td.cell_mid {
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+td.cell_right {
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+td.cell_bottom {
+  border-top-width: 1px;
+  max-width: 1000px;
+  height: 1px;
+  padding: 0;
+}
+td.cell_top {
+  border-top-width: 1px;
+}
+td.title {
+  font-style: italic;
+  font-size: small;
+  vertical-align: top;
+}
+td.data {
+  font-style: italic;
+  font-weight: bold;
+  font-size: small;
+/* Modified by CC:
+  vertical-align: middle;
+*/
+  vertical-align: top;
+}
+td.text {
+  font-style: italic;
+  font-size: small;
+  vertical-align: middle;
+}
+td.bg_gold {
+  background: #fbf0dc;
+}
+td.bg_silver {
+  background: #f0f0f0;
+}
+td.bg_bronze {
+  background: #f9e5dd;
+}
+
+td a {
+    white-space: pre-wrap; /* css-3 */    
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */    
+    white-space: -o-pre-wrap; /* Opera 7 */    
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+a.image {
+  text-decoration: none;
+}
+
+.image {
+  max-width: 100%;
+  padding: 0;
+}
