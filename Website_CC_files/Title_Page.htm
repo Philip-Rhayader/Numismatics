@@ -1,0 +1,35 @@
+<div class="row title_page">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+  <tr style="height: 1px">
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+  </tr>
+  <tr>
+    {% if pk.set_private() == 'True' %}
+    <td colspan="9" class="cell_left" bgcolor="#a4c1d9">
+      <b><span style="text-transform:uppercase">{{collection.title}} – {{collection.description}}</span></b>
+    </td>
+    <td colspan="1" align="right" class="cell_mid" bgcolor="#a4c1d9">
+      <a href="#Summary"><b>SUMMARY</b></a>
+    </td>
+    {% else %}
+    <td colspan="10" class="cell_full" bgcolor="#a4c1d9">
+      <b><span style="text-transform:uppercase">{{collection.title}} – {{collection.description}}</span></b>
+    </td>
+    {% endif %}
+  </tr>
+  <tr>
+    <td colspan="10" class="cell_bottom"></td>
+  </tr>
+  </tbody>
+  </table>
+  </div>

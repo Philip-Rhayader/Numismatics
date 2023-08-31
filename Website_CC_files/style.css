@@ -84,6 +84,40 @@ td.bg_silver {
 td.bg_bronze {
   background: #f9e5dd;
 }
+td.bg_rhodium {
+  background: #e2e7e1;
+}
+td.bg_gold_y_silver_y {
+  background: linear-gradient(to right, #c0c0c0 45%, #d4af37 55%);
+}
+td.bg_gold_y_silver_n {
+  background: linear-gradient(to right, #f0f0f0 45%, #d4af37 55%);
+}
+td.bg_gold_n_silver_y {
+  background: linear-gradient(to right, #c0c0c0 45%, #fbf0dc 55%);
+}
+td.bg_gold_n_silver_n {
+  background: #fbf0dc;
+}
+td.bg_silver_y_gold_y {
+  background: linear-gradient(to right, #d4af37 45%, #c0c0c0 55%);
+}
+td.bg_silver_y_gold_n {
+  background: linear-gradient(to right, #fbf0dc 45%, #c0c0c0 55%);
+}
+td.bg_silver_n_gold_y {
+  background: linear-gradient(to right, #d4af37 45%, #f0f0f0 55%);
+}
+td.bg_silver_n_gold_n {
+  background: #f0f0f0;
+}
+td.bg_now_a_priority {
+  background: #cd7f32;
+}
+td.bg_not_a_priority {
+  background: #b5a642;
+  text-decoration: line-through;
+}
 
 td a {
     white-space: pre-wrap; /* css-3 */    
@@ -100,4 +134,30 @@ a.image {
 .image {
   max-width: 100%;
   padding: 0;
+}
+
+/* Added by CC: */
+
+a, a:visited, a:hover, a:active {
+  color:#000000;
+}
+
+.title_page {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 1px 0px;
+  background: #ffffff;
+}
+
+.section {
+  scroll-margin-top: 35px;
+}
+
+.toc {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 1px 0px;
+  background: #ffffff;
 }
