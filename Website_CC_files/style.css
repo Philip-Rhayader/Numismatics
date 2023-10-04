@@ -58,12 +58,17 @@ td.cell_top {
 }
 td.title {
   font-style: italic;
+/* Modified by CC: Add bold
+*/
+  font-weight: bold;
   font-size: small;
   vertical-align: top;
 }
 td.data {
   font-style: italic;
+/* Commented out by CC:
   font-weight: bold;
+*/
   font-size: small;
 /* Modified by CC:
   vertical-align: middle;
