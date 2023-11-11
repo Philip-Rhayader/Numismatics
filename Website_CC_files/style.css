@@ -58,8 +58,7 @@ td.cell_top {
 }
 td.title {
   font-style: italic;
-/* Modified by CC: Add bold
-*/
+/* Modified by CC: Add bold */
   font-weight: bold;
   font-size: small;
   vertical-align: top;
@@ -81,46 +80,68 @@ td.text {
   vertical-align: middle;
 }
 td.bg_gold {
-  background: #fbf0dc;
+  background: #d4af37;
+}
+td.bg_gold_75 {
+  background: #d4af3775;
+}
+td.bg_gold_50 {
+  background: #d4af3750;
 }
 td.bg_silver {
-  background: #f0f0f0;
+  background: #c0c0c0;
+}
+td.bg_silver_75 {
+  background: #c0c0c075;
+}
+td.bg_silver_50 {
+  background: #c0c0c050;
 }
 td.bg_bronze {
-  background: #f9e5dd;
+  background: #cd7f32;
+}
+td.bg_bronze_75 {
+  background: #cd7f3275;
+}
+td.bg_bronze_50 {
+  background: #cd7f3250;
 }
 td.bg_rhodium {
   background: #e2e7e1;
 }
+td.bg_rhodium_50 {
+  background: #e2e7e150;
+}
 td.bg_gold_y_silver_y {
-  background: linear-gradient(to right, #c0c0c0 45%, #d4af37 55%);
+  background: linear-gradient(to right, #c0c0c075 45%, #d4af3775 55%);
 }
 td.bg_gold_y_silver_n {
-  background: linear-gradient(to right, #f0f0f0 45%, #d4af37 55%);
+  background: linear-gradient(to right, #ffffff 45%, #d4af3775 55%);
 }
 td.bg_gold_n_silver_y {
-  background: linear-gradient(to right, #c0c0c0 45%, #fbf0dc 55%);
+  background: linear-gradient(to right, #c0c0c075 45%, #ffffff 55%);
 }
 td.bg_gold_n_silver_n {
-  background: linear-gradient(to right, #f0f0f0 45%, #fbf0dc 55%);
+  background: linear-gradient(to right, #ffffff 45%, #ffffff 55%);
 }
 td.bg_silver_y_gold_y {
-  background: linear-gradient(to right, #d4af37 45%, #c0c0c0 55%);
+  background: linear-gradient(to right, #d4af3775 45%, #c0c0c075 55%);
 }
 td.bg_silver_y_gold_n {
-  background: linear-gradient(to right, #fbf0dc 45%, #c0c0c0 55%);
+  background: linear-gradient(to right, #ffffff 45%, #c0c0c075 55%);
 }
 td.bg_silver_n_gold_y {
-  background: linear-gradient(to right, #d4af37 45%, #f0f0f0 55%);
+  background: linear-gradient(to right, #d4af3775 45%, #ffffff 55%);
 }
 td.bg_silver_n_gold_n {
-  background: linear-gradient(to right, #fbf0dc 45%, #f0f0f0 55%);
+  background: linear-gradient(to right, #ffffff 45%, #ffffff 55%);
 }
 td.bg_now_a_priority {
-  background: #cd7f32;
+  /* background: #cd7f32; */
+  /* text-decoration: wavy; */
 }
 td.bg_not_a_priority {
-  background: #b5a642;
+  /* background: #b5a642; */
   text-decoration: line-through;
 }
 
