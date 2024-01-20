@@ -92,6 +92,9 @@ td.bg_gold_75 {
 td.bg_gold_50 {
   background: #d4af3750;
 }
+td.bg_gold_25 {
+  background: #d4af3725;
+}
 td.bg_silver {
   background: #c0c0c0;
 }
@@ -100,6 +103,9 @@ td.bg_silver_75 {
 }
 td.bg_silver_50 {
   background: #c0c0c050;
+}
+td.bg_silver_50 {
+  background: #c0c0c025;
 }
 td.bg_bronze {
   background: #cd7f32;
@@ -110,11 +116,20 @@ td.bg_bronze_75 {
 td.bg_bronze_50 {
   background: #cd7f3250;
 }
+td.bg_bronze_25 {
+  background: #cd7f3225;
+}
 td.bg_rhodium {
   background: #e2e7e1;
 }
+td.bg_rhodium_75 {
+  background: #e2e7e175;
+}
 td.bg_rhodium_50 {
   background: #e2e7e150;
+}
+td.bg_rhodium_25 {
+  background: #e2e7e125;
 }
 td.bg_gold_y_silver_y {
   background: linear-gradient(to right, #c0c0c075 45%, #d4af3775 55%);
