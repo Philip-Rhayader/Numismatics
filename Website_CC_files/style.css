@@ -156,11 +156,9 @@ td.bg_silver_n_gold_n {
   background: linear-gradient(to right, #ffffff 45%, #ffffff 55%);
 }
 td.bg_now_a_priority {
-  /* background: #cd7f32; */
-  /* text-decoration: wavy; */
+  text-decoration: wavy;
 }
 td.bg_not_a_priority {
-  /* background: #b5a642; */
   text-decoration: line-through;
 }
 
