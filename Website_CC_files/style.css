@@ -1,24 +1,30 @@
+@font-face {
+  font-family: "Numismatica Medievalis";
+  src: url(fonts/NumismaticaMedievalis-Modified5.ttf) format("truetype");
+  font-display: swap;
+}
+
 p {
-    margin-top: 0.375em;
-    margin-bottom: 0.375em;
+  margin-top: 0.375em;
+  margin-bottom: 0.375em;
 }
 p.breakhere {
-    page-break-before: always;
-    margin-bottom: 0;
-    margin-top: 0;
+  page-break-before: always;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 div.row {
-    page-break-inside: avoid;
-    page-break-after:auto;
-    max-width: 1000px;
-    width: 100%;
-    margin: 0 auto;
+  page-break-inside: avoid;
+  page-break-after:auto;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 html, body {
-    font-family: arial, sans-serif;
-    font-size: 1em;
-    margin: 0 auto;
+  font-family: arial, sans-serif;
+  font-size: 1em;
+  margin: 0 auto;
 }
 
 table {
@@ -155,19 +161,42 @@ td.bg_silver_n_gold_y {
 td.bg_silver_n_gold_n {
   background: linear-gradient(to right, #ffffff 45%, #ffffff 55%);
 }
+td.bg_gold_y {
+  background: #d4af3775;
+}
+td.bg_silver_y {
+  background: #c0c0c075;
+}
 td.bg_now_a_priority {
-  text-decoration: wavy;
+  font-weight: bold;
+  color: #ff0000;
 }
 td.bg_not_a_priority {
   text-decoration: line-through;
 }
+td.bg_does_not_exist {
+  position: relative;
+  background: linear-gradient(to right bottom, #ffffff00 47%, #000000 50%, #ffffff00 53%);
+}
+td.bg_does_not_exist:after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: linear-gradient(to right top, #ffffff00 47%, #000000 50%, #ffffff00 53%);
+}
 
 td a {
-    white-space: pre-wrap; /* css-3 */    
-    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-    white-space: -pre-wrap; /* Opera 4-6 */    
-    white-space: -o-pre-wrap; /* Opera 7 */    
-    word-wrap: break-word; /* Internet Explorer 5.5+ */
+  white-space: pre-wrap; /* css-3 */    
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */    
+  white-space: -o-pre-wrap; /* Opera 7 */    
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 a.image {
