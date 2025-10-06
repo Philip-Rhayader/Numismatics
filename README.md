@@ -1,1 +1,2 @@
-# Numismatics
+**CC Numismatics**
+*Compositeur de souvenirs*

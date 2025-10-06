@@ -1,0 +1,94 @@
+<div class="row title_page">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+  <tr style="height: 1px">
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+  </tr>
+  <tr>
+    <td colspan="1" class="cell_left_no_right" bgcolor="#a4c1d9">
+      <a href="javascript:window.location.reload();"><img style="padding-left: 4px; max-width: 78px" src="{{static_files}}/logo_600x600.png" alt="{{collection.title|upper}}"></a>
+    </td>
+    <td colspan="7" class="cell_mid" bgcolor="#a4c1d9">
+      <b><span style="text-transform:uppercase; font-family:Numismatica Medievalis">{{collection.title}}</span></b><br/><i>{{collection.description}}</i>
+    </td>
+    <td colspan="2" align="right" class="cell_right" bgcolor="#a4c1d9">
+      <span onClick="toggle_show_hide_all('Show_Hide_All')"><u><b><span id="Show_Hide_All">Show</span> ALL descriptions</b></u></span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="10" class="cell_bottom"></td>
+  </tr>
+  </tbody>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+    <tr style="height: 1px">
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+      <td width="10%"/>
+    </tr>
+    <tr>
+      <td colspan="10" class="cell_full" bgcolor="#a4c1d9">
+        <b>TABLE DES MATIÈRES</b>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5" class="cell_left" bgcolor="#a4c1d9">
+        <a href="#Preamble"><b>Préambule</b></a>
+        <br/>    
+        <a href="#History"><b>Histoire de la civilisation dans mes pays d'attache</b></a>
+        <b>|</b>
+        <a href="#Generalities">Généralités</a>
+        <br/>
+        <a href="#Antiquity">Antiquité</a>
+        <b>|</b>
+        <a href="#Middle_Ages">Moyen Âge</a>
+        <b>|</b>
+        <a href="#Modern_Period">Époque moderne</a>
+        <b>|</b>
+        <a href="#Contemporary_Period">Époque contemporaine</a>
+      </td>
+      <td colspan="5" class="cell_right" bgcolor="#a4c1d9">
+        <a href="#Collection"><b>Collection de monnaies</b></a>
+        <b>|</b>
+        <a href="#Inventory"><b>Inventory</b></a>
+      {% if pk.set_private() == 'True' %}
+        <b>|</b>
+        <a href="#Summary"><b>Summary</b></a>
+      {% endif %}
+        <br/>
+        <a href="#references"><b>References</b></a>
+        <b>|</b>
+        <a href="#numismatics"><b>Numismatics</b></a>
+        <b>|</b>
+        <a href="#grading_scales"><b>Grading scales</b></a>
+        <b>|</b>
+        <a href="#Grading_scales_Generalities">Généralités</a>
+        <br/>
+        <a href="#International_Grading_scales">Comparison of international grading scales</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="10" class="cell_bottom"></td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+
+<p class="breakhere"></p>

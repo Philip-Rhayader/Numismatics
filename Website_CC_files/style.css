@@ -15,7 +15,6 @@ p.breakhere {
 }
 div.row {
   page-break-inside: avoid;
-  page-break-after:auto;
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
@@ -48,6 +47,11 @@ td.cell_left {
   border-top-width: 1px;
   border-left-width: 1px;
   border-right-width: 1px;
+}
+/* Added by CC: */
+td.cell_left_no_right {
+  border-top-width: 1px;
+  border-left-width: 1px;
 }
 td.cell_mid {
   border-top-width: 1px;
@@ -137,58 +141,353 @@ td.bg_rhodium_50 {
 td.bg_rhodium_25 {
   background: #e2e7e125;
 }
-td.bg_gold_y_silver_y {
-  background: linear-gradient(to right, #c0c0c075 45%, #d4af3775 55%);
+td.bg_gold_y_silver_y_bronze_y {
+  background: linear-gradient(to right, #d4af3775 30%, 32%, #c0c0c075 36%, 68%, #cd7f3275 72%);
 }
-td.bg_gold_y_silver_n {
-  background: linear-gradient(to right, #ffffff 45%, #d4af3775 55%);
+td.bg_gold_y_silver_y_bronze_n {
+  background: linear-gradient(to right, #d4af3775 42%, #c0c0c075 58%);
 }
-td.bg_gold_n_silver_y {
-  background: linear-gradient(to right, #c0c0c075 45%, #ffffff 55%);
+td.bg_gold_y_silver_n_bronze_y {
+  background: linear-gradient(to right, #d4af3775 42%, #cd7f3275 58%);
 }
-td.bg_gold_n_silver_n {
-  background: linear-gradient(to right, #ffffff 45%, #ffffff 55%);
-}
-td.bg_silver_y_gold_y {
-  background: linear-gradient(to right, #d4af3775 45%, #c0c0c075 55%);
-}
-td.bg_silver_y_gold_n {
-  background: linear-gradient(to right, #ffffff 45%, #c0c0c075 55%);
-}
-td.bg_silver_n_gold_y {
-  background: linear-gradient(to right, #d4af3775 45%, #ffffff 55%);
-}
-td.bg_silver_n_gold_n {
-  background: linear-gradient(to right, #ffffff 45%, #ffffff 55%);
-}
-td.bg_gold_y {
+td.bg_gold_y_silver_n_bronze_n {
   background: #d4af3775;
 }
-td.bg_silver_y {
+td.bg_gold_n_silver_y_bronze_y {
+  background: linear-gradient(to right, #c0c0c075 42%, #cd7f3275 58%);
+}
+td.bg_gold_n_silver_y_bronze_n {
   background: #c0c0c075;
 }
+td.bg_gold_n_silver_n_bronze_y {
+  background: #cd7f3275;
+}
+td.bg_gold_n_silver_n_bronze_n {
+  background: #ffffff;
+}
 td.bg_now_a_priority {
+  background: #ff000075;
   font-weight: bold;
-  color: #ff0000;
 }
 td.bg_not_a_priority {
+  background: #ff000025;
   text-decoration: line-through;
 }
 td.bg_does_not_exist {
   position: relative;
-  background: linear-gradient(to right bottom, #ffffff00 47%, #000000 50%, #ffffff00 53%);
+  background: linear-gradient(to right bottom, #ffffff00 47%, #00000075 50%, #ffffff00 53%);
 }
 td.bg_does_not_exist:after {
   content: "";
   display: block;
   position: absolute;
-  z-index: -1;
+  z-index: -10;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background: linear-gradient(to right top, #ffffff00 47%, #000000 50%, #ffffff00 53%);
+  background: linear-gradient(to right top, #ffffff00 47%, #00000075 50%, #ffffff00 53%);
+}
+td.bg_001_100_complete {
+  background: linear-gradient(to right, #00ff0075   1%, #ff000075   1%);
+}
+td.bg_002_100_complete {
+  background: linear-gradient(to right, #00ff0075   2%, #ff000075   2%);
+}
+td.bg_003_100_complete {
+  background: linear-gradient(to right, #00ff0075   3%, #ff000075   3%);
+}
+td.bg_004_100_complete {
+  background: linear-gradient(to right, #00ff0075   4%, #ff000075   4%);
+}
+td.bg_005_100_complete {
+  background: linear-gradient(to right, #00ff0075   5%, #ff000075   5%);
+}
+td.bg_006_100_complete {
+  background: linear-gradient(to right, #00ff0075   6%, #ff000075   6%);
+}
+td.bg_007_100_complete {
+  background: linear-gradient(to right, #00ff0075   7%, #ff000075   7%);
+}
+td.bg_008_100_complete {
+  background: linear-gradient(to right, #00ff0075   8%, #ff000075   8%);
+}
+td.bg_009_100_complete {
+  background: linear-gradient(to right, #00ff0075   9%, #ff000075   9%);
+}
+td.bg_010_100_complete {
+  background: linear-gradient(to right, #00ff0075  10%, #ff000075  10%);
+}
+td.bg_011_100_complete {
+  background: linear-gradient(to right, #00ff0075  11%, #ff000075  11%);
+}
+td.bg_012_100_complete {
+  background: linear-gradient(to right, #00ff0075  12%, #ff000075  12%);
+}
+td.bg_013_100_complete {
+  background: linear-gradient(to right, #00ff0075  13%, #ff000075  13%);
+}
+td.bg_014_100_complete {
+  background: linear-gradient(to right, #00ff0075  14%, #ff000075  14%);
+}
+td.bg_015_100_complete {
+  background: linear-gradient(to right, #00ff0075  15%, #ff000075  15%);
+}
+td.bg_016_100_complete {
+  background: linear-gradient(to right, #00ff0075  16%, #ff000075  16%);
+}
+td.bg_017_100_complete {
+  background: linear-gradient(to right, #00ff0075  17%, #ff000075  17%);
+}
+td.bg_018_100_complete {
+  background: linear-gradient(to right, #00ff0075  18%, #ff000075  18%);
+}
+td.bg_019_100_complete {
+  background: linear-gradient(to right, #00ff0075  19%, #ff000075  19%);
+}
+td.bg_020_100_complete {
+  background: linear-gradient(to right, #00ff0075  20%, #ff000075  20%);
+}
+td.bg_021_100_complete {
+  background: linear-gradient(to right, #00ff0075  21%, #ff000075  21%);
+}
+td.bg_022_100_complete {
+  background: linear-gradient(to right, #00ff0075  22%, #ff000075  22%);
+}
+td.bg_023_100_complete {
+  background: linear-gradient(to right, #00ff0075  23%, #ff000075  23%);
+}
+td.bg_024_100_complete {
+  background: linear-gradient(to right, #00ff0075  24%, #ff000075  24%);
+}
+td.bg_025_100_complete {
+  background: linear-gradient(to right, #00ff0075  25%, #ff000075  25%);
+}
+td.bg_026_100_complete {
+  background: linear-gradient(to right, #00ff0075  26%, #ff000075  26%);
+}
+td.bg_027_100_complete {
+  background: linear-gradient(to right, #00ff0075  27%, #ff000075  27%);
+}
+td.bg_028_100_complete {
+  background: linear-gradient(to right, #00ff0075  28%, #ff000075  28%);
+}
+td.bg_029_100_complete {
+  background: linear-gradient(to right, #00ff0075  29%, #ff000075  29%);
+}
+td.bg_030_100_complete {
+  background: linear-gradient(to right, #00ff0075  30%, #ff000075  30%);
+}
+td.bg_031_100_complete {
+  background: linear-gradient(to right, #00ff0075  31%, #ff000075  31%);
+}
+td.bg_032_100_complete {
+  background: linear-gradient(to right, #00ff0075  32%, #ff000075  32%);
+}
+td.bg_033_100_complete {
+  background: linear-gradient(to right, #00ff0075  33%, #ff000075  33%);
+}
+td.bg_034_100_complete {
+  background: linear-gradient(to right, #00ff0075  34%, #ff000075  34%);
+}
+td.bg_035_100_complete {
+  background: linear-gradient(to right, #00ff0075  35%, #ff000075  35%);
+}
+td.bg_036_100_complete {
+  background: linear-gradient(to right, #00ff0075  36%, #ff000075  36%);
+}
+td.bg_037_100_complete {
+  background: linear-gradient(to right, #00ff0075  37%, #ff000075  37%);
+}
+td.bg_038_100_complete {
+  background: linear-gradient(to right, #00ff0075  38%, #ff000075  38%);
+}
+td.bg_039_100_complete {
+  background: linear-gradient(to right, #00ff0075  39%, #ff000075  39%);
+}
+td.bg_040_100_complete {
+  background: linear-gradient(to right, #00ff0075  40%, #ff000075  40%);
+}
+td.bg_041_100_complete {
+  background: linear-gradient(to right, #00ff0075  41%, #ff000075  41%);
+}
+td.bg_042_100_complete {
+  background: linear-gradient(to right, #00ff0075  42%, #ff000075  42%);
+}
+td.bg_043_100_complete {
+  background: linear-gradient(to right, #00ff0075  43%, #ff000075  43%);
+}
+td.bg_044_100_complete {
+  background: linear-gradient(to right, #00ff0075  44%, #ff000075  44%);
+}
+td.bg_045_100_complete {
+  background: linear-gradient(to right, #00ff0075  45%, #ff000075  45%);
+}
+td.bg_046_100_complete {
+  background: linear-gradient(to right, #00ff0075  46%, #ff000075  46%);
+}
+td.bg_047_100_complete {
+  background: linear-gradient(to right, #00ff0075  47%, #ff000075  47%);
+}
+td.bg_048_100_complete {
+  background: linear-gradient(to right, #00ff0075  48%, #ff000075  48%);
+}
+td.bg_049_100_complete {
+  background: linear-gradient(to right, #00ff0075  49%, #ff000075  49%);
+}
+td.bg_050_100_complete {
+  background: linear-gradient(to right, #00ff0075  50%, #ff000075  50%);
+}
+td.bg_051_100_complete {
+  background: linear-gradient(to right, #00ff0075  51%, #ff000075  51%);
+}
+td.bg_052_100_complete {
+  background: linear-gradient(to right, #00ff0075  52%, #ff000075  52%);
+}
+td.bg_053_100_complete {
+  background: linear-gradient(to right, #00ff0075  53%, #ff000075  53%);
+}
+td.bg_054_100_complete {
+  background: linear-gradient(to right, #00ff0075  54%, #ff000075  54%);
+}
+td.bg_055_100_complete {
+  background: linear-gradient(to right, #00ff0075  55%, #ff000075  55%);
+}
+td.bg_056_100_complete {
+  background: linear-gradient(to right, #00ff0075  56%, #ff000075  56%);
+}
+td.bg_057_100_complete {
+  background: linear-gradient(to right, #00ff0075  57%, #ff000075  57%);
+}
+td.bg_058_100_complete {
+  background: linear-gradient(to right, #00ff0075  58%, #ff000075  58%);
+}
+td.bg_059_100_complete {
+  background: linear-gradient(to right, #00ff0075  59%, #ff000075  59%);
+}
+td.bg_060_100_complete {
+  background: linear-gradient(to right, #00ff0075  60%, #ff000075  60%);
+}
+td.bg_061_100_complete {
+  background: linear-gradient(to right, #00ff0075  61%, #ff000075  61%);
+}
+td.bg_062_100_complete {
+  background: linear-gradient(to right, #00ff0075  62%, #ff000075  62%);
+}
+td.bg_063_100_complete {
+  background: linear-gradient(to right, #00ff0075  63%, #ff000075  63%);
+}
+td.bg_064_100_complete {
+  background: linear-gradient(to right, #00ff0075  64%, #ff000075  64%);
+}
+td.bg_065_100_complete {
+  background: linear-gradient(to right, #00ff0075  65%, #ff000075  65%);
+}
+td.bg_066_100_complete {
+  background: linear-gradient(to right, #00ff0075  66%, #ff000075  66%);
+}
+td.bg_067_100_complete {
+  background: linear-gradient(to right, #00ff0075  67%, #ff000075  67%);
+}
+td.bg_068_100_complete {
+  background: linear-gradient(to right, #00ff0075  68%, #ff000075  68%);
+}
+td.bg_069_100_complete {
+  background: linear-gradient(to right, #00ff0075  69%, #ff000075  69%);
+}
+td.bg_070_100_complete {
+  background: linear-gradient(to right, #00ff0075  70%, #ff000075  70%);
+}
+td.bg_071_100_complete {
+  background: linear-gradient(to right, #00ff0075  71%, #ff000075  71%);
+}
+td.bg_072_100_complete {
+  background: linear-gradient(to right, #00ff0075  72%, #ff000075  72%);
+}
+td.bg_073_100_complete {
+  background: linear-gradient(to right, #00ff0075  73%, #ff000075  73%);
+}
+td.bg_074_100_complete {
+  background: linear-gradient(to right, #00ff0075  74%, #ff000075  74%);
+}
+td.bg_075_100_complete {
+  background: linear-gradient(to right, #00ff0075  75%, #ff000075  75%);
+}
+td.bg_076_100_complete {
+  background: linear-gradient(to right, #00ff0075  76%, #ff000075  76%);
+}
+td.bg_077_100_complete {
+  background: linear-gradient(to right, #00ff0075  77%, #ff000075  77%);
+}
+td.bg_078_100_complete {
+  background: linear-gradient(to right, #00ff0075  78%, #ff000075  78%);
+}
+td.bg_079_100_complete {
+  background: linear-gradient(to right, #00ff0075  79%, #ff000075  79%);
+}
+td.bg_080_100_complete {
+  background: linear-gradient(to right, #00ff0075  80%, #ff000075  80%);
+}
+td.bg_081_100_complete {
+  background: linear-gradient(to right, #00ff0075  81%, #ff000075  81%);
+}
+td.bg_082_100_complete {
+  background: linear-gradient(to right, #00ff0075  82%, #ff000075  82%);
+}
+td.bg_083_100_complete {
+  background: linear-gradient(to right, #00ff0075  83%, #ff000075  83%);
+}
+td.bg_084_100_complete {
+  background: linear-gradient(to right, #00ff0075  84%, #ff000075  84%);
+}
+td.bg_085_100_complete {
+  background: linear-gradient(to right, #00ff0075  85%, #ff000075  85%);
+}
+td.bg_086_100_complete {
+  background: linear-gradient(to right, #00ff0075  86%, #ff000075  86%);
+}
+td.bg_087_100_complete {
+  background: linear-gradient(to right, #00ff0075  87%, #ff000075  87%);
+}
+td.bg_088_100_complete {
+  background: linear-gradient(to right, #00ff0075  88%, #ff000075  88%);
+}
+td.bg_089_100_complete {
+  background: linear-gradient(to right, #00ff0075  89%, #ff000075  89%);
+}
+td.bg_090_100_complete {
+  background: linear-gradient(to right, #00ff0075  90%, #ff000075  90%);
+}
+td.bg_091_100_complete {
+  background: linear-gradient(to right, #00ff0075  91%, #ff000075  91%);
+}
+td.bg_092_100_complete {
+  background: linear-gradient(to right, #00ff0075  92%, #ff000075  92%);
+}
+td.bg_093_100_complete {
+  background: linear-gradient(to right, #00ff0075  93%, #ff000075  93%);
+}
+td.bg_094_100_complete {
+  background: linear-gradient(to right, #00ff0075  94%, #ff000075  94%);
+}
+td.bg_095_100_complete {
+  background: linear-gradient(to right, #00ff0075  95%, #ff000075  95%);
+}
+td.bg_096_100_complete {
+  background: linear-gradient(to right, #00ff0075  96%, #ff000075  96%);
+}
+td.bg_097_100_complete {
+  background: linear-gradient(to right, #00ff0075  97%, #ff000075  97%);
+}
+td.bg_098_100_complete {
+  background: linear-gradient(to right, #00ff0075  98%, #ff000075  98%);
+}
+td.bg_099_100_complete {
+  background: linear-gradient(to right, #00ff0075  99%, #ff000075  99%);
+}
+td.bg_100_100_complete {
+  background: linear-gradient(to right, #00ff0075 100%, #ff000075 100%);
 }
 
 td a {
@@ -216,106 +515,206 @@ a, a:visited, a:hover, a:active {
 
 .title_page {
   position: sticky;
+  z-index: 10;
   top: 0;
   width: 100%;
-  padding: 1px 0px;
+  padding: 0px 0px 4px 0px;
   background: #ffffff;
 }
 
 .section {
-  scroll-margin-top: 35px;
+  scroll-margin-top: 189px;
 }
 
-.toc {
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  padding: 1px 0px;
-  background: #ffffff;
+/* Style for Fancybox */
+
+.fancybox__backdrop {
+  background: #000000;
+  opacity: 0.98;
+}
+.fancybox--gold .fancybox__backdrop {
+  background: #d4af37;
+}
+.fancybox--silver .fancybox__backdrop {
+  background: #c0c0c0;
+}
+.fancybox--bronze .fancybox__backdrop {
+  background: #cd7f32;
+}
+.fancybox--rhodium .fancybox__backdrop {
+  background: #e2e7e1;
 }
 
-/* Style for modal images, adapted from W3Schools */
-
-/* Modal images */
-
-.modal_image {
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.modal_image:hover {
-  opacity: 0.7;
-}
-
-/* Modal (background) */
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 35px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.9);
-}
-
-/* Modal Content (Image) */
-
-.modal-content {
+.fancybox__content {
   margin: auto;
   display: block;
   width: 50%;
   max-width: 1000px;
 }
 
-/* Caption of the modal image (from the alt text) */
-
-#caption {
+.fancybox__caption {
   margin: auto;
   display: block;
   width: 50%;
   max-width: 1000px;
   text-align: center;
   color: #ffffff;
-  padding: 4px 0px;
-  height: 0px;
-}
-
-/* Animation to zoom in the modal */
-
-.modal-content, #caption { 
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-  from {transform:scale(0)} 
-  to {transform:scale(1)}
-}
-
-/* "Close" button */
-
-.close {
-  position: absolute;
-  top: 0px;
-  right: 8px;
-  color: #ffffff;
-  font-size: 2em;
+  font-style: italic;
   font-weight: bold;
-  transition: 0.3s;
+}
+.fancybox--gold .fancybox__caption,
+.fancybox--silver .fancybox__caption,
+.fancybox--bronze .fancybox__caption,
+.fancybox--rhodium .fancybox__caption {
+  margin: auto;
+  display: block;
+  width: 50%;
+  max-width: 1000px;
+  text-align: center;
+  color: #000000;
+  font-style: italic;
+  font-weight: bold;
 }
 
-.close:hover, .close:focus {
-  color: #e2e7e1;
-  text-decoration: none;
-  cursor: pointer;
+.fancybox__toolbar {
+  --f-button-color: #ffffff;
+  --f-button-hover-color: #ffffff;
+  --f-button-bg: transparent;
+  --f-button-hover-bg: transparent;
+  --f-button-active-bg: transparent;
+  background: #000000;
+  border-bottom: 1px solid #ffffff;
+  text-shadow: none;
+}
+.fancybox--gold .fancybox__toolbar,
+.fancybox--silver .fancybox__toolbar,
+.fancybox--bronze .fancybox__toolbar,
+.fancybox--rhodium .fancybox__toolbar {
+  --f-button-color: #000000;
+  --f-button-hover-color: #000000;
+  --f-button-bg: transparent;
+  --f-button-hover-bg: transparent;
+  --f-button-active-bg: transparent;
+  border-bottom: 1px solid #000000;
+  text-shadow: none;
+}
+.fancybox--gold .fancybox__toolbar {
+  background: #d4af37;
+}
+.fancybox--silver .fancybox__toolbar {
+  background: #c0c0c0;
+}
+.fancybox--bronze .fancybox__toolbar {
+  background: #cd7f32;
+}
+.fancybox--rhodium .fancybox__toolbar {
+  background: #e2e7e1;
 }
 
-/* 100% Image Width on Smaller Screens */
+.fancybox__infobar {
+  font-family: arial, sans-serif;
+  font-size: 1em;
+  color: #ffffff;
+  font-style: italic;
+  font-weight: bold;
+  text-shadow: none;
+}
+.fancybox--gold .fancybox__infobar,
+.fancybox--silver .fancybox__infobar,
+.fancybox--bronze .fancybox__infobar,
+.fancybox--rhodium .fancybox__infobar {
+  font-family: arial, sans-serif;
+  font-size: 1em;
+  color: #000000;
+  font-style: italic;
+  font-weight: bold;
+  text-shadow: none;
+}
+
+.fancybox__nav {
+  --f-button-next-pos: 12px;
+  --f-button-prev-pos: 12px;
+  --f-button-width: 48px;
+  --f-button-height: 48px;
+  --f-button-color: #000000;
+  --f-button-hover-color: #000000;
+  --f-button-bg: #ffffff;
+  --f-button-hover-bg: #ffffff;
+  --f-button-active-bg: #ffffff;
+  --f-button-svg-height: 20px;
+  --f-button-svg-width: 20px;
+  --f-button-svg-stroke-width: 3;
+  --f-button-svg-filter: none;
+}
+.fancybox--gold .fancybox__nav,
+.fancybox--silver .fancybox__nav,
+.fancybox--bronze .fancybox__nav,
+.fancybox--rhodium .fancybox__nav {
+  --f-button-next-pos: 12px;
+  --f-button-prev-pos: 12px;
+  --f-button-width: 48px;
+  --f-button-height: 48px;
+  --f-button-bg: #000000;
+  --f-button-hover-bg: #000000;
+  --f-button-active-bg: #000000;
+  --f-button-svg-height: 20px;
+  --f-button-svg-width: 20px;
+  --f-button-svg-stroke-width: 3;
+  --f-button-svg-filter: none;
+}
+.fancybox--gold .fancybox__nav {
+  --f-button-color: #d4af37;
+  --f-button-hover-color: #d4af37;
+}
+.fancybox--silver .fancybox__nav {
+  --f-button-color: #c0c0c0;
+  --f-button-hover-color: #c0c0c0;
+}
+.fancybox--bronze .fancybox__nav {
+  --f-button-color: #cd7f32;
+  --f-button-hover-color: #cd7f32;
+}
+.fancybox--rhodium .fancybox__nav {
+  --f-button-color: #e2e7e1;
+  --f-button-hover-color: #e2e7e1;
+}
+
+.fancybox__thumbs.is-classic {
+  --f-thumb-width: 96px;
+  --f-thumb-height: 96px;
+  --f-thumb-gap: 32px;
+  --f-thumb-border-radius: 18px;
+  --f-thumb-outline: 0;
+  border-top: 1px solid #ffffff;
+  z-index: 1000001;
+}
+.fancybox--gold .fancybox__thumbs.is-classic,
+.fancybox--silver .fancybox__thumbs.is-classic,
+.fancybox--bronze .fancybox__thumbs.is-classic,
+.fancybox--rhodium .fancybox__thumbs.is-classic {
+  --f-thumb-width: 96px;
+  --f-thumb-height: 96px;
+  --f-thumb-gap: 32px;
+  --f-thumb-border-radius: 18px;
+  --f-thumb-outline: 0;
+  background: #000000;
+  border-top: 1px solid #000000;
+}
+.fancybox--gold .fancybox__thumbs.is-classic {
+  background: #d4af37;
+}
+.fancybox--silver .fancybox__thumbs.is-classic {
+  background: #c0c0c0;
+}
+.fancybox--bronze .fancybox__thumbs.is-classic {
+  background: #cd7f32;
+}
+.fancybox--rhodium .fancybox__thumbs.is-classic {
+  background: #e2e7e1;
+}
+
+/* 100% image width on smaller screens */
+
 @media only screen and (max-width: 1000px){
   .modal-content {
     width: 100%;
