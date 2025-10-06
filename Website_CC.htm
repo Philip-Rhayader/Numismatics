@@ -204,6 +204,12 @@
 
 <body>
 
+<div id="preloader">
+  <span class="dots"><b>Loading</b><span class="dot-animate"></span></span>
+  <br/>
+  <img src="Website_CC_files/logo_600x600.png" alt="Website_CC_files/logo_600x600.png" width="312" height="312"/>
+</div>
+
 <!-- Title page as a sticky header -->
 
 <div class="row title_page">
@@ -226,7 +232,7 @@
       <a href="javascript:window.location.reload();"><img style="padding-left: 4px; max-width: 78px" src="Website_CC_files/logo_600x600.png" alt="CC NUMISMATICS"></a>
     </td>
     <td colspan="7" class="cell_mid" bgcolor="#a4c1d9">
-      <b><span style="text-transform:uppercase; font-family:Numismatica Medievalis">CC Numismatics</span></b><br/><i>Compositeur de souvenirs</i>
+      <b><span style="text-transform:uppercase; font-family:Numismatica Medievalis">CC NUMISMATICS</span></b><br/><i>Compositeur de souvenirs</i>
     </td>
     <td colspan="2" align="right" class="cell_right" bgcolor="#a4c1d9">
       <span onClick="toggle_show_hide_all('Show_Hide_All')"><u><b><span id="Show_Hide_All">Show</span> ALL descriptions</b></u></span>
@@ -40955,7 +40961,18 @@ PCGS: <a href="https://www.pcgs.com/pop/detail/semeuse/3090?sn=152851&p=MS&g=63"
   history.scrollRestoration = "manual";
   window.addEventListener('load', function() {
     window.scrollTo(0, 0);
+    document.body.classList.add("loaded");
   });
+</script>
+
+<script type="text/javascript">
+  const element = document.querySelector('.dot-animate');
+  const states = ['', '.', '..', '...'];
+  let i = 0;
+  setInterval(() => {
+    element.textContent = states[i % states.length];
+    i++;
+  }, 250);
 </script>
 
 </body>
