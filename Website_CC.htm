@@ -40963,10 +40963,13 @@ PCGS: <a href="https://www.pcgs.com/pop/detail/semeuse/3090?sn=152851&p=MS&g=63"
   const min_preload_time = 2000;
   const preloader = document.getElementById('preloader');
   const start = Date.now();
-  window.addEventListener('load', function() {
-    window.scrollTo(0, 0);
+  function set_preloader_height() {
     const vh = window.innerHeight;
     preloader.style.height = `${vh}px`;
+  }
+  window.addEventListener('load', function() {
+    window.scrollTo(0, 0);
+    set_preloader_height();
     const elapsed = Date.now() - start;
     const remaining = Math.max(0, min_preload_time - elapsed);
     setTimeout(() => {
@@ -40977,8 +40980,10 @@ PCGS: <a href="https://www.pcgs.com/pop/detail/semeuse/3090?sn=152851&p=MS&g=63"
     }, remaining);
   });
   window.addEventListener('resize', function() {
-    const vh = window.innerHeight;
-    preloader.style.height = `${vh}px`;
+    set_preloader_height();
+  });
+  window.addEventListener('orientationchange', function() {
+    set_preloader_height();
   });
 </script>
 
