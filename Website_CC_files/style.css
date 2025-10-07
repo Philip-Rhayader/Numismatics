@@ -532,9 +532,7 @@ a, a:visited, a:hover, a:active {
   top: 0;
   left: 0;
   width: 100%;
-/*height: 100%;*/
-  height: calc(var(--vh, 1vh) * 100);
-  padding-bottom: env(safe-area-inset-bottom);
+  height: 100dvh;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -756,8 +754,4 @@ a, a:visited, a:hover, a:active {
   .modal-content {
     width: 100%;
   }
-}
-
-:root {
-  --vh: 100%;
 }
