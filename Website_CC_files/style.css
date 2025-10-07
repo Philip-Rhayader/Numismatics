@@ -530,7 +530,7 @@ a, a:visited, a:hover, a:active {
 }
 
 #preloader {
-  position: fixed;
+  position: absolute;
   z-index: 100;
   top: 0;
   left: 0;
