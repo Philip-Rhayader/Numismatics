@@ -23,7 +23,10 @@ div.row {
 html, body {
   font-family: arial, sans-serif;
   font-size: 1em;
+  /* Modified by CC:
   margin: 0 auto;
+  */
+  margin: 0;
   /* Added by CC: */
   padding: 0;
   height: 100%;
@@ -75,20 +78,20 @@ td.cell_top {
 }
 td.title {
   font-style: italic;
-/* Modified by CC: Add bold */
+  /* Modified by CC: Add bold */
   font-weight: bold;
   font-size: small;
   vertical-align: top;
 }
 td.data {
   font-style: italic;
-/* Commented out by CC:
+  /* Commented out by CC:
   font-weight: bold;
-*/
+  */
   font-size: small;
-/* Modified by CC:
+  /* Modified by CC:
   vertical-align: middle;
-*/
+  */
   vertical-align: top;
 }
 td.text {
@@ -494,11 +497,11 @@ td.bg_100_100_complete {
 }
 
 td a {
-  white-space: pre-wrap; /* css-3 */    
+  white-space: pre-wrap;      /* css-3 */    
   white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-  white-space: -pre-wrap; /* Opera 4-6 */    
-  white-space: -o-pre-wrap; /* Opera 7 */    
-  word-wrap: break-word; /* Internet Explorer 5.5+ */
+  white-space: -pre-wrap;     /* Opera 4-6 */    
+  white-space: -o-pre-wrap;   /* Opera 7 */    
+  word-wrap: break-word;      /* Internet Explorer 5.5+ */
 }
 
 a.image {
