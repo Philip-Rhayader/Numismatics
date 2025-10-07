@@ -23,13 +23,10 @@ div.row {
 html, body {
   font-family: arial, sans-serif;
   font-size: 1em;
-  /* Modified by CC:
   margin: 0 auto;
-  */
-  margin: 0;
   /* Added by CC: */
-  padding: 0;
-  height: 100%;
+  height: auto;
+  min-height: 100dvh;
 }
 
 table {
