@@ -26,7 +26,7 @@ html, body {
   margin: 0 auto;
   /* Added by CC: */
   height: auto;
-  min-height: 100dvh;
+  min-height: 100%;
 }
 
 table {
