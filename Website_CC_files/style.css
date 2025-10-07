@@ -24,6 +24,9 @@ html, body {
   font-family: arial, sans-serif;
   font-size: 1em;
   margin: 0 auto;
+  /* Added by CC: */
+  padding: 0;
+  height: 100%;
 }
 
 table {
