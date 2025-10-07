@@ -535,8 +535,9 @@ a, a:visited, a:hover, a:active {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100%;
   padding: 0;
+  overflow: hidden;
+  transition: height 0.5s ease;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
