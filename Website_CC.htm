@@ -40965,6 +40965,8 @@ PCGS: <a href="https://www.pcgs.com/pop/detail/semeuse/3090?sn=152851&p=MS&g=63"
   const start = Date.now();
   window.addEventListener('load', function() {
     window.scrollTo(0, 0);
+    const vh = window.innerHeight;
+    preloader.style.height = `${vh}px`;
     const elapsed = Date.now() - start;
     const remaining = Math.max(0, min_preload_time - elapsed);
     setTimeout(() => {
@@ -40973,6 +40975,10 @@ PCGS: <a href="https://www.pcgs.com/pop/detail/semeuse/3090?sn=152851&p=MS&g=63"
         preloader.style.display = 'none';
       }, 500);
     }, remaining);
+  });
+  window.addEventListener('resize', function() {
+    const vh = window.innerHeight;
+    preloader.style.height = `${vh}px`;
   });
 </script>
 
