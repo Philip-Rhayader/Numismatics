@@ -25,6 +25,7 @@ html, body {
   font-size: 1em;
   margin: 0 auto;
   /* Added by CC: */
+  max-width: 1000px;
   height: auto;
   min-height: 100%;
 }
@@ -530,10 +531,14 @@ a, a:visited, a:hover, a:active {
 }
 
 #preloader {
-  position: absolute;
+  position: fixed;
   z-index: 100;
+  height: auto;
   inset: 0;
-  padding: 0;
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
   overflow: hidden;
   transition: height 0.5s ease;
   background-color: #ffffff;
