@@ -533,9 +533,7 @@ a, a:visited, a:hover, a:active {
 #preloader {
   position: absolute;
   z-index: 100;
-  top: 0;
-  left: 0;
-  width: 100%;
+  inset: 0;
   padding: 0;
   overflow: hidden;
   transition: height 0.5s ease;
