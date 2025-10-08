@@ -27,7 +27,6 @@ html, body {
   /* Added by CC: */
   height: auto;
   min-height: 100%;
-  overflow: hidden;
 }
 
 table {
@@ -542,6 +541,7 @@ a, a:visited, a:hover, a:active {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  isolation: isolate;
 }
 
 #preloader.fade-out {
