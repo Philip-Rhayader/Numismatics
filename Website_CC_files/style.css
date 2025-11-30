@@ -29,6 +29,7 @@ div.row {
 html, body {
   font-family: arial, sans-serif;
   font-size: 1em;
+  font-size: small;
   margin: 0 auto;
   /* Added by CC: */
   max-width: 1000px;
@@ -37,6 +38,7 @@ html, body {
 }
 
 table {
+  table-layout: fixed;
   width: 100%;
 }
 td {
@@ -512,6 +514,7 @@ td a {
   white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
   white-space: -pre-wrap;     /* Opera 4-6 */    
   white-space: -o-pre-wrap;   /* Opera 7 */    
+  overflow-wrap: break-word;  /* css-3 */ 
   word-wrap: break-word;      /* Internet Explorer 5.5+ */
 }
 
@@ -670,7 +673,7 @@ a, a:visited, a:hover, a:active {
 
 .fancybox__infobar {
   font-family: arial, sans-serif;
-  font-size: 1em;
+  font-size: small;
   color: #ffffff;
   font-style: italic;
   font-weight: bold;
@@ -681,7 +684,7 @@ a, a:visited, a:hover, a:active {
 .fancybox--bronze .fancybox__infobar,
 .fancybox--rhodium .fancybox__infobar {
   font-family: arial, sans-serif;
-  font-size: 1em;
+  font-size: small;
   color: #000000;
   font-style: italic;
   font-weight: bold;
