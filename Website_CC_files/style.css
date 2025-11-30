@@ -40,6 +40,8 @@ html, body {
 table {
   table-layout: fixed;
   width: 100%;
+  /* Added by CC: */
+  font-size: inherit;
 }
 td {
   table-layout: fixed;
