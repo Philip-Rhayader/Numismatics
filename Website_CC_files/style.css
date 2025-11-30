@@ -4,6 +4,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Athena Ruby";
+  src: url(fonts/AthenaRuby.ttf) format("truetype");
+  font-display: swap;
+}
+
 p {
   margin-top: 0.375em;
   margin-bottom: 0.375em;
@@ -60,6 +66,10 @@ td.cell_left_no_right {
 td.cell_mid {
   border-top-width: 1px;
   border-right-width: 1px;
+}
+/* Added by CC: */
+td.cell_mid_no_right {
+  border-top-width: 1px;
 }
 td.cell_right {
   border-top-width: 1px;
@@ -192,6 +202,9 @@ td.bg_does_not_exist:after {
   height: 100%;
   overflow: auto;
   background: linear-gradient(to right top, #ffffff00 47%, #00000075 50%, #ffffff00 53%);
+}
+td.bg_000_100_complete {
+  background: linear-gradient(to right, #00ff0075   0%, #ff000075   0%);
 }
 td.bg_001_100_complete {
   background: linear-gradient(to right, #00ff0075   1%, #ff000075   1%);
@@ -527,7 +540,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .section {
-  scroll-margin-top: 189px;
+  scroll-margin-top: 100px;
 }
 
 #preloader {
@@ -757,7 +770,7 @@ a, a:visited, a:hover, a:active {
   background: #e2e7e1;
 }
 
-/* 100% image width on smaller screens */
+/* For smaller screens */
 
 @media only screen and (max-width: 1000px){
   .modal-content {
