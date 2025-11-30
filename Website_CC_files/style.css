@@ -28,7 +28,9 @@ div.row {
 
 html, body {
   font-family: arial, sans-serif;
+  /* Modified by CC:
   font-size: 1em;
+  */
   font-size: small;
   margin: 0 auto;
   /* Added by CC: */
@@ -92,7 +94,9 @@ td.title {
   font-style: italic;
   /* Modified by CC: Add bold */
   font-weight: bold;
+  /* Modified by CC:
   font-size: small;
+  */
   vertical-align: top;
 }
 td.data {
@@ -100,7 +104,9 @@ td.data {
   /* Commented out by CC:
   font-weight: bold;
   */
+  /* Modified by CC:
   font-size: small;
+  */
   /* Modified by CC:
   vertical-align: middle;
   */
@@ -108,7 +114,9 @@ td.data {
 }
 td.text {
   font-style: italic;
+  /* Modified by CC:
   font-size: small;
+  */
   vertical-align: middle;
 }
 td.bg_gold {
