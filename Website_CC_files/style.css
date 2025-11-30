@@ -45,6 +45,9 @@ table {
   /* Added by CC: */
   font-size: inherit;
 }
+.multi-column-container * {
+  font-size: inherit;
+}
 td {
   table-layout: fixed;
   border-color: #000000;
