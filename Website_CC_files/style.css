@@ -43,10 +43,10 @@ table {
   table-layout: fixed;
   width: 100%;
   /* Added by CC: */
-  font-size: inherit;
+  font-size: small;
 }
 .multi-column-container * {
-  font-size: inherit;
+  font-size: small;
 }
 td {
   table-layout: fixed;
