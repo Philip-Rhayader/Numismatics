@@ -31,23 +31,25 @@ html, body {
   /* Modified by CC:
   font-size: 1em;
   */
-  font-size: 14px;
+  font-size: 0.95rem;
   margin: 0 auto;
   /* Added by CC: */
   max-width: 1000px;
   height: auto;
   min-height: 100%;
+  /* Added by CC: */
+  text-size-adjust: none;
 }
 
 table {
   table-layout: fixed;
   width: 100%;
   /* Added by CC: */
-  font-size: 14px;
+  font-size: inherit;
 }
 /* Added by CC: */
 .multi-column-container * {
-  font-size: 14px;
+  font-size: inherit;
 }
 td {
   table-layout: fixed;
@@ -98,8 +100,10 @@ td.title {
   font-style: italic;
   /* Modified by CC: Add bold */
   font-weight: bold;
-  /* Modified by CC: */
-  font-size: 14px;
+  /* Modified by CC:
+  font-size: small;
+  */
+  font-size: inherit;
   vertical-align: top;
 }
 td.data {
@@ -107,8 +111,10 @@ td.data {
   /* Commented out by CC:
   font-weight: bold;
   */
-  /* Modified by CC: */
-  font-size: 14px;
+  /* Modified by CC:
+  font-size: small;
+  */
+  font-size: inherit;
   /* Modified by CC:
   vertical-align: middle;
   */
@@ -116,8 +122,10 @@ td.data {
 }
 td.text {
   font-style: italic;
-  /* Modified by CC: */
-  font-size: 14px;
+  /* Modified by CC:
+  font-size: small;
+  */
+  font-size: inherit;
   vertical-align: middle;
 }
 td.bg_gold {
@@ -684,7 +692,7 @@ a, a:visited, a:hover, a:active {
 
 .fancybox__infobar {
   font-family: arial, sans-serif;
-  font-size: 14px;
+  font-size: inherit;
   color: #ffffff;
   font-style: italic;
   font-weight: bold;
@@ -695,7 +703,7 @@ a, a:visited, a:hover, a:active {
 .fancybox--bronze .fancybox__infobar,
 .fancybox--rhodium .fancybox__infobar {
   font-family: arial, sans-serif;
-  font-size: 14px;
+  font-size: inherit;
   color: #000000;
   font-style: italic;
   font-weight: bold;
@@ -788,30 +796,6 @@ a, a:visited, a:hover, a:active {
 
 @media only screen and (max-width: 1000px){
   html, body {
-    font-size: 12px;
-  }
-  table {
-    font-size: 12px;
-  }
-  .multi-column-container * {
-    font-size: 12px;
-  }
-  td.title {
-    font-size: 12px;
-  }
-  td.data {
-    font-size: 12px;
-  }
-  td.text {
-    font-size: 12px;
-  }
-  .fancybox__infobar {
-    font-size: 12px;
-  }
-  .fancybox--gold .fancybox__infobar,
-  .fancybox--silver .fancybox__infobar,
-  .fancybox--bronze .fancybox__infobar,
-  .fancybox--rhodium .fancybox__infobar {
-    font-size: 12px;
+    font-size: 0.8rem;
   }
 }
