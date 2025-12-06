@@ -799,6 +799,6 @@ a, a:visited, a:hover, a:active {
 @media only screen and (max-width: 1000px){
   html, body {
     font-size: 0.8rem;
-    scroll-padding-top: 150px;
+    scroll-padding-top: 50px;
   }
 }
