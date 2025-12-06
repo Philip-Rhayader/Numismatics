@@ -800,4 +800,7 @@ a, a:visited, a:hover, a:active {
   html, body {
     font-size: 0.8rem;
   }
+  .section {
+    scroll-margin-top: 0px;
+  }
 }
