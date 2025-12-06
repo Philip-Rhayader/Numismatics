@@ -800,7 +800,4 @@ a, a:visited, a:hover, a:active {
   html, body {
     font-size: 0.8rem;
   }
-  html {
-    scroll-padding-top: 10px;
-  }
 }
