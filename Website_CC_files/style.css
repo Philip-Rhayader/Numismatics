@@ -801,6 +801,6 @@ a, a:visited, a:hover, a:active {
     font-size: 0.8rem;
   }
   html {
-    scroll-padding-top: 80px;
+    scroll-padding-top: 10px;
   }
 }
