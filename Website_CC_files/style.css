@@ -40,6 +40,7 @@ html, body {
   /* Added by CC: */
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
+  scroll-padding-top: 100px;
 }
 
 table {
@@ -563,7 +564,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .section {
-  scroll-margin-top: 100px;
+  /* scroll-margin-top: 100px; */
 }
 
 #preloader {
@@ -798,8 +799,5 @@ a, a:visited, a:hover, a:active {
 @media only screen and (max-width: 1000px){
   html, body {
     font-size: 0.8rem;
-  }
-  .section {
-    scroll-margin-top: 200px;
   }
 }
