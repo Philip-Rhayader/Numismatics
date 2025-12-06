@@ -802,7 +802,7 @@ a, a:visited, a:hover, a:active {
   }
   body {
     scroll-margin-top: 0;
-    padding-top: 100px;
-    margin-top: -100px;
+    padding-top: 50px;
+    margin-top: -50px;
   }
 }
