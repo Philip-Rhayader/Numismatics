@@ -1424,5 +1424,24 @@ PCGS: <a href="https://www.pcgs.com/pop/detail/hercule-1974-1980/3157?sn=158118&
   }
 </script>
 
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!window.matchMedia("(max-width: 1000px)").matches) {
+      return;
+    }
+    const offset = 55;
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", function (e) {
+        const id = this.getAttribute("href").substring(1);
+        const el = document.getElementById(id);
+        if (!el) return;
+        e.preventDefault();
+        const y = el.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: y - offset, behavior: "smooth" });
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
