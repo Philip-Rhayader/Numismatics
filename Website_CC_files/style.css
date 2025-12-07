@@ -804,6 +804,9 @@ a, a:visited, a:hover, a:active {
   .title_page {
     height: 60px;
   }
+  .title_page img {
+    max-height: 50px;
+  }
   .section {
     scroll-margin-top: 0px;
   }
@@ -814,6 +817,9 @@ a, a:visited, a:hover, a:active {
   }
   .title_page {
     height: 60px;
+  }
+  .title_page img {
+    max-height: 50px;
   }
   .section {
     scroll-margin-top: 0px;
