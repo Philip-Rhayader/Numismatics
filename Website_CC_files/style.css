@@ -39,7 +39,9 @@ html, body {
   min-height: 100%;
   /* Added by CC: */
   text-size-adjust: none;
-  -webkit-text-size-adjust: none;  
+  -webkit-text-size-adjust: none;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 table {
