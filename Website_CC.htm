@@ -51637,19 +51637,27 @@ after the club's founding in 1966.</p>
 </script>
 
 <script type="text/javascript">
+  let flipTimeout;
+  function handleFlip(e, card) {
+    if (!card.classList.contains('flipped')) {
+      e.preventDefault();
+      e.stopPropagation();
+      clearTimeout(flipTimeout);
+      document.querySelectorAll('.flip_card_link.flipped').forEach(c => {
+        c.classList.remove('flipped');
+      });
+      card.classList.add('flipped');
+      flipTimeout = setTimeout(() => {
+        card.classList.remove('flipped');
+      }, 3000);
+    }
+  }
   document.querySelectorAll('.flip_card_link').forEach(card => {
+    card.addEventListener('touchend', function (e) {
+      handleFlip(e, this);
+    });
     card.addEventListener('click', function (e) {
-      if (!this.classList.contains('flipped')) {
-        e.preventDefault();
-        e.stopPropagation();
-        document.querySelectorAll('.flip_card_link.flipped').forEach(c => {
-          c.classList.remove('flipped')
-        });
-        this.classList.add('flipped');
-        flipTimeout = setTimeout(() => {
-          this.classList.remove('flipped');
-        }, 3000);
-      }
+      handleFlip(e, this);
     });
   });
 </script>
@@ -51660,6 +51668,7 @@ after the club's founding in 1966.</p>
       document.querySelectorAll('.flip_card_link.flipped').forEach(c => {
         c.classList.remove('flipped');
       });
+      clearTimeout(flipTimeout);
     }
   });
 </script>
