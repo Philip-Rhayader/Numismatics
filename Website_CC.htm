@@ -51637,6 +51637,30 @@ after the club's founding in 1966.</p>
 </script>
 
 <script type="text/javascript">
+  document.querySelectorAll('.flip_card_link').forEach(card => {
+    card.addEventListener('click', function (e) {
+      if (!this.classList.contains('flipped')) {
+        e.preventDefault();
+        document.querySelectorAll('.flip_card_link.flipped').forEach(c => {
+          c.classList.remove('flipped')
+        });
+        this.classList.add('flipped');
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.flip_card_link')) {
+      document.querySelectorAll('.flip_card_link.flipped').forEach(c => {
+        c.classList.remove('flipped');
+      });
+    }
+  });
+</script>
+
+<script type="text/javascript">
   history.scrollRestoration = "manual";
   const min_preload_time = 2000;
   const preloader = document.getElementById('preloader');
