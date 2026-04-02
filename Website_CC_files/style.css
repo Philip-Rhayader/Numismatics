@@ -1,4 +1,10 @@
 @font-face {
+  font-family: "Uncial Antiqua";
+  src: url(fonts/UncialAntiqua-Regular.ttf) format("truetype");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Numismatica Medievalis";
   src: url(fonts/NumismaticaMedievalis-Modified5.ttf) format("truetype");
   font-display: swap;
