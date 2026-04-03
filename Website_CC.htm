@@ -50143,6 +50143,7 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
         e.stopPropagation();
         collection_drop_down.classList.add("open");
         link_is_open = true;
+        clearTimeout(collection_drop_down_timeout);
         collection_drop_down_timeout = setTimeout(() => {
           collection_drop_down.classList.remove("open");
           link_is_open = false;
@@ -50154,15 +50155,23 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
       }
     }
     collection_link.addEventListener("touchend", function(e) {
-      touchend = true;
-      handle_collection_drop_down(e);
+      if (!link_is_open) {
+        e.preventDefault();
+        handle_collection_drop_down(e);
+        touchend = true;
+      } else {
+        handle_collection_drop_down(e);
+        touchend = false;
+      }
     });
     collection_link.addEventListener("click", function(e) {
       if (touchend) {
+        e.preventDefault();
         touchend = false;
-        return;
+      } else if (!link_is_open) {
+        handle_collection_drop_down(e);
+        e.preventDefault();
       }
-      handle_collection_drop_down(e);
     });
     collection_drop_down_list_items.forEach(item => {
       item.addEventListener("click", function() {
