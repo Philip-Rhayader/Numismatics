@@ -641,6 +641,39 @@ a, a:visited, a:hover, a:active {
   font-weight: bold;
 }
 
+/* Style for the collection drop-down */
+
+#collection_link {
+  display: block;
+}
+
+.collection_drop_down {
+  position: relative;
+  display: inline-block;
+}
+
+.collection_drop_down_list {
+  position: absolute;
+  display: none;
+  left: 0;
+  right: 0;
+  padding: 2px 4px;
+  background: #e2e7e1;
+  box-sizing: border-box;
+  border-color: #000000;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.collection_drop_down.open .collection_drop_down_list {
+  display: block;
+}
+
+.collection_drop_down_list a {
+  display: block;
+  text-align: left;
+}
+
 /* Style for scrollable image gallery */
 
 .scrollable_img_gallery {
