@@ -50126,63 +50126,58 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
   });
 </script>
 
-<script>
-const link = document.getElementById('collection_link');
-const dropdown = document.getElementById('collection_drop_down');
-
-let isOpen = false;
-let timeout, blockNextClick = false;
-
-function openMenu() {
-  isOpen = true;
-  dropdown.classList.add('open');
-  blockNextClick = true;      // block only the next click
-  startTimer();
-}
-
-function closeMenu() {
-  isOpen = false;
-  dropdown.classList.remove('open');
-  blockNextClick = false;
-  clearTimeout(timeout);
-}
-
-function startTimer() {
-  clearTimeout(timeout);
-  timeout = setTimeout(closeMenu, 3000);
-}
-
-// Main link behavior
-link.addEventListener('pointerup', e => {
-  if (!isOpen) {
-    e.preventDefault();
-    openMenu();
-
-    const onNextClick = clickEvent => {
-      if (blockNextClick) {
-        clickEvent.preventDefault();
-        blockNextClick = false;
-      }
-      link.removeEventListener('click', onNextClick, true);
-    };
-    link.addEventListener('click', onNextClick, true);
+<script type="text/javascript">
+  const collection_link = document.getElementById('collection_link');
+  const collection_drop_down = document.getElementById('collection_drop_down');
+  let collection_link_opened = false;
+  let collection_drop_down_timeout;
+  let block_next_click = false;
+  function start_collection_drop_down_timer() {
+    clearTimeout(collection_drop_down_timeout);
+    collection_drop_down_timeout = setTimeout(close_collection_drop_down, 3000);
   }
-});
-
-// Reset timer on dropdown interaction
-['pointerdown','click'].forEach(ev => dropdown.addEventListener(ev, startTimer));
-if (window.matchMedia('(pointer: coarse)').matches)
-  dropdown.addEventListener('pointermove', startTimer);
-
-// Close on item click
-dropdown.addEventListener('click', e => {
-  if (e.target.closest('.collection_drop_down_list a')) closeMenu();
-});
-
-// Close on outside click
-document.addEventListener('pointerdown', e => {
-  if (!link.contains(e.target) && !dropdown.contains(e.target)) closeMenu();
-});
+  function open_collection_drop_down() {
+    collection_link_opened = true;
+    collection_drop_down.classList.add('opened');
+    block_next_click = true;
+    start_collection_drop_down_timer();
+  }
+  function close_collection_drop_down() {
+    collection_link_opened = false;
+    collection_drop_down.classList.remove('opened');
+    block_next_click = false;
+    clearTimeout(collection_drop_down_timeout);
+  }
+  collection_link.addEventListener('pointerup', e => {
+    if (!collection_link_opened) {
+      e.preventDefault();
+      open_collection_drop_down();
+      const on_next_click = clickEvent => {
+        if (block_next_click) {
+          clickEvent.preventDefault();
+          block_next_click = false;
+        }
+        collection_link.removeEventListener('click', on_next_click, true);
+      };
+      collection_link.addEventListener('click', on_next_click, true);
+    }
+  });
+  ['pointerdown','click'].forEach(ev => {
+    collection_drop_down.addEventListener(ev, start_collection_drop_down_timer)
+  });
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    collection_drop_down.addEventListener('pointermove', start_collection_drop_down_timer);
+  }
+  collection_drop_down.addEventListener('click', e => {
+    if (e.target.closest('.collection_drop_down_list a')) {
+      close_collection_drop_down();
+    }
+  });
+  document.addEventListener('pointerdown', e => {
+    if (!collection_link.contains(e.target) && !collection_drop_down.contains(e.target)) {
+      close_collection_drop_down();
+    }
+  });
 </script>
 
 </body>

@@ -665,7 +665,7 @@ a, a:visited, a:hover, a:active {
   border-width: 1px;
 }
 
-.collection_drop_down.open .collection_drop_down_list {
+.collection_drop_down.opened .collection_drop_down_list {
   display: block;
 }
 
