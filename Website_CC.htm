@@ -50130,6 +50130,9 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
 const collection_link = document.getElementById('collection_link');
 const collection_drop_down = document.getElementById('collection_drop_down');
 
+// Scoped selector for links inside dropdown
+const items = collection_drop_down.querySelectorAll('.collection_drop_down_list a');
+
 let isOpen = false;
 let timeout;
 
@@ -50153,16 +50156,23 @@ function startTimeout() {
   timeout = setTimeout(closeDropdown, 3000);
 }
 
-// ✅ Use click to reliably prevent navigation
-collection_link.addEventListener("click", function (e) {
+// ✅ Main link behavior: first tap opens menu, second tap follows link
+collection_link.addEventListener("pointerup", function(e) {
   if (!isOpen) {
-    e.preventDefault(); // first click → open only
+    e.preventDefault(); // First interaction → open menu only
     openDropdown();
+
+    // Temporary listener to block the immediate click on mobile Safari
+    const onNextClick = function(clickEvent) {
+      clickEvent.preventDefault();
+      collection_link.removeEventListener("click", onNextClick, true);
+    };
+    collection_link.addEventListener("click", onNextClick, true);
   }
-  // second click → allow navigation naturally
+  // Second interaction → allows navigation normally
 });
 
-// Reset timer on meaningful interaction inside dropdown
+// Reset inactivity timer on meaningful interaction inside dropdown
 ["pointerdown", "click"].forEach(event => {
   collection_drop_down.addEventListener(event, startTimeout);
 });
@@ -50172,16 +50182,14 @@ if (window.matchMedia("(pointer: coarse)").matches) {
   collection_drop_down.addEventListener("pointermove", startTimeout);
 }
 
-// Event delegation: close when clicking a dropdown item
-collection_drop_down.addEventListener("click", function (e) {
+// Close menu when clicking a dropdown item
+collection_drop_down.addEventListener("click", function(e) {
   const link = e.target.closest('.collection_drop_down_list a');
-  if (link) {
-    closeDropdown();
-  }
+  if (link) closeDropdown();
 });
 
-// Close when clicking/tapping outside
-document.addEventListener("pointerdown", function (e) {
+// Close menu when clicking/tapping outside
+document.addEventListener("pointerdown", function(e) {
   if (!collection_link.contains(e.target) && !collection_drop_down.contains(e.target)) {
     closeDropdown();
   }
