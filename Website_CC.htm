@@ -50129,66 +50129,68 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
 <script>
 const collection_link = document.getElementById('collection_link');
 const collection_drop_down = document.getElementById('collection_drop_down');
-
-// Scoped selector for links inside dropdown
 const items = collection_drop_down.querySelectorAll('.collection_drop_down_list a');
 
 let isOpen = false;
 let timeout;
+let lastMenuCloseTime = 0; // track when menu closed
 
-// Open menu
 function openDropdown() {
   isOpen = true;
   collection_drop_down.classList.add("open");
   startTimeout();
 }
 
-// Close menu
 function closeDropdown() {
   isOpen = false;
   collection_drop_down.classList.remove("open");
   clearTimeout(timeout);
+  lastMenuCloseTime = Date.now(); // record time of closing
 }
 
-// Resettable 3s inactivity timer
+// 3s inactivity timer
 function startTimeout() {
   clearTimeout(timeout);
   timeout = setTimeout(closeDropdown, 3000);
 }
 
-// ✅ Main link behavior: first tap opens menu, second tap follows link
+// Main link behavior
 collection_link.addEventListener("pointerup", function(e) {
-  if (!isOpen) {
-    e.preventDefault(); // First interaction → open menu only
+  const now = Date.now();
+  // If menu closed < 300ms ago, treat as first tap
+  const justClosed = (now - lastMenuCloseTime) < 300;
+
+  if (!isOpen || justClosed) {
+    e.preventDefault(); // open menu only
     openDropdown();
 
-    // Temporary listener to block the immediate click on mobile Safari
+    // Temporary listener to block immediate click
     const onNextClick = function(clickEvent) {
       clickEvent.preventDefault();
       collection_link.removeEventListener("click", onNextClick, true);
     };
     collection_link.addEventListener("click", onNextClick, true);
   }
-  // Second interaction → allows navigation normally
+  // Second tap → navigate normally
 });
 
-// Reset inactivity timer on meaningful interaction inside dropdown
+// Reset timer on dropdown interaction
 ["pointerdown", "click"].forEach(event => {
   collection_drop_down.addEventListener(event, startTimeout);
 });
-
-// Add pointermove only for touch devices (scrolling)
 if (window.matchMedia("(pointer: coarse)").matches) {
   collection_drop_down.addEventListener("pointermove", startTimeout);
 }
 
-// Close menu when clicking a dropdown item
+// Close when clicking a menu item
 collection_drop_down.addEventListener("click", function(e) {
   const link = e.target.closest('.collection_drop_down_list a');
-  if (link) closeDropdown();
+  if (link) {
+    closeDropdown();
+  }
 });
 
-// Close menu when clicking/tapping outside
+// Close on outside click
 document.addEventListener("pointerdown", function(e) {
   if (!collection_link.contains(e.target) && !collection_drop_down.contains(e.target)) {
     closeDropdown();
