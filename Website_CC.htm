@@ -50127,77 +50127,61 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
 </script>
 
 <script>
-const collection_link = document.getElementById('collection_link');
-const collection_drop_down = document.getElementById('collection_drop_down');
-const items = collection_drop_down.querySelectorAll('.collection_drop_down_list a');
+const link = document.getElementById('collection_link');
+const dropdown = document.getElementById('collection_drop_down');
 
 let isOpen = false;
-let timeout;
-let lastInteractionTime = 0; // tracks last menu interaction
+let timeout, blockNextClick = false;
 
-// --- Dropdown control ---
-function openDropdown() {
+function openMenu() {
   isOpen = true;
-  collection_drop_down.classList.add("open");
-  startTimeout();
+  dropdown.classList.add('open');
+  blockNextClick = true;      // block only the next click
+  startTimer();
 }
 
-function closeDropdown() {
+function closeMenu() {
   isOpen = false;
-  collection_drop_down.classList.remove("open");
+  dropdown.classList.remove('open');
+  blockNextClick = false;
   clearTimeout(timeout);
-  lastInteractionTime = Date.now(); // mark menu closing as interaction
 }
 
-// 3s inactivity timer
-function startTimeout() {
+function startTimer() {
   clearTimeout(timeout);
-  timeout = setTimeout(closeDropdown, 3000);
+  timeout = setTimeout(closeMenu, 3000);
 }
 
-// --- Main link behavior ---
-collection_link.addEventListener("pointerup", function(e) {
-  const now = Date.now();
-  const recentInteraction = (now - lastInteractionTime) < 300; // 300ms buffer
+// Main link behavior
+link.addEventListener('pointerup', e => {
+  if (!isOpen) {
+    e.preventDefault();
+    openMenu();
 
-  if (!isOpen || recentInteraction) {
-    e.preventDefault(); // open menu only
-    openDropdown();
-
-    // block immediate click
-    const onNextClick = function(clickEvent) {
-      clickEvent.preventDefault();
-      collection_link.removeEventListener("click", onNextClick, true);
+    const onNextClick = clickEvent => {
+      if (blockNextClick) {
+        clickEvent.preventDefault();
+        blockNextClick = false;
+      }
+      link.removeEventListener('click', onNextClick, true);
     };
-    collection_link.addEventListener("click", onNextClick, true);
-  }
-  // Second tap → navigate normally
-});
-
-// --- Reset timer on dropdown interaction ---
-["pointerdown", "click"].forEach(event => {
-  collection_drop_down.addEventListener(event, startTimeout);
-});
-
-// Optional pointermove for coarse pointers (touch)
-if (window.matchMedia("(pointer: coarse)").matches) {
-  collection_drop_down.addEventListener("pointermove", startTimeout);
-}
-
-// --- Close on menu item click ---
-collection_drop_down.addEventListener("click", function(e) {
-  const link = e.target.closest('.collection_drop_down_list a');
-  if (link) {
-    closeDropdown();
-    lastInteractionTime = Date.now(); // mark interaction
+    link.addEventListener('click', onNextClick, true);
   }
 });
 
-// --- Close on outside click ---
-document.addEventListener("pointerdown", function(e) {
-  if (!collection_link.contains(e.target) && !collection_drop_down.contains(e.target)) {
-    closeDropdown();
-  }
+// Reset timer on dropdown interaction
+['pointerdown','click'].forEach(ev => dropdown.addEventListener(ev, startTimer));
+if (window.matchMedia('(pointer: coarse)').matches)
+  dropdown.addEventListener('pointermove', startTimer);
+
+// Close on item click
+dropdown.addEventListener('click', e => {
+  if (e.target.closest('.collection_drop_down_list a')) closeMenu();
+});
+
+// Close on outside click
+document.addEventListener('pointerdown', e => {
+  if (!link.contains(e.target) && !dropdown.contains(e.target)) closeMenu();
 });
 </script>
 
