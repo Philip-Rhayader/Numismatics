@@ -50133,8 +50133,9 @@ const items = collection_drop_down.querySelectorAll('.collection_drop_down_list 
 
 let isOpen = false;
 let timeout;
-let lastMenuCloseTime = 0; // track when menu closed
+let lastInteractionTime = 0; // tracks last menu interaction
 
+// --- Dropdown control ---
 function openDropdown() {
   isOpen = true;
   collection_drop_down.classList.add("open");
@@ -50145,7 +50146,7 @@ function closeDropdown() {
   isOpen = false;
   collection_drop_down.classList.remove("open");
   clearTimeout(timeout);
-  lastMenuCloseTime = Date.now(); // record time of closing
+  lastInteractionTime = Date.now(); // mark menu closing as interaction
 }
 
 // 3s inactivity timer
@@ -50154,17 +50155,16 @@ function startTimeout() {
   timeout = setTimeout(closeDropdown, 3000);
 }
 
-// Main link behavior
+// --- Main link behavior ---
 collection_link.addEventListener("pointerup", function(e) {
   const now = Date.now();
-  // If menu closed < 300ms ago, treat as first tap
-  const justClosed = (now - lastMenuCloseTime) < 300;
+  const recentInteraction = (now - lastInteractionTime) < 300; // 300ms buffer
 
-  if (!isOpen || justClosed) {
+  if (!isOpen || recentInteraction) {
     e.preventDefault(); // open menu only
     openDropdown();
 
-    // Temporary listener to block immediate click
+    // block immediate click
     const onNextClick = function(clickEvent) {
       clickEvent.preventDefault();
       collection_link.removeEventListener("click", onNextClick, true);
@@ -50174,23 +50174,26 @@ collection_link.addEventListener("pointerup", function(e) {
   // Second tap → navigate normally
 });
 
-// Reset timer on dropdown interaction
+// --- Reset timer on dropdown interaction ---
 ["pointerdown", "click"].forEach(event => {
   collection_drop_down.addEventListener(event, startTimeout);
 });
+
+// Optional pointermove for coarse pointers (touch)
 if (window.matchMedia("(pointer: coarse)").matches) {
   collection_drop_down.addEventListener("pointermove", startTimeout);
 }
 
-// Close when clicking a menu item
+// --- Close on menu item click ---
 collection_drop_down.addEventListener("click", function(e) {
   const link = e.target.closest('.collection_drop_down_list a');
   if (link) {
     closeDropdown();
+    lastInteractionTime = Date.now(); // mark interaction
   }
 });
 
-// Close on outside click
+// --- Close on outside click ---
 document.addEventListener("pointerdown", function(e) {
   if (!collection_link.contains(e.target) && !collection_drop_down.contains(e.target)) {
     closeDropdown();
