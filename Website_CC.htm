@@ -50058,9 +50058,6 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
       handle_flip_card(e, this);
     });
   });
-</script>
-
-<script type="text/javascript">
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.flip_card_link')) {
       document.querySelectorAll('.flip_card_link.flipped').forEach(c => {
@@ -50129,65 +50126,66 @@ M. F<span style="font-variant: small-caps;">allières</span>. – Non, Sire... J
   });
 </script>
 
-<script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function() {
-    const collection_link = document.getElementById('collection_link');
-    const collection_drop_down = document.getElementById('collection_drop_down');
-    const collection_drop_down_list_items = collection_drop_down.querySelectorAll('.collection_drop_down_list a');
-    let link_is_open = false;
-    let collection_drop_down_timeout;
-    let touchend = false;
-    function handle_collection_drop_down(e) {
-      if (!link_is_open) {
-        e.preventDefault();
-        e.stopPropagation();
-        collection_drop_down.classList.add("open");
-        link_is_open = true;
-        clearTimeout(collection_drop_down_timeout);
-        collection_drop_down_timeout = setTimeout(() => {
-          collection_drop_down.classList.remove("open");
-          link_is_open = false;
-        }, 3000);
-      } else {
-        collection_drop_down.classList.remove("open");
-        link_is_open = false;
-        clearTimeout(collection_drop_down_timeout);
-      }
-    }
-    collection_link.addEventListener("touchend", function(e) {
-      if (!link_is_open) {
-        e.preventDefault();
-        handle_collection_drop_down(e);
-        touchend = true;
-      } else {
-        handle_collection_drop_down(e);
-        touchend = false;
-      }
-    });
-    collection_link.addEventListener("click", function(e) {
-      if (touchend) {
-        e.preventDefault();
-        touchend = false;
-      } else if (!link_is_open) {
-        handle_collection_drop_down(e);
-        e.preventDefault();
-      }
-    });
-    collection_drop_down_list_items.forEach(item => {
-      item.addEventListener("click", function() {
-        collection_drop_down.classList.remove("open");
-        link_is_open = false;
-        clearTimeout(collection_drop_down_timeout);
-      });
-    });
-    document.addEventListener("click", function(e) {
-      if (!collection_drop_down.contains(e.target) && !collection_link.contains(e.target)) {
-        collection_drop_down.classList.remove("open");
-        link_is_open = false;
-        clearTimeout(collection_drop_down_timeout);
-      }
-    });
-  });
+<script>
+const collection_link = document.getElementById('collection_link');
+const collection_drop_down = document.getElementById('collection_drop_down');
+
+let isOpen = false;
+let timeout;
+
+// Open menu
+function openDropdown() {
+  isOpen = true;
+  collection_drop_down.classList.add("open");
+  startTimeout();
+}
+
+// Close menu
+function closeDropdown() {
+  isOpen = false;
+  collection_drop_down.classList.remove("open");
+  clearTimeout(timeout);
+}
+
+// Resettable 3s inactivity timer
+function startTimeout() {
+  clearTimeout(timeout);
+  timeout = setTimeout(closeDropdown, 3000);
+}
+
+// ✅ Use click to reliably prevent navigation
+collection_link.addEventListener("click", function (e) {
+  if (!isOpen) {
+    e.preventDefault(); // first click → open only
+    openDropdown();
+  }
+  // second click → allow navigation naturally
+});
+
+// Reset timer on meaningful interaction inside dropdown
+["pointerdown", "click"].forEach(event => {
+  collection_drop_down.addEventListener(event, startTimeout);
+});
+
+// Add pointermove only for touch devices (scrolling)
+if (window.matchMedia("(pointer: coarse)").matches) {
+  collection_drop_down.addEventListener("pointermove", startTimeout);
+}
+
+// Event delegation: close when clicking a dropdown item
+collection_drop_down.addEventListener("click", function (e) {
+  const link = e.target.closest('.collection_drop_down_list a');
+  if (link) {
+    closeDropdown();
+  }
+});
+
+// Close when clicking/tapping outside
+document.addEventListener("pointerdown", function (e) {
+  if (!collection_link.contains(e.target) && !collection_drop_down.contains(e.target)) {
+    closeDropdown();
+  }
+});
 </script>
 
 </body>
