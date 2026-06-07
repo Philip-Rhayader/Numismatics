@@ -213,6 +213,7 @@ td.bg_gold_n_silver_n_bronze_n {
 }
 td.bg_now_a_priority {
   background: #ff000075;
+  text-decoration: line-through;
   font-weight: bold;
 }
 td.bg_not_a_priority {
