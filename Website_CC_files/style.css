@@ -11,6 +11,12 @@
 }
 
 @font-face {
+  font-family: "Geneva";
+  src: url(fonts/Geneva.ttf) format("truetype");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Athena Ruby";
   src: url(fonts/AthenaRuby.ttf) format("truetype");
   font-display: swap;
