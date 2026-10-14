@@ -654,13 +654,13 @@ a, a:visited, a:hover, a:active {
 }
 
 .collection_drop_down {
-  position: relative;
   display: inline-block;
+  position: relative;
 }
 
 .collection_drop_down_list {
-  position: absolute;
   display: none;
+  position: absolute;
   left: 0;
   right: 0;
   padding: 2px 4px;
@@ -671,13 +671,55 @@ a, a:visited, a:hover, a:active {
   border-width: 1px;
 }
 
-.collection_drop_down.opened .collection_drop_down_list {
+.collection_drop_down.opened
+.collection_drop_down_list {
   display: block;
 }
 
 .collection_drop_down_list a {
   display: block;
   text-align: left;
+}
+
+/* Style for the year menu drop-down */
+
+.year_menu_drop_down_count {
+  display: inline;
+  position: static;
+  margin: 0;
+  padding: 0;
+  color: #ff0000;
+  cursor: pointer;
+}
+
+.year_menu_drop_down {
+  display: none;
+  position: absolute;
+  z-index: 200;
+  left: -1px;
+  top: 100%;
+  width: calc(100% + 2px);
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-color: #000000;
+  border-style: solid;
+  border-width: 1px;
+  direction: rtl;
+}
+
+.year_menu_drop_down a {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+  direction: ltr;
 }
 
 /* Style for scrollable image gallery */
@@ -687,7 +729,7 @@ a, a:visited, a:hover, a:active {
   margin-top: 0.375em;
   margin-left: 0.5%;
   margin-right: 0.5%;
-  background-color: #ffffff;
+  background-color: transparent; /* background-color: #ffffff; */
   overflow: auto;
   white-space: nowrap;
   padding: 0;  
@@ -699,10 +741,51 @@ a, a:visited, a:hover, a:active {
   display: none; /* Safari and Chrome */
 }
 
+.scrollable_img_gallery .flip_card {
+  background-color: #ffffff;
+}
+
+.scrollable_img_gallery .flip_card_hidden {
+  display: none;
+}
+
+.scrollable_img_gallery_start_hidden_toggle_more_less {
+  display: block;
+  width: 100%;
+  flex: none;
+  margin: 0;
+  padding: 2px 0;
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.flip_card_with_toggle_more_less {
+  display: inline-flex;
+  width: 12%;
+  flex: 0 0 auto;
+  flex-direction: column;
+  vertical-align: top;
+  align-items: center;
+}
+
+.scrollable_img_gallery.show_hidden_flip_card .flip_card_hidden {
+  display: inline-block;
+}
+
 .flip_card_link {
   display: inline-block;
   width: 12%;
   flex: 0 0 auto;
+}
+
+.flip_card_with_toggle_more_less .flip_card_link {
+  display: block;
+  width: 100%;
+  flex: none;
 }
 
 .flip_card {

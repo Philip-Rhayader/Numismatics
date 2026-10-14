@@ -1,8 +1,292 @@
+<script type="text/javascript">
+function make_year_menu_drop_down(cell_id, items) {
+  const cell = document.getElementById(cell_id);
+  if (!cell) return;
+  // Sort items
+  const data = items
+    .filter(([year, link_and_color]) =>
+      String(year).trim() !== "" &&
+      Array.isArray(link_and_color) &&
+      typeof link_and_color[0] === "string" &&
+      link_and_color[0].trim() !== ""
+    )
+    .sort(([year_1, link_and_color_1], [year_2, link_and_color_2]) => {
+      const label_1 = String(year_1).trim();
+      const label_2 = String(year_2).trim();
+      const is_label_1_BC = /\bBC\b/i.test(label_1);
+      const is_label_2_BC = /\bBC\b/i.test(label_2);
+      // List BC years in order, and link order for identical labels
+      if (is_label_1_BC && is_label_2_BC) {
+        const match_1 = label_1.match(/\d+/);
+        const match_2 = label_2.match(/\d+/);
+        const number_1 = match_1 ? Number(match_1[0]) : 0;
+        const number_2 = match_2 ? Number(match_2[0]) : 0;
+        if (number_1 !== number_2) return number_1 - number_2;
+        return label_1.localeCompare(label_2) || link_and_color_1[0].localeCompare(link_and_color_2[0]);
+      }
+      // List BC years before non-BC years
+      if (is_label_1_BC !== is_label_2_BC) return is_label_1_BC ? -1 : 1;
+      // List labels with years before labels with text only
+      const match_1 = label_1.match(/^\d+/);
+      const match_2 = label_2.match(/^\d+/);
+      const is_label_1_year = match_1 !== null;
+      const is_label_2_year = match_2 !== null;
+      if (is_label_1_year !== is_label_2_year) return is_label_1_year ? -1 : 1;
+      // List labels with text only in alphabetical order, and link order for identical labels
+      if (!is_label_1_year && !is_label_2_year) return label_1.localeCompare(label_2) || link_and_color_1[0].localeCompare(link_and_color_2[0]);
+      // List non-BC years in order, and link order for identical labels
+      const number_1 = Number(match_1[0]);
+      const number_2 = Number(match_2[0]);
+      if (number_1 !== number_2) return number_2 - number_1;
+      return label_1.localeCompare(label_2) || link_and_color_1[0].localeCompare(link_and_color_2[0]);
+    });
+  if (!data.length) return;
+
+  let year_menu_drop_down_is_opened = false;
+  let year_menu_drop_down_timer = null;
+  const year_menu_drop_down_timeout = 3000;
+
+  // Create the count indicator
+  const year_menu_drop_down_count = document.createElement("sup");
+  year_menu_drop_down_count.className = "year_menu_drop_down_count";
+  year_menu_drop_down_count.appendChild(document.createTextNode("("));
+  const underline = document.createElement("u");
+  underline.textContent = data.length;
+  year_menu_drop_down_count.appendChild(underline);
+  year_menu_drop_down_count.appendChild(document.createTextNode(")"));
+  // Add a black comma if the original cell begins with a superscript
+  const first_element = cell.firstElementChild;
+  const cell_has_existing_superscript = first_element && first_element.tagName.toLowerCase() === "sup";
+  if (cell_has_existing_superscript) {
+    const comma = document.createElement("span");
+    comma.style.color = "#000000";
+    comma.textContent = ",";
+    year_menu_drop_down_count.appendChild(comma);
+  }
+  year_menu_drop_down_count.setAttribute("role", "button");
+  year_menu_drop_down_count.setAttribute("tabindex", "0");
+  year_menu_drop_down_count.setAttribute("aria-expanded", "false");
+  // Insert the count indicator before the original cell content
+  cell.insertBefore(year_menu_drop_down_count, cell.firstChild);
+  // Remove leading whitespace after the count indicator
+  const next_node = year_menu_drop_down_count.nextSibling;
+  if (next_node && next_node.nodeType === Node.TEXT_NODE) next_node.textContent = next_node.textContent.replace(/^\s+/, "");
+
+  // Create the year menu drop-down
+  const year_menu_drop_down = document.createElement("div");
+  year_menu_drop_down.className = "year_menu_drop_down";
+  // Function to get the background colour defined by a td class
+  function get_class_background_colour(class_name) {
+    if (!class_name) return "";
+    const probe = document.createElement("td");
+    probe.className = class_name;
+    probe.style.position = "absolute";
+    probe.style.visibility = "hidden";
+    probe.style.pointerEvents = "none";
+    cell.parentNode.appendChild(probe);
+    try {
+      return getComputedStyle(probe).backgroundColor;
+    }
+    finally {
+      probe.remove();
+    }
+  }
+  data.forEach(([year, [href, class_name]]) => {
+    const label = String(year);
+    let final_label = label;
+    // Consider trailing symbols: ?, *, or both in either order
+    const symbols = [];
+    while (final_label.endsWith("?") || final_label.endsWith("*")) {
+      if (final_label.endsWith("?")) {
+        final_label = final_label.slice(0, -1);
+        symbols.push({symbol: "\u224B", color: "#ff0000"});
+      } else if (final_label.endsWith("*")) {
+        final_label = final_label.slice(0, -1);
+        symbols.push({symbol: "⭑", color: "#3b95ff"});
+      }
+    }
+    symbols.sort((symbol_1, symbol_2) =>
+      symbol_1.symbol === "\u224B" ? -1 : symbol_2.symbol === "\u224B" ? 1 : 0
+    );
+    // Full-width row holding the background
+    const row = document.createElement("div");
+    row.style.setProperty("display", "flex", "important");
+    row.style.setProperty("flex-direction", "row", "important");
+    row.style.setProperty("direction", "ltr", "important");
+    row.style.setProperty("align-items", "center", "important");
+    row.style.setProperty("justify-content", "flex-end", "important");
+    row.style.setProperty("width", "100%", "important");
+    row.style.setProperty("box-sizing", "border-box", "important");
+    row.style.setProperty("gap", "0", "important");
+    row.style.setProperty("white-space", "nowrap", "important");
+    row.style.setProperty("float", "none", "important");
+    row.style.setProperty("margin", "0", "important");
+    row.style.setProperty("padding", "0", "important");
+    if (class_name) {
+      background_colour = get_class_background_colour(class_name);
+      if (background_colour) {
+        row.style.setProperty("background", background_colour, "important");
+        row.dataset.background_colour = background_colour;
+      }
+    }
+    row.style.setProperty("position", "relative", "important");
+    // Lighten the entire row on mouse hover
+    row.addEventListener("mouseenter", () => {
+      const background_colour = row.dataset.background_colour;
+      if (background_colour) {
+        let hover_background_colour = background_colour;
+        const rgb = background_colour.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*[\d.]+)?\s*\)$/i);
+        if (rgb) hover_background_colour = `rgba(${rgb[1]}, ${rgb[2]}, ${rgb[3]}, ${80/255})`;
+        row.style.setProperty("background", hover_background_colour, "important");
+      }
+      reset_year_menu_drop_down_timer();
+    });
+    row.addEventListener("mouseleave", () => {
+      const background_colour = row.dataset.background_colour;
+      if (background_colour) row.style.setProperty("background", background_colour, "important");
+      reset_year_menu_drop_down_timer();
+    });
+    // Inner wrapper
+    const inner_wrapper = document.createElement("div");
+    inner_wrapper.style.setProperty("position", "relative", "important");
+    inner_wrapper.style.setProperty("z-index", "2", "important");
+    inner_wrapper.style.setProperty("display", "inline-flex", "important");
+    inner_wrapper.style.setProperty("flex-direction", "row", "important");
+    inner_wrapper.style.setProperty("direction", "ltr", "important");
+    inner_wrapper.style.setProperty("align-items", "baseline", "important");
+    inner_wrapper.style.setProperty("gap", "0", "important");
+    inner_wrapper.style.setProperty("padding", "2px 4px", "important");
+    inner_wrapper.style.setProperty("margin", "0", "important");
+    inner_wrapper.style.setProperty("width", "auto", "important");
+    inner_wrapper.style.setProperty("max-width", "100%", "important");
+    inner_wrapper.style.setProperty("box-sizing", "border-box", "important");
+    inner_wrapper.style.setProperty("white-space", "nowrap", "important");
+    // Content link
+    const content_link = document.createElement("a");
+    if (href) content_link.href = href;
+    content_link.textContent = final_label;
+    content_link.style.setProperty("display", "inline-block", "important");
+    content_link.style.setProperty("position", "relative", "important");
+    content_link.style.setProperty("direction", "ltr", "important");
+    content_link.style.setProperty("text-align", "right", "important");
+    content_link.style.setProperty("float", "none", "important");
+    content_link.style.setProperty("width", "auto", "important");
+    content_link.style.setProperty("flex", "0 0 auto", "important");
+    content_link.style.setProperty("margin", "0", "important");
+    content_link.style.setProperty("padding", "0", "important");
+    content_link.style.setProperty("background", "transparent", "important");
+    content_link.addEventListener("click", function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      close_year_menu_drop_down();
+      if (href) {
+        if (href.startsWith("#")) {
+          window.location.hash = href.substring(1);
+        } else {
+          window.location.href = href;
+        }
+      }
+    });
+    // Insert symbols before the link, separated by a black comma if more than one symbol
+    symbols.forEach((symbol, symbol_index) => {
+      // Black comma between symbols
+      if (symbol_index > 0) {
+        const comma = document.createElement("sup");
+        comma.textContent = ",";
+        comma.style.setProperty("color", "#000000", "important");
+        comma.style.setProperty("display", "inline-block", "important");
+        comma.style.setProperty("position", "relative", "important");
+        comma.style.setProperty("vertical-align", "baseline", "important");
+        comma.style.setProperty("top", "-0.5em", "important");
+        comma.style.setProperty("line-height", "0", "important");
+        comma.style.setProperty("margin", "0", "important");
+        comma.style.setProperty("padding", "0", "important");
+        comma.style.setProperty("letter-spacing", "0", "important");
+        comma.style.setProperty("float", "none", "important");
+        comma.style.setProperty("flex", "0 0 auto", "important");
+        inner_wrapper.appendChild(comma);
+      }
+      // Superscript list of symbols
+      const prefix = document.createElement("sup");
+      prefix.textContent = symbol.symbol;
+      prefix.style.setProperty("color", symbol.color, "important");
+      prefix.style.setProperty("display", "inline-block", "important");
+      prefix.style.setProperty("position", "relative", "important");
+      prefix.style.setProperty("vertical-align", "baseline", "important");
+      prefix.style.setProperty("top", "-0.5em", "important");
+      prefix.style.setProperty("line-height", "0", "important");
+      prefix.style.setProperty("margin", "0", "important");
+      prefix.style.setProperty("padding", "0", "important");
+      prefix.style.setProperty("letter-spacing", "0", "important");
+      prefix.style.setProperty("float", "none", "important");
+      prefix.style.setProperty("flex", "0 0 auto", "important");
+      inner_wrapper.appendChild(prefix);
+    });
+    // Append the content link immediately after the symbols
+    inner_wrapper.appendChild(content_link);
+    // Append the inner_wrapper to the row
+    row.appendChild(inner_wrapper);
+    // Append the complete row to the year menu drop-down
+    year_menu_drop_down.appendChild(row);
+  });
+
+  // Position the year menu drop-down relative to the cell
+  cell.style.position = "relative";
+  cell.appendChild(year_menu_drop_down);
+
+  // Function to close the year menu drop-down and reset its state
+  function close_year_menu_drop_down() {
+    clearTimeout(year_menu_drop_down_timer);
+    year_menu_drop_down_timer = null;
+    year_menu_drop_down.style.display = "none";
+    year_menu_drop_down_is_opened = false;
+    year_menu_drop_down_count.setAttribute("aria-expanded", "false");
+  }
+  // Function to reset the year menu drop-down timer
+  function reset_year_menu_drop_down_timer() {
+    clearTimeout(year_menu_drop_down_timer);
+    if (!year_menu_drop_down_is_opened) return;
+    year_menu_drop_down_timer = setTimeout(() => {
+      close_year_menu_drop_down();
+    }, year_menu_drop_down_timeout);
+  }
+  // Function to open or close the year menu drop-down
+  function year_menu_drop_down_toggle(event) {
+    event.stopPropagation();
+    if (year_menu_drop_down_is_opened) {
+      close_year_menu_drop_down();
+    } else {
+      year_menu_drop_down_is_opened = true;
+      year_menu_drop_down.style.display = "block";
+      year_menu_drop_down_count.setAttribute("aria-expanded", "true");
+      reset_year_menu_drop_down_timer();
+    }
+  }
+
+  // Interactions with the year menu drop-down
+  year_menu_drop_down_count.addEventListener("click", year_menu_drop_down_toggle);
+  year_menu_drop_down_count.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      year_menu_drop_down_toggle(event);
+    } else if (event.key === "Escape") {
+      close_year_menu_drop_down();
+    }
+  });
+  year_menu_drop_down.addEventListener("mousemove", reset_year_menu_drop_down_timer);
+  year_menu_drop_down.addEventListener("keydown", reset_year_menu_drop_down_timer);
+  document.addEventListener("click", function(event) {
+    if (!cell.contains(event.target)) {
+      close_year_menu_drop_down();
+    }
+  });
+}
+</script>
 <tr id="Inventory_Table_Row" style="display: none;" class="show_hide">
 {% if pk.set_private() == 'True' %}
-  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_table_row('Inventory_Table_Row_21');toggle_table_row('Inventory_Table_Row_22');toggle_table_row('Inventory_Table_Row_23');toggle_table_row('Inventory_Table_Row_24');toggle_table_row('Inventory_Table_Row_25');toggle_table_row('Inventory_Table_Row_26');toggle_table_row('Inventory_Table_Row_27');toggle_table_row('Inventory_Table_Row_28');toggle_table_row('Inventory_Table_Row_29');toggle_table_row('Inventory_Table_Row_30');toggle_table_row('Inventory_Table_Row_31');toggle_table_row('Inventory_Table_Row_32');toggle_table_row('Inventory_Table_Row_33');toggle_table_row('Inventory_Table_Row_34');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
+  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_table_row('Inventory_Table_Row_21');toggle_table_row('Inventory_Table_Row_22');toggle_table_row('Inventory_Table_Row_23');toggle_table_row('Inventory_Table_Row_24');toggle_table_row('Inventory_Table_Row_25');toggle_table_row('Inventory_Table_Row_26');toggle_table_row('Inventory_Table_Row_27');toggle_table_row('Inventory_Table_Row_28');toggle_table_row('Inventory_Table_Row_29');toggle_table_row('Inventory_Table_Row_30');toggle_table_row('Inventory_Table_Row_31');toggle_table_row('Inventory_Table_Row_32');toggle_table_row('Inventory_Table_Row_33');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
 {% else %}
-  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_table_row('Inventory_Table_Row_21');toggle_table_row('Inventory_Table_Row_22');toggle_table_row('Inventory_Table_Row_23');toggle_table_row('Inventory_Table_Row_24');toggle_table_row('Inventory_Table_Row_25');toggle_table_row('Inventory_Table_Row_26');toggle_table_row('Inventory_Table_Row_27');toggle_table_row('Inventory_Table_Row_28');toggle_table_row('Inventory_Table_Row_29');toggle_table_row('Inventory_Table_Row_30');toggle_table_row('Inventory_Table_Row_31');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
+  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_table_row('Inventory_Table_Row_21');toggle_table_row('Inventory_Table_Row_22');toggle_table_row('Inventory_Table_Row_23');toggle_table_row('Inventory_Table_Row_24');toggle_table_row('Inventory_Table_Row_25');toggle_table_row('Inventory_Table_Row_26');toggle_table_row('Inventory_Table_Row_27');toggle_table_row('Inventory_Table_Row_28');toggle_table_row('Inventory_Table_Row_29');toggle_table_row('Inventory_Table_Row_30');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
 {% endif %}
 </tr>
 <tr id="Inventory_Table_Row_1" style="display: none;" class="show_hide">
@@ -34,27 +318,90 @@
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #ff0000">+3</sup><a href="#01A_01.00"><b>2028</b></a>
+  <td id="2028" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><!--<a href="#01A_01.00"><b>2028</b></a>--><b>2028</b>
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_y_bronze_y">
-  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #ff0000">+2</sup><sup>,</sup><sup>sp</sup><a href="#01A_02.00"><b>1978</b></a>
+  <script type="text/javascript">
+    make_year_menu_drop_down("2028", [
+      ["2026*", ["#01A_01.00", "bg_gold_y_silver_n_bronze_n"]],
+      ["2024",  ["#01A_01.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["2023",  ["#01A_01.02", "bg_gold_n_silver_y_bronze_n"]],
+      ["2023",  ["#01A_01.03", "bg_gold_n_silver_y_bronze_n"]]
+    ]);
+  </script>
+  <td id="1978" colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_y_bronze_y">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#01A_02.00"><b>1978</b></a>
   </td>
+  <script type="text/javascript">
+    make_year_menu_drop_down("1978", [
+      ["1978", ["#01A_02.00", "bg_gold_y_silver_n_bronze_n"]],
+      ["1972", ["#01A_02.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1967", ["#01A_02.02", "bg_gold_n_silver_n_bronze_y"]]
+    ]);
+  </script>
 </tr>
 <tr id="Inventory_Table_Row_5" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#01B"><b>→ Époque moderne (de la fin de l'Empire byzantin en 1453 à la fin de la Seconde Guerre mondiale en 1945) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (9/10 * 100)|round(0, 'ceil')}}_100_complete">09/10 = <b>{{'%03d' % (9/10 * 100)|round(0, 'ceil')}}% complete</b></td>
+  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}_100_complete">10/10 = <b>{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
 <tr id="Inventory_Table_Row_6" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_n_bronze_n bg_now_a_priority">
-  <!--<a href="#01B_01.00"><b>1928</b></a>-->1928
+  <td id="1928" colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B_01.00"><b>1928</b></a>--><b>1928</b>
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #ff0000">+2</sup><a href="#01B_02.00"><b>1878</b></a>
+  <script type="text/javascript">
+    make_year_menu_drop_down("1928", [
+      ["1920",  ["#01B_01.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["1919",  ["#01B_01.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1918",  ["#01B_01.02", "bg_gold_n_silver_y_bronze_n"]],
+      ["1917",  ["#01B_01.03", "bg_gold_n_silver_y_bronze_n"]],
+      ["1916",  ["#01B_01.04", "bg_gold_n_silver_y_bronze_n"]],
+      ["1915",  ["#01B_01.05", "bg_gold_n_silver_y_bronze_n"]],
+      ["1914",  ["#01B_01.06", "bg_gold_n_silver_y_bronze_n"]],
+      ["1914C", ["#01B_01.07", "bg_gold_n_silver_y_bronze_n"]],
+      ["1913",  ["#01B_01.08", "bg_gold_n_silver_y_bronze_n"]],
+      ["1912",  ["#01B_01.09", "bg_gold_n_silver_y_bronze_n"]],
+      ["1911",  ["#01B_01.10", "bg_gold_n_silver_y_bronze_n"]],
+      ["1910",  ["#01B_01.11", "bg_gold_n_silver_y_bronze_n"]],
+      ["1909",  ["#01B_01.12", "bg_gold_n_silver_y_bronze_n"]],
+      ["1908",  ["#01B_01.13", "bg_gold_n_silver_y_bronze_n"]],
+      ["1907",  ["#01B_01.14", "bg_gold_n_silver_y_bronze_n"]],
+      ["1906",  ["#01B_01.15", "bg_gold_n_silver_y_bronze_n"]],
+      ["1905",  ["#01B_01.16", "bg_gold_n_silver_y_bronze_n"]],
+      ["1904",  ["#01B_01.17", "bg_gold_n_silver_y_bronze_n"]],
+      ["1903",  ["#01B_01.18", "bg_gold_n_silver_y_bronze_n"]],
+      ["1902",  ["#01B_01.19", "bg_gold_n_silver_y_bronze_n"]],
+      ["1901",  ["#01B_01.20", "bg_gold_n_silver_y_bronze_n"]],
+      ["1900",  ["#01B_01.21", "bg_gold_n_silver_y_bronze_n"]],
+      ["1899",  ["#01B_01.22", "bg_gold_n_silver_y_bronze_n"]],
+      ["1898",  ["#01B_01.23", "bg_gold_n_silver_y_bronze_n"]]
+    ]);
+  </script>
+  <td id="1878" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B_02.00"><b>1878</b></a>--><b>1878</b>
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <script type="text/javascript">
+    make_year_menu_drop_down("1878", [
+      ["1872", ["#01B_02.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["1866", ["#01B_02.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1863", ["#01B_02.02", "bg_gold_y_silver_n_bronze_n"]],
+      ["1858", ["#01B_02.03", "bg_gold_y_silver_n_bronze_n"]],
+      ["1852", ["#01B_02.04", "bg_gold_n_silver_y_bronze_n"]],
+      ["1850", ["#01B_02.05", "bg_gold_n_silver_y_bronze_n"]],
+      ["1841", ["#01B_02.06", "bg_gold_n_silver_y_bronze_n"]]
+    ]);
+  </script>
+  <td id="1828" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_y_bronze_n">
   <a href="#01B_03.00"><b>1828</b></a>
   </td>
+  <script type="text/javascript">
+    make_year_menu_drop_down("1828", [
+      ["1828", ["#01B_03.00", "bg_gold_y_silver_n_bronze_n"]],
+      ["1825", ["#01B_03.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1824", ["#01B_03.02", "bg_gold_n_silver_y_bronze_n"]],
+      ["1808", ["#01B_03.03", "bg_gold_n_silver_y_bronze_n"]],
+      ["1804", ["#01B_03.04", "bg_gold_n_silver_y_bronze_n"]]
+    ]);
+  </script>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
   <sup style="color: #ff0000">&#8778;</sup><a href="#01B_04.00"><b>1778</b></a>
   </td>
@@ -70,9 +417,16 @@
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
   <a href="#01B_08.00"><b>1578</b></a>
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #ff0000">+2</sup><a href="#01B_09.00"><b>1528</b></a>
+  <td id="1528" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B_09.00"><b>1528</b></a>--><b>1528</b>
   </td>
+  <script type="text/javascript">
+    make_year_menu_drop_down("1528", [
+      ["1551",  ["#01B_09.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["1550",  ["#01B_09.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1508?", ["#01B_09.02", "bg_gold_y_silver_n_bronze_n"]]
+    ]);
+  </script>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_n_bronze_n">
   <sup style="color: #ff0000">&#8778;</sup><a href="#01B_10.00"><b>1478</b></a>
   </td>
@@ -150,7 +504,7 @@
 </tr>
 <tr id="Inventory_Table_Row_11" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#02A"><b>→ Antiquité (du début de la civilisation historique jusqu'à la fin de l'Empire romain d'Occident en 476) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (13/13 * 100)|round(0, 'ceil')}}_100_complete">13/13 = <b>{{'%03d' % (13/13 * 100)|round(0, 'ceil')}}% complete</b></td>
+  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}_100_complete">10/10 = <b>{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
 <tr id="Inventory_Table_Row_12" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
@@ -172,52 +526,34 @@
   <sup style="color: #ff0000">&#8778;</sup><a href="#02A_06.00"><b>178</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_07.00"><b>128</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><a href="#02A_07.00"><b>128</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02A_08.00"><b>César 11<br/>78</b></a>
+  <a href="#02A_08.00"><b>78</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02A_09.00"><b>César 03</b></a><br/>
   <sup style="color: #ff0000">&#8778;</sup><a href="#02A_09.00"><b>28</b></a>
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #3b95ff">⭑</sup><a href="#02A_10.00"><b>César 02<br/>13 BC</b></a>
+  <td id="23 BC" colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><b>BC</b>
   </td>
+  <script type="text/javascript">
+    make_year_menu_drop_down("23 BC", [
+      ["13 BC*", ["#02A_10.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["48 BC",  ["#02A_10.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["49 BC*", ["#02A_10.02", "bg_gold_n_silver_y_bronze_n"]],
+      ["78 BC",  ["#02A_10.03", "bg_gold_y_silver_n_bronze_n"]]
+    ]);
+  </script>
 </tr>
 <tr id="Inventory_Table_Row_13" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #3b95ff">⭑</sup><a href="#02A_11.00"><b>César 01<br/>48 BC</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02A_12.00"><b>49 BC</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <a href="#02A_13.00"><b>78 BC</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_14" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text"><a href="#02B"><b>→ Collection thématique – Les commémorations du millénaire de la fondation de Rome en 247-248 :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_15" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_14" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#02B01"><u>— La ménagerie :</u></a></td>
   <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}_100_complete">06/06 = <b>{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
-<tr id="Inventory_Table_Row_16" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_15" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#02B01_01.00"><b>Officina I<br/>Lion</b></a>
   </td>
@@ -245,11 +581,11 @@
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_silver_n bg_does_not_exist_multiple">
   </td>
 </tr>
-<tr id="Inventory_Table_Row_17" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_16" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#02B02"><u>— Les monuments :</u></a></td>
   <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (2/2 * 100)|round(0, 'ceil')}}_100_complete">02/02 = <b>{{'%03d' % (2/2 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
-<tr id="Inventory_Table_Row_18" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_17" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#02B02_01.00"><b>Temple</b></a>
   </td>
@@ -273,11 +609,11 @@
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_silver_n bg_does_not_exist">
   </td>
 </tr>
-<tr id="Inventory_Table_Row_19" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_18" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#02C"><b>→ Collection thématique – Les chiffres grecs des ateliers monétaires romains en 247-248 :</b></a></td>
   <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}_100_complete">06/06 = <b>{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
-<tr id="Inventory_Table_Row_20" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_19" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#02C_01.00"><b>Officina Α<br/>Mars</b></a>
   </td>
@@ -305,14 +641,14 @@
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_silver_n bg_does_not_exist_multiple">
   </td>
 </tr>
-<tr id="Inventory_Table_Row_21" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_20" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#03"><b>Boîte n<sup>o</sup> 03 :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_22" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_21" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#03A"><b>→ Collection thématique – Les pièces de 50 Francs de type « Hercule » (1974-1980) :</b></a></td>
   <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (7/7 * 100)|round(0, 'ceil')}}_100_complete">07/07 = <b>{{'%03d' % (7/7 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
-<tr id="Inventory_Table_Row_23" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_22" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#03A_01.00"><b>1980</b></a>
   </td>
@@ -341,14 +677,14 @@
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
 </tr>
-<tr id="Inventory_Table_Row_24" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_23" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text"><a href="#03B"><b>→ Collection thématique – Les pièces de 1 Franc du système monétaire du « franc germinal » (1803-1920) :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_25" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_24" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#03B01"><u>— Le type « Semeuse » (1898-1920) :</u></a></td>
   <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % ((63+64+64+64+64+53+66+65+65+58+58+66+65+65+63+65+66+65+66+66+66+66+66+66)/24 / 65 * 100) | round(0, 'ceil')}}_100_complete">GPA weighted = <b>{{'%.2f' % (((63+64+64+64+64+53+66+65+65+58+58+66+65+65+63+65+66+65+66+66+66+66+66+66)/24*100)|round(0, 'ceil')/100)}}</b></td>
 </tr>
-<tr id="Inventory_Table_Row_26" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_25" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#03B01_01.00"><b>1920</b></a>
   </td>
@@ -380,7 +716,7 @@
   <a href="#03B01_10.00">1912</a>
   </td>
 </tr>
-<tr id="Inventory_Table_Row_27" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_26" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#03B01_11.00"><b>1911</b></a>
   </td>
@@ -412,7 +748,7 @@
   <a href="#03B01_20.00"><b>1902</b></a>
   </td>
 </tr>
-<tr id="Inventory_Table_Row_28" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_27" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#03B01_21.00"><b>1901</b></a>
   </td>
@@ -438,11 +774,11 @@
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
 </tr>
-<tr id="Inventory_Table_Row_29" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_28" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#03B02"><u>— D'autres types, avec un exemplaire pour chaque gouvernement français de 1803 à 1895 :</u></a></td>
   <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (9/9 * 100)|round(0, 'ceil')}}_100_complete">09/09 = <b>{{'%03d' % (9/9 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
-<tr id="Inventory_Table_Row_30" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_29" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <a href="#03B02_01.00"><b>1871–1895</b></a>
   </td>
@@ -474,28 +810,24 @@
   </td>
 </tr>
 {% if pk.set_private() == 'True' %}
-<tr id="Inventory_Table_Row_32" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_31" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#99"><b>Boîte n<sup>o</sup> 99 :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_33" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_32" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#99A"><b>→ À vendre :</b></a></td>
   <td colspan="2" align="right" class="cell_right text"><b>(6 articles)</b></td>
 </tr>
-<tr id="Inventory_Table_Row_34" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_33" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#99B"><b>→ Ex CC Collection :</b></a></td>
   <td colspan="2" align="right" class="cell_right text"><b>(48 articles)</b></td>
 </tr>
 {% endif %}
-<tr id="Inventory_Table_Row_31" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_30" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text">
-  <sup style="color: #3b95ff">⭑</sup>This coin was passed on to <b>The Chemel Family Collection</b> and is stored in the « LC Vault ».
+  <sup style="color: #ff0000">(n)</sup>n coins are available for this year, or for different years within &#177;24 years of this year.
   <br/>
-  <sup>sp</sup>This is a specimen coin.
+  <sup style="color: #ff0000">&#8778;</sup>At least one coin was struck in a year that may not be known exactly, but is within &#177;24 years of this year.
   <br/>
-  <!--<sup>v</sup>This is a coin variety.
-  <br/>-->
-  <sup style="color: #ff0000">+n</sup>n additional coins are available, possibly for different years within &#177;24 years of the year when this coin was struck.
-  <br/>
-  <sup style="color: #ff0000">&#8778;</sup>The year when this coin was struck is not known exactly, but it is within &#177;24 years of this year.
+  <sup style="color: #3b95ff">⭑</sup>At least one coin for this year, or for a different year within &#177;24 years of this year, was passed on to <b>The Chemel Family Collection</b> and is stored in the « LC Vault ».
   </td>
 </tr>
