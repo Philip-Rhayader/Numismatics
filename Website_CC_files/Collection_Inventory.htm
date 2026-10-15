@@ -22,13 +22,13 @@ function make_year_menu_drop_down(cell_id, items) {
         const number_1 = match_1 ? Number(match_1[0]) : 0;
         const number_2 = match_2 ? Number(match_2[0]) : 0;
         if (number_1 !== number_2) return number_1 - number_2;
-        return label_1.localeCompare(label_2) || link_and_color_1[0].localeCompare(link_and_color_2[0]);
+        return link_and_color_1[0].localeCompare(link_and_color_2[0]) || label_1.localeCompare(label_2);
       }
       // List BC years before non-BC years
       if (is_label_1_BC !== is_label_2_BC) return is_label_1_BC ? -1 : 1;
       // List labels with years before labels with text only
-      const match_1 = label_1.match(/^\d+/);
-      const match_2 = label_2.match(/^\d+/);
+      const match_1 = label_1.match(/\d+/);
+      const match_2 = label_2.match(/\d+/);
       const is_label_1_year = match_1 !== null;
       const is_label_2_year = match_2 !== null;
       if (is_label_1_year !== is_label_2_year) return is_label_1_year ? -1 : 1;
@@ -38,7 +38,7 @@ function make_year_menu_drop_down(cell_id, items) {
       const number_1 = Number(match_1[0]);
       const number_2 = Number(match_2[0]);
       if (number_1 !== number_2) return number_2 - number_1;
-      return label_1.localeCompare(label_2) || link_and_color_1[0].localeCompare(link_and_color_2[0]);
+      return link_and_color_1[0].localeCompare(link_and_color_2[0]) || label_1.localeCompare(label_2);
     });
   if (!data.length) return;
 
@@ -284,9 +284,9 @@ function make_year_menu_drop_down(cell_id, items) {
 </script>
 <tr id="Inventory_Table_Row" style="display: none;" class="show_hide">
 {% if pk.set_private() == 'True' %}
-  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_table_row('Inventory_Table_Row_21');toggle_table_row('Inventory_Table_Row_22');toggle_table_row('Inventory_Table_Row_23');toggle_table_row('Inventory_Table_Row_24');toggle_table_row('Inventory_Table_Row_25');toggle_table_row('Inventory_Table_Row_26');toggle_table_row('Inventory_Table_Row_27');toggle_table_row('Inventory_Table_Row_28');toggle_table_row('Inventory_Table_Row_29');toggle_table_row('Inventory_Table_Row_30');toggle_table_row('Inventory_Table_Row_31');toggle_table_row('Inventory_Table_Row_32');toggle_table_row('Inventory_Table_Row_33');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
+  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
 {% else %}
-  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_table_row('Inventory_Table_Row_21');toggle_table_row('Inventory_Table_Row_22');toggle_table_row('Inventory_Table_Row_23');toggle_table_row('Inventory_Table_Row_24');toggle_table_row('Inventory_Table_Row_25');toggle_table_row('Inventory_Table_Row_26');toggle_table_row('Inventory_Table_Row_27');toggle_table_row('Inventory_Table_Row_28');toggle_table_row('Inventory_Table_Row_29');toggle_table_row('Inventory_Table_Row_30');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
+  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
 {% endif %}
 </tr>
 <tr id="Inventory_Table_Row_1" style="display: none;" class="show_hide">
@@ -341,488 +341,287 @@ function make_year_menu_drop_down(cell_id, items) {
   </script>
 </tr>
 <tr id="Inventory_Table_Row_5" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#01B"><b>→ Époque moderne (de la fin de l'Empire byzantin en 1453 à la fin de la Seconde Guerre mondiale en 1945) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}_100_complete">10/10 = <b>{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}% complete</b></td>
+  <td colspan="10" class="cell_left text"><a href="#01B"><b>→ Époque moderne (de la fin de l'Empire byzantin en 1453 à la fin de la Seconde Guerre mondiale en 1945) :</b></a></td>
 </tr>
 <tr id="Inventory_Table_Row_6" style="display: none;" class="show_hide">
+  <td colspan="8" class="cell_left text"><a href="#01B01">— Époque moderne tardive (de la révolution française en 1789 jusqu'à la fin de la Seconde Guerre mondiale en 1945) :</a></td>
+  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (3/3 * 100)|round(0, 'ceil')}}_100_complete">03/03 = <b>{{'%03d' % (3/3 * 100)|round(0, 'ceil')}}% complete</b></td>
+</tr>
+<tr id="Inventory_Table_Row_7" style="display: none;" class="show_hide">
   <td id="1928" colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B_01.00"><b>1928</b></a>--><b>1928</b>
+  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B01_01.00"><b>1928</b></a>--><b>1928</b>
   </td>
   <script type="text/javascript">
     make_year_menu_drop_down("1928", [
-      ["1920",  ["#01B_01.00", "bg_gold_n_silver_y_bronze_n"]],
-      ["1919",  ["#01B_01.01", "bg_gold_n_silver_y_bronze_n"]],
-      ["1918",  ["#01B_01.02", "bg_gold_n_silver_y_bronze_n"]],
-      ["1917",  ["#01B_01.03", "bg_gold_n_silver_y_bronze_n"]],
-      ["1916",  ["#01B_01.04", "bg_gold_n_silver_y_bronze_n"]],
-      ["1915",  ["#01B_01.05", "bg_gold_n_silver_y_bronze_n"]],
-      ["1914",  ["#01B_01.06", "bg_gold_n_silver_y_bronze_n"]],
-      ["1914C", ["#01B_01.07", "bg_gold_n_silver_y_bronze_n"]],
-      ["1913",  ["#01B_01.08", "bg_gold_n_silver_y_bronze_n"]],
-      ["1912",  ["#01B_01.09", "bg_gold_n_silver_y_bronze_n"]],
-      ["1911",  ["#01B_01.10", "bg_gold_n_silver_y_bronze_n"]],
-      ["1910",  ["#01B_01.11", "bg_gold_n_silver_y_bronze_n"]],
-      ["1909",  ["#01B_01.12", "bg_gold_n_silver_y_bronze_n"]],
-      ["1908",  ["#01B_01.13", "bg_gold_n_silver_y_bronze_n"]],
-      ["1907",  ["#01B_01.14", "bg_gold_n_silver_y_bronze_n"]],
-      ["1906",  ["#01B_01.15", "bg_gold_n_silver_y_bronze_n"]],
-      ["1905",  ["#01B_01.16", "bg_gold_n_silver_y_bronze_n"]],
-      ["1904",  ["#01B_01.17", "bg_gold_n_silver_y_bronze_n"]],
-      ["1903",  ["#01B_01.18", "bg_gold_n_silver_y_bronze_n"]],
-      ["1902",  ["#01B_01.19", "bg_gold_n_silver_y_bronze_n"]],
-      ["1901",  ["#01B_01.20", "bg_gold_n_silver_y_bronze_n"]],
-      ["1900",  ["#01B_01.21", "bg_gold_n_silver_y_bronze_n"]],
-      ["1899",  ["#01B_01.22", "bg_gold_n_silver_y_bronze_n"]],
-      ["1898",  ["#01B_01.23", "bg_gold_n_silver_y_bronze_n"]]
+      ["1920",  ["#01B01_01.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["1919",  ["#01B01_01.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1918",  ["#01B01_01.02", "bg_gold_n_silver_y_bronze_n"]],
+      ["1917",  ["#01B01_01.03", "bg_gold_n_silver_y_bronze_n"]],
+      ["1916",  ["#01B01_01.04", "bg_gold_n_silver_y_bronze_n"]],
+      ["1915",  ["#01B01_01.05", "bg_gold_n_silver_y_bronze_n"]],
+      ["1914",  ["#01B01_01.06", "bg_gold_n_silver_y_bronze_n"]],
+      ["1914C", ["#01B01_01.07", "bg_gold_n_silver_y_bronze_n"]],
+      ["1913",  ["#01B01_01.08", "bg_gold_n_silver_y_bronze_n"]],
+      ["1912",  ["#01B01_01.09", "bg_gold_n_silver_y_bronze_n"]],
+      ["1911",  ["#01B01_01.10", "bg_gold_n_silver_y_bronze_n"]],
+      ["1910",  ["#01B01_01.11", "bg_gold_n_silver_y_bronze_n"]],
+      ["1909",  ["#01B01_01.12", "bg_gold_n_silver_y_bronze_n"]],
+      ["1908",  ["#01B01_01.13", "bg_gold_n_silver_y_bronze_n"]],
+      ["1907",  ["#01B01_01.14", "bg_gold_n_silver_y_bronze_n"]],
+      ["1906",  ["#01B01_01.15", "bg_gold_n_silver_y_bronze_n"]],
+      ["1905",  ["#01B01_01.16", "bg_gold_n_silver_y_bronze_n"]],
+      ["1904",  ["#01B01_01.17", "bg_gold_n_silver_y_bronze_n"]],
+      ["1903",  ["#01B01_01.18", "bg_gold_n_silver_y_bronze_n"]],
+      ["1902",  ["#01B01_01.19", "bg_gold_n_silver_y_bronze_n"]],
+      ["1901",  ["#01B01_01.20", "bg_gold_n_silver_y_bronze_n"]],
+      ["1900",  ["#01B01_01.21", "bg_gold_n_silver_y_bronze_n"]],
+      ["1899",  ["#01B01_01.22", "bg_gold_n_silver_y_bronze_n"]],
+      ["1898",  ["#01B01_01.23", "bg_gold_n_silver_y_bronze_n"]]
     ]);
   </script>
   <td id="1878" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B_02.00"><b>1878</b></a>--><b>1878</b>
+  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B01_02.00"><b>1878</b></a>--><b>1878</b>
   </td>
   <script type="text/javascript">
     make_year_menu_drop_down("1878", [
-      ["1872", ["#01B_02.00", "bg_gold_n_silver_y_bronze_n"]],
-      ["1866", ["#01B_02.01", "bg_gold_n_silver_y_bronze_n"]],
-      ["1863", ["#01B_02.02", "bg_gold_y_silver_n_bronze_n"]],
-      ["1858", ["#01B_02.03", "bg_gold_y_silver_n_bronze_n"]],
-      ["1852", ["#01B_02.04", "bg_gold_n_silver_y_bronze_n"]],
-      ["1850", ["#01B_02.05", "bg_gold_n_silver_y_bronze_n"]],
-      ["1841", ["#01B_02.06", "bg_gold_n_silver_y_bronze_n"]]
+      ["1872", ["#01B01_02.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["1866", ["#01B01_02.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1863", ["#01B01_02.02", "bg_gold_y_silver_n_bronze_n"]],
+      ["1858", ["#01B01_02.03", "bg_gold_y_silver_n_bronze_n"]],
+      ["1852", ["#01B01_02.04", "bg_gold_n_silver_y_bronze_n"]],
+      ["1850", ["#01B01_02.05", "bg_gold_n_silver_y_bronze_n"]],
+      ["1841", ["#01B01_02.06", "bg_gold_n_silver_y_bronze_n"]]
     ]);
   </script>
   <td id="1828" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_y_bronze_n">
-  <a href="#01B_03.00"><b>1828</b></a>
+  <a href="#01B01_03.00"><b>1828</b></a>
   </td>
   <script type="text/javascript">
     make_year_menu_drop_down("1828", [
-      ["1828", ["#01B_03.00", "bg_gold_y_silver_n_bronze_n"]],
-      ["1825", ["#01B_03.01", "bg_gold_n_silver_y_bronze_n"]],
-      ["1824", ["#01B_03.02", "bg_gold_n_silver_y_bronze_n"]],
-      ["1808", ["#01B_03.03", "bg_gold_n_silver_y_bronze_n"]],
-      ["1804", ["#01B_03.04", "bg_gold_n_silver_y_bronze_n"]]
+      ["1828", ["#01B01_03.00", "bg_gold_y_silver_n_bronze_n"]],
+      ["1825", ["#01B01_03.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1824", ["#01B01_03.02", "bg_gold_n_silver_y_bronze_n"]],
+      ["1808", ["#01B01_03.03", "bg_gold_n_silver_y_bronze_n"]],
+      ["1804", ["#01B01_03.04", "bg_gold_n_silver_y_bronze_n"]]
     ]);
   </script>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01B_04.00"><b>1778</b></a>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % ((63+64+64+64+64+53+66+65+65+58+58+66+65+65+63+65+66+65+66+66+66+66+66+66)/24 / 65 * 100) | round(0, 'ceil')}}_100_complete">1 Fr Semeuse GPA = <b>{{'%.2f' % (((63+64+64+64+64+53+66+65+65+58+58+66+65+65+63+65+66+65+66+66+66+66+66+66)/24*100)|round(0, 'ceil')/100)}}</b></td>
+</tr>
+<tr id="Inventory_Table_Row_8" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#02"><b>Boîte n<sup>o</sup> 02 :</b></a></td>
+</tr>
+<tr id="Inventory_Table_Row_9" style="display: none;" class="show_hide">
+  <td colspan="8" class="cell_left text"><a href="#02A">— Époque moderne tôtive (de la fin de l'Empire byzantin en 1453 jusqu'à la révolution française en 1789) :</a></td>
+  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (7/7 * 100)|round(0, 'ceil')}}_100_complete">07/07 = <b>{{'%03d' % (7/7 * 100)|round(0, 'ceil')}}% complete</b></td>
+</tr>
+<tr id="Inventory_Table_Row_10" style="display: none;" class="show_hide">
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <a href="#01B_05.00"><b>1728</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_01.00"><b>1778</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01B_06.00"><b>1678</b></a>
+  <a href="#02A_02.00"><b>1728</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01B_07.00"><b>1628</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_03.00"><b>1678</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <a href="#01B_08.00"><b>1578</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_04.00"><b>1628</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <a href="#02A_05.00"><b>1578</b></a>
   </td>
   <td id="1528" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#01B_09.00"><b>1528</b></a>--><b>1528</b>
+  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#02A_06.00"><b>1528</b></a>--><b>1528</b>
   </td>
   <script type="text/javascript">
     make_year_menu_drop_down("1528", [
-      ["1551",  ["#01B_09.00", "bg_gold_n_silver_y_bronze_n"]],
-      ["1550",  ["#01B_09.01", "bg_gold_n_silver_y_bronze_n"]],
-      ["1508?", ["#01B_09.02", "bg_gold_y_silver_n_bronze_n"]]
+      ["1551",  ["#02A_06.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["1550",  ["#02A_06.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["1508?", ["#02A_06.02", "bg_gold_y_silver_n_bronze_n"]]
     ]);
   </script>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01B_10.00"><b>1478</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_07.00"><b>1478</b></a>
   </td>
-</tr>
-<tr id="Inventory_Table_Row_7" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#01C"><b>→ Moyen Âge (de la fin de l'Empire romain d'Occident en 476 jusqu'à la fin de l'Empire byzantin en 1453) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (20/20 * 100)|round(0, 'ceil')}}_100_complete">20/20 = <b>{{'%03d' % (20/20 * 100)|round(0, 'ceil')}}% complete</b></td>
-</tr>
-<tr id="Inventory_Table_Row_8" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_01.00"><b>1428</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_02.00"><b>1378</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_03.00"><b>1328</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_04.00"><b>1278</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_05.00"><b>1228</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_06.00"><b>1178</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_07.00"><b>1128</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_08.00"><b>1078</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_09.00"><b>1028</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01D_10.00"><b>978</b></a>
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_9" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_11.00"><b>928</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_12.00"><b>878</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_13.00"><b>828</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_14.00"><b>778</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_15.00"><b>728</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_16.00"><b>678</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_17.00"><b>628</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_18.00"><b>578</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_19.00"><b>528</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01C_20.00"><b>478</b></a>
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_10" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#02"><b>Boîte n<sup>o</sup> 02 :</b></a></td>
 </tr>
 <tr id="Inventory_Table_Row_11" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#02A"><b>→ Antiquité (du début de la civilisation historique jusqu'à la fin de l'Empire romain d'Occident en 476) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}_100_complete">10/10 = <b>{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}% complete</b></td>
+  <td colspan="8" class="cell_left text"><a href="#02B"><b>→ Moyen Âge (de la fin de l'Empire romain d'Occident en 476 jusqu'à la fin de l'Empire byzantin en 1453) :</b></a></td>
+  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (20/20 * 100)|round(0, 'ceil')}}_100_complete">20/20 = <b>{{'%03d' % (20/20 * 100)|round(0, 'ceil')}}% complete</b></td>
 </tr>
 <tr id="Inventory_Table_Row_12" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_01.00"><b>428</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_08.00"><b>1428</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_09.00"><b>1378</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_10.00"><b>1328</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_11.00"><b>1278</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_02.00"><b>378</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_12.00"><b>1228</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_03.00"><b>328</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_13.00"><b>1178</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_14.00"><b>1128</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_15.00"><b>1078</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_16.00"><b>1028</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#01D_17.00"><b>978</b></a>
+  </td>
+</tr>
+<tr id="Inventory_Table_Row_13" style="display: none;" class="show_hide">
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_18.00"><b>928</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_04.00"><b>278</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_19.00"><b>878</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_05.00"><b>228</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_20.00"><b>828</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_06.00"><b>178</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_21.00"><b>778</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><a href="#02A_07.00"><b>128</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_22.00"><b>728</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02A_08.00"><b>78</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_23.00"><b>678</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_24.00"><b>628</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_25.00"><b>578</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_26.00"><b>528</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_27.00"><b>478</b></a>
+  </td>
+</tr>
+<tr id="Inventory_Table_Row_14" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#03"><b>Boîte n<sup>o</sup> 03 :</b></a></td>
+</tr>
+<tr id="Inventory_Table_Row_15" style="display: none;" class="show_hide">
+  <td colspan="8" class="cell_left text"><a href="#03A"><b>→ Antiquité (du début de la civilisation historique jusqu'à la fin de l'Empire romain d'Occident en 476) :</b></a></td>
+  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}_100_complete">10/10 = <b>{{'%03d' % (10/10 * 100)|round(0, 'ceil')}}% complete</b></td>
+</tr>
+<tr id="Inventory_Table_Row_16" style="display: none;" class="show_hide">
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#03A_01.00"><b>428</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#02A_09.00"><b>28</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#03A_02.00"><b>378</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#03A_03.00"><b>328</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#03A_04.00"><b>278</b></a>
+  </td>
+  <td id="228" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_y">
+  <sup style="color: #ff0000">&#8778;</sup><!--<a href="#03A_05.00"><b>228</b></a>--><b>228</b>
+  </td>
+  <script type="text/javascript">
+    make_year_menu_drop_down("228", [
+      ["(I) 248",      ["#03A_05.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["(II) 248",     ["#03A_05.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["(II) 248",     ["#03A_05.02", "bg_gold_n_silver_n_bronze_y"]],
+      ["(III) 248",    ["#03A_05.03", "bg_gold_n_silver_y_bronze_n"]],
+      ["(III) 248",    ["#03A_05.04", "bg_gold_n_silver_n_bronze_y"]],
+      ["(IV) 248",     ["#03A_05.05", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IV) 248",     ["#03A_05.06", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IV) 248",     ["#03A_05.07", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IV) 248",     ["#03A_05.08", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IV) 248",     ["#03A_05.09", "bg_gold_n_silver_n_bronze_y"]],
+      ["(V) 248",      ["#03A_05.10", "bg_gold_n_silver_y_bronze_n"]],
+      ["(V) 248",      ["#03A_05.11", "bg_gold_n_silver_n_bronze_y"]],
+      ["(VI) 248",     ["#03A_05.12", "bg_gold_n_silver_y_bronze_n"]],
+      ["(VI) 248",     ["#03A_05.13", "bg_gold_n_silver_y_bronze_n"]],
+      ["(VI) 248",     ["#03A_05.14", "bg_gold_n_silver_y_bronze_n"]],
+      ["(Temple) 248", ["#03A_05.15", "bg_gold_n_silver_y_bronze_n"]],
+      ["(Cippus) 248", ["#03A_05.16", "bg_gold_n_silver_y_bronze_n"]],
+      ["(Α) 248",      ["#03A_05.17", "bg_gold_n_silver_y_bronze_n"]],
+      ["(Β) 248",      ["#03A_05.18", "bg_gold_n_silver_y_bronze_n"]],
+      ["(Γ) 248",      ["#03A_05.19", "bg_gold_n_silver_y_bronze_n"]],
+      ["(Δ) 248",      ["#03A_05.20", "bg_gold_n_silver_y_bronze_n"]],
+      ["(Ε) 248",      ["#03A_05.21", "bg_gold_n_silver_y_bronze_n"]],
+      ["(ↅ) 248",      ["#03A_05.22", "bg_gold_n_silver_y_bronze_n"]],
+      ["212",          ["#03A_05.23", "bg_gold_n_silver_y_bronze_n"]]
+    ]);
+  </script>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#03A_06.00"><b>178</b></a>
+  </td>
+  <td id="128" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><!--<a href="#03A_07.00"><b>128</b></a>--><b>128</b>
+  </td>
+  <script type="text/javascript">
+    make_year_menu_drop_down("128", [
+      ["133",  ["#03A_07.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["122*", ["#03A_07.01", "bg_gold_n_silver_y_bronze_n"]]
+    ]);
+  </script>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
+  <a href="#03B_08.00"><b>78</b></a>
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><a href="#03B_09.00"><b>28</b></a>
   </td>
   <td id="23 BC" colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_y_bronze_n">
   <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><b>BC</b>
   </td>
   <script type="text/javascript">
     make_year_menu_drop_down("23 BC", [
-      ["13 BC*", ["#02A_10.00", "bg_gold_n_silver_y_bronze_n"]],
-      ["48 BC",  ["#02A_10.01", "bg_gold_n_silver_y_bronze_n"]],
-      ["49 BC*", ["#02A_10.02", "bg_gold_n_silver_y_bronze_n"]],
-      ["78 BC",  ["#02A_10.03", "bg_gold_y_silver_n_bronze_n"]]
+      ["13 BC*", ["#03B_10.00", "bg_gold_n_silver_y_bronze_n"]],
+      ["48 BC",  ["#03B_10.01", "bg_gold_n_silver_y_bronze_n"]],
+      ["49 BC*", ["#03B_10.02", "bg_gold_n_silver_y_bronze_n"]]
     ]);
   </script>
 </tr>
-<tr id="Inventory_Table_Row_13" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_left text"><a href="#02B"><b>→ Collection thématique – Les commémorations du millénaire de la fondation de Rome en 247-248 :</b></a></td>
-</tr>
-<tr id="Inventory_Table_Row_14" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#02B01"><u>— La ménagerie :</u></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}_100_complete">06/06 = <b>{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}% complete</b></td>
-</tr>
-<tr id="Inventory_Table_Row_15" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#02B01_01.00"><b>Officina I<br/>Lion</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_y">
-  <sup style="color: #ff0000">+1</sup><a href="#02B01_02.00"><b>Officina II<br/>She-wolf</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_y">
-  <sup style="color: #ff0000">+1</sup><a href="#02B01_03.00"><b>Officina III<br/>European elk</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_y">
-  <sup style="color: #ff0000">+4</sup><a href="#02B01_04.00"><b>Officina IIII<br/>Hippo</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_y">
-  <sup style="color: #ff0000">+1</sup><a href="#02B01_05.00"><b>Officina V<br/>Stag</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">+2</sup><a href="#02B01_06.00"><b>Officina VI<br/>Antelope</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_16" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#02B02"><u>— Les monuments :</u></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (2/2 * 100)|round(0, 'ceil')}}_100_complete">02/02 = <b>{{'%03d' % (2/2 * 100)|round(0, 'ceil')}}% complete</b></td>
-</tr>
-<tr id="Inventory_Table_Row_17" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#02B02_01.00"><b>Temple</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02B02_02.00"><b>Cippus</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_silver_n bg_does_not_exist">
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_18" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#02C"><b>→ Collection thématique – Les chiffres grecs des ateliers monétaires romains en 247-248 :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}_100_complete">06/06 = <b>{{'%03d' % (6/6 * 100)|round(0, 'ceil')}}% complete</b></td>
-</tr>
-<tr id="Inventory_Table_Row_19" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#02C_01.00"><b>Officina Α<br/>Mars</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02C_02.00"><b>Officina Β<br/>Tranquillitas</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02C_03.00"><b>Officina Γ<br/>Virtus</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02C_04.00"><b>Officina Δ<br/>Pietas</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02C_05.00"><b>Officina Ε<br/>Virtus</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#02C_06.00"><b>Officina <span style="font-family:Noto Sans Symbols">ↅ</span><br/>Nobilitas</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_silver_n bg_does_not_exist_multiple">
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_20" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#03"><b>Boîte n<sup>o</sup> 03 :</b></a></td>
-</tr>
-<tr id="Inventory_Table_Row_21" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#03A"><b>→ Collection thématique – Les pièces de 50 Francs de type « Hercule » (1974-1980) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (7/7 * 100)|round(0, 'ceil')}}_100_complete">07/07 = <b>{{'%03d' % (7/7 * 100)|round(0, 'ceil')}}% complete</b></td>
-</tr>
-<tr id="Inventory_Table_Row_22" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#03A_01.00"><b>1980</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03A_02.00"><b>1979</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03A_03.00"><b>1978</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03A_04.00"><b>1977</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03A_05.00"><b>1976</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03A_06.00"><b>1975</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03A_07.00"><b>1974</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_23" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_left text"><a href="#03B"><b>→ Collection thématique – Les pièces de 1 Franc du système monétaire du « franc germinal » (1803-1920) :</b></a></td>
-</tr>
-<tr id="Inventory_Table_Row_24" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#03B01"><u>— Le type « Semeuse » (1898-1920) :</u></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % ((63+64+64+64+64+53+66+65+65+58+58+66+65+65+63+65+66+65+66+66+66+66+66+66)/24 / 65 * 100) | round(0, 'ceil')}}_100_complete">GPA weighted = <b>{{'%.2f' % (((63+64+64+64+64+53+66+65+65+58+58+66+65+65+63+65+66+65+66+66+66+66+66+66)/24*100)|round(0, 'ceil')/100)}}</b></td>
-</tr>
-<tr id="Inventory_Table_Row_25" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_01.00"><b>1920</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_02.00"><b>1919</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_03.00"><b>1918</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_04.00"><b>1917</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_05.00"><b>1916</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_06.00"><b>1915</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_07.00"><b>1914</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_08.00"><b>1914C</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_09.00"><b>1913</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_10.00">1912</a>
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_26" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_11.00"><b>1911</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_12.00"><b>1910</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_13.00"><b>1909</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_14.00">1908</a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_15.00">1907</a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_16.00"><b>1906</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_17.00"><b>1905</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_18.00"><b>1904</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_19.00">1903</a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_20.00"><b>1902</b></a>
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_27" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_21.00"><b>1901</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_22.00"><b>1900</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_23.00"><b>1899</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B01_24.00">1898</a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-</tr>
-<tr id="Inventory_Table_Row_28" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#03B02"><u>— D'autres types, avec un exemplaire pour chaque gouvernement français de 1803 à 1895 :</u></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_{{'%03d' % (9/9 * 100)|round(0, 'ceil')}}_100_complete">09/09 = <b>{{'%03d' % (9/9 * 100)|round(0, 'ceil')}}% complete</b></td>
-</tr>
-<tr id="Inventory_Table_Row_29" style="display: none;" class="show_hide">
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_01.00"><b>1871–1895</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_02.00"><b>1852–1870</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_03.00"><b>1852</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_04.00"><b>1849–1851</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_05.00"><b>1831–1848</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_06.00"><b>1825–1830</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_07.00"><b>1816–1824</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_08.00"><b>1804–1814</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <a href="#03B02_09.00"><b>1803–1804</b></a>
-  </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
-  </td>
-</tr>
 {% if pk.set_private() == 'True' %}
-<tr id="Inventory_Table_Row_31" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_18" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#99"><b>Boîte n<sup>o</sup> 99 :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_32" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_19" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#99A"><b>→ À vendre :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text"><b>(6 articles)</b></td>
+  <td colspan="2" align="right" class="cell_right text"><b>(15 articles)</b></td>
 </tr>
-<tr id="Inventory_Table_Row_33" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_20" style="display: none;" class="show_hide">
   <td colspan="8" class="cell_left text"><a href="#99B"><b>→ Ex CC Collection :</b></a></td>
   <td colspan="2" align="right" class="cell_right text"><b>(48 articles)</b></td>
 </tr>
 {% endif %}
-<tr id="Inventory_Table_Row_30" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_17" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text">
   <sup style="color: #ff0000">(n)</sup>n coins are available for this year, or for different years within &#177;24 years of this year.
   <br/>
