@@ -44,7 +44,7 @@ function make_year_menu_drop_down(cell_id, items) {
 
   let year_menu_drop_down_is_opened = false;
   let year_menu_drop_down_timer = null;
-  const year_menu_drop_down_timeout = 3000;
+  const year_menu_drop_down_timeout = 5000;
 
   // Create the count indicator
   const year_menu_drop_down_count = document.createElement("sup");
@@ -164,7 +164,18 @@ function make_year_menu_drop_down(cell_id, items) {
     // Content link
     const content_link = document.createElement("a");
     if (href) content_link.href = href;
-    content_link.textContent = final_label;
+    const special_symbol_greek_numeral_VI = "ↅ";
+    const special_symbol_greek_numeral_VI_index = final_label.indexOf(special_symbol_greek_numeral_VI);
+    if (special_symbol_greek_numeral_VI_index !== -1) {
+      content_link.appendChild(document.createTextNode(final_label.substring(0, special_symbol_greek_numeral_VI_index)));
+      const special_symbol_greek_numeral_VI_span = document.createElement("span");
+      special_symbol_greek_numeral_VI_span.style.fontFamily = '"Noto Sans Symbols"';
+      special_symbol_greek_numeral_VI_span.textContent = special_symbol_greek_numeral_VI;
+      content_link.appendChild(special_symbol_greek_numeral_VI_span);
+      content_link.appendChild(document.createTextNode(final_label.substring(special_symbol_greek_numeral_VI_index + special_symbol_greek_numeral_VI.length)));
+    } else {
+      content_link.textContent = final_label;
+    }
     content_link.style.setProperty("display", "inline-block", "important");
     content_link.style.setProperty("position", "relative", "important");
     content_link.style.setProperty("direction", "ltr", "important");
@@ -558,11 +569,11 @@ function make_year_menu_drop_down(cell_id, items) {
       ["(II) 248",     ["#03A_05.02", "bg_gold_n_silver_n_bronze_y"]],
       ["(III) 248",    ["#03A_05.03", "bg_gold_n_silver_y_bronze_n"]],
       ["(III) 248",    ["#03A_05.04", "bg_gold_n_silver_n_bronze_y"]],
-      ["(IV) 248",     ["#03A_05.05", "bg_gold_n_silver_y_bronze_n"]],
-      ["(IV) 248",     ["#03A_05.06", "bg_gold_n_silver_y_bronze_n"]],
-      ["(IV) 248",     ["#03A_05.07", "bg_gold_n_silver_y_bronze_n"]],
-      ["(IV) 248",     ["#03A_05.08", "bg_gold_n_silver_y_bronze_n"]],
-      ["(IV) 248",     ["#03A_05.09", "bg_gold_n_silver_n_bronze_y"]],
+      ["(IIII) 248",   ["#03A_05.05", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IIII) 248",   ["#03A_05.06", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IIII) 248",   ["#03A_05.07", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IIII) 248",   ["#03A_05.08", "bg_gold_n_silver_y_bronze_n"]],
+      ["(IIII) 248",   ["#03A_05.09", "bg_gold_n_silver_n_bronze_y"]],
       ["(V) 248",      ["#03A_05.10", "bg_gold_n_silver_y_bronze_n"]],
       ["(V) 248",      ["#03A_05.11", "bg_gold_n_silver_n_bronze_y"]],
       ["(VI) 248",     ["#03A_05.12", "bg_gold_n_silver_y_bronze_n"]],
