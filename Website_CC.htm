@@ -562,7 +562,7 @@ function make_year_menu_drop_down(cell_id, items) {
     inner_wrapper.style.setProperty("direction", "ltr", "important");
     inner_wrapper.style.setProperty("align-items", "baseline", "important");
     inner_wrapper.style.setProperty("gap", "0", "important");
-    inner_wrapper.style.setProperty("padding", "2px 4px", "important"); // To change after if a scrollbar is needed
+    inner_wrapper.style.setProperty("padding", "2px 2px", "important"); // To change after if a scrollbar is needed
     inner_wrapper.style.setProperty("margin", "0", "important");
     inner_wrapper.style.setProperty("width", "auto", "important");
     inner_wrapper.style.setProperty("max-width", "100%", "important");
@@ -692,7 +692,7 @@ const is_mobile_portrait = window.matchMedia(
   "( (max-width: 1000px) and (orientation: portrait) ) or ( (max-width: 1000px) and (orientation: landscape) )"
 ).matches;
 
-const scrollbar_width = is_mobile_portrait ? 3 : 6;
+const scrollbar_width = is_mobile_portrait ? 2 : 5;
 
 year_menu_drop_down
   .querySelectorAll("div > div")
@@ -700,8 +700,8 @@ year_menu_drop_down
     inner_wrapper.style.setProperty(
       "padding",
       scrollbar_needed
-        ? `2px 4px 2px ${scrollbar_width}px`
-        : "2px 4px",
+        ? `2px 2px 2px ${scrollbar_width}px`
+        : "2px 2px",
       "important"
     );
   });
@@ -48115,7 +48115,7 @@ function init_scrollable_img_gallery_indicator() {
       scrollable_img_gallery_indicator_track.classList.remove('no_overflow');
       const scrollable_img_gallery_indicator_thumb_width = Math.min(
         scrollable_img_gallery_indicator_track_width,
-        Math.max(24, scrollable_img_gallery_indicator_track_width * scrollable_img_gallery_visible_width / scrollable_img_gallery_total_width)
+        Math.max(20, scrollable_img_gallery_indicator_track_width * scrollable_img_gallery_visible_width / scrollable_img_gallery_total_width)
       );
       const scrollable_img_gallery_indicator_thumb_max_move = scrollable_img_gallery_indicator_track_width - scrollable_img_gallery_indicator_thumb_width;
       const scrollable_img_gallery_indicator_thumb_scroll_progress = Math.max(
