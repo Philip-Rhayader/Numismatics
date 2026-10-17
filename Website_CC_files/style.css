@@ -683,6 +683,28 @@ a, a:visited, a:hover, a:active {
 
 /* Style for the year menu drop-down */
 
+.year_menu_drop_down_indicator_track {
+  position: absolute;
+  z-index: 201;
+  width: 6px;
+  background: #dadada;
+  border-radius: 4px;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.year_menu_drop_down_indicator_thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 20px;
+  background: #898989;
+  border-radius: 4px;
+  will-change: transform, height;
+  box-sizing: border-box;
+}
+
 .year_menu_drop_down_count {
   display: inline;
   position: static;
@@ -704,6 +726,8 @@ a, a:visited, a:hover, a:active {
   max-height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   background: #ffffff;
   box-sizing: border-box;
   border-color: #000000;
@@ -712,13 +736,8 @@ a, a:visited, a:hover, a:active {
   direction: rtl;
 }
 
-.year_menu_drop_down::-webkit-scrollbar-thumb {
-  background: #00000025;
-  border-radius: 4px;
-}
-
-.year_menu_drop_down::-webkit-scrollbar-thumb:hover {
-  background: #00000075;
+.year_menu_drop_down::-webkit-scrollbar {
+  display: none;
 }
 
 .year_menu_drop_down a {
@@ -737,10 +756,9 @@ a, a:visited, a:hover, a:active {
 
 .scrollable_img_gallery_indicator_track {
   position: relative;
-  height: 4px;
-  margin-top: 6px;
+  height: 6px;
+  margin-top: 4px;
   margin-bottom: 2px;
-  margin-inline: 0.5%;
   background-color: #00000025;
   border-radius: 4px;
   overflow: hidden;
@@ -764,8 +782,6 @@ a, a:visited, a:hover, a:active {
 .scrollable_img_gallery {
   display: flex;
   margin-top: 0.375em;
-  margin-left: 0.5%;
-  margin-right: 0.5%;
   background-color: transparent; /* background-color: #ffffff; */
   overflow: auto;
   white-space: nowrap;

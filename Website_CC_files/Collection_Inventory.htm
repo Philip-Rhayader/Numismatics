@@ -156,7 +156,7 @@ function make_year_menu_drop_down(cell_id, items) {
     inner_wrapper.style.setProperty("direction", "ltr", "important");
     inner_wrapper.style.setProperty("align-items", "baseline", "important");
     inner_wrapper.style.setProperty("gap", "0", "important");
-    inner_wrapper.style.setProperty("padding", "2px 4px", "important");
+    inner_wrapper.style.setProperty("padding", "2px 4px 2px 6px", "important");
     inner_wrapper.style.setProperty("margin", "0", "important");
     inner_wrapper.style.setProperty("width", "auto", "important");
     inner_wrapper.style.setProperty("max-width", "100%", "important");
@@ -242,15 +242,112 @@ function make_year_menu_drop_down(cell_id, items) {
     year_menu_drop_down.appendChild(row);
   });
 
+//hello
+  // Create the custom scrollbar track
+  const year_menu_drop_down_indicator_track =
+    document.createElement("div");
+
+  year_menu_drop_down_indicator_track.className =
+    "year_menu_drop_down_indicator_track";
+
+  // Create the custom scrollbar thumb
+  const year_menu_drop_down_indicator_thumb =
+    document.createElement("div");
+
+  year_menu_drop_down_indicator_thumb.className =
+    "year_menu_drop_down_indicator_thumb";
+
+  year_menu_drop_down_indicator_track.appendChild(
+    year_menu_drop_down_indicator_thumb
+  );
+
   // Position the year menu drop-down relative to the cell
   cell.style.position = "relative";
   cell.appendChild(year_menu_drop_down);
 
-// Function to close the year menu drop-down and reset its state
+  // Add the scrollbar as a sibling so it stays in place while scrolling
+  cell.appendChild(year_menu_drop_down_indicator_track);
+//hello
+
+//hello2
+
+
+  // Update the custom scrollbar's position and size
+function update_year_menu_drop_down_indicator() {
+  const cell_rect = cell.getBoundingClientRect();
+  const menu_rect = year_menu_drop_down.getBoundingClientRect();
+
+  const visible_height = year_menu_drop_down.clientHeight;
+  const total_height = year_menu_drop_down.scrollHeight;
+
+  // Hide when the menu is closed or scrolling is unnecessary
+  if (
+    !year_menu_drop_down_is_opened ||
+    total_height <= visible_height ||
+    visible_height <= 0
+  ) {
+    year_menu_drop_down_indicator_track.style.display = "none";
+    return;
+  }
+
+  year_menu_drop_down_indicator_track.style.display = "block";
+
+  year_menu_drop_down_indicator_track.style.left =
+    `${menu_rect.left - cell_rect.left + 1}px`;
+
+  year_menu_drop_down_indicator_track.style.top =
+    `${menu_rect.top - cell_rect.top + 1}px`;
+
+  year_menu_drop_down_indicator_track.style.height =
+    `${visible_height - 2}px`;
+
+  const actual_track_height =
+    year_menu_drop_down_indicator_track.clientHeight;
+
+  const thumb_height = Math.min(
+    actual_track_height,
+    Math.max(20, actual_track_height * visible_height / total_height)
+  );
+
+  const max_thumb_top = Math.max(
+    0,
+    actual_track_height - thumb_height
+  );
+
+  const max_scroll_top = total_height - visible_height;
+
+  const thumb_top = max_scroll_top > 0
+    ? (year_menu_drop_down.scrollTop / max_scroll_top) *
+      max_thumb_top
+    : 0;
+
+  year_menu_drop_down_indicator_thumb.style.height =
+    `${thumb_height}px`;
+
+  year_menu_drop_down_indicator_thumb.style.transform =
+    `translateY(${thumb_top}px)`;
+}
+
+  // Update the indicator whenever the menu scrolls
+  year_menu_drop_down.addEventListener(
+    "scroll",
+    update_year_menu_drop_down_indicator,
+    { passive: true }
+  );
+
+
+//hello2
+
+  // // Position the year menu drop-down relative to the cell
+  // cell.style.position = "relative";
+  // cell.appendChild(year_menu_drop_down);
+
+  // Function to close the year menu drop-down and reset its state
   function close_year_menu_drop_down() {
     clearTimeout(year_menu_drop_down_timer);
     year_menu_drop_down_timer = null;
     year_menu_drop_down.style.display = "none";
+    year_menu_drop_down_indicator_track.style.display = "none";
     year_menu_drop_down_is_opened = false;
     year_menu_drop_down_pointer_inside = false;
     year_menu_drop_down_count.setAttribute("aria-expanded", "false");
@@ -274,6 +371,11 @@ function make_year_menu_drop_down(cell_id, items) {
       year_menu_drop_down_is_opened = true;
       year_menu_drop_down.style.display = "block";
       year_menu_drop_down_count.setAttribute("aria-expanded", "true");
+      //hello3
+      requestAnimationFrame(
+        update_year_menu_drop_down_indicator
+      );
+      //hello3
       reset_year_menu_drop_down_timer();
     }
   }
