@@ -687,7 +687,7 @@ a, a:visited, a:hover, a:active {
   position: absolute;
   z-index: 201;
   width: 6px;
-  background: #dadada;
+  background: #00000025;
   border-radius: 4px;
   pointer-events: none;
   box-sizing: border-box;
@@ -699,7 +699,7 @@ a, a:visited, a:hover, a:active {
   left: 0;
   width: 100%;
   min-height: 20px;
-  background: #898989;
+  background: #00000075;
   border-radius: 4px;
   will-change: transform, height;
   box-sizing: border-box;
@@ -1097,6 +1097,12 @@ a, a:visited, a:hover, a:active {
   .responsive_break {
     display: initial;
   }
+  .year_menu_drop_down_indicator_track {
+    width: 3px;
+  }
+  .scrollable_img_gallery_indicator_track {
+    height: 3px;
+  }
 }
 @media only screen and (max-width: 1000px) and (orientation: landscape){
   html, body {
@@ -1113,5 +1119,11 @@ a, a:visited, a:hover, a:active {
   }
   .responsive_break {
     display: initial;
+  }
+  .year_menu_drop_down_indicator_track {
+    width: 3px;
+  }
+  .scrollable_img_gallery_indicator_track {
+    height: 3px;
   }
 }

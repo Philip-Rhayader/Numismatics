@@ -562,7 +562,7 @@ function make_year_menu_drop_down(cell_id, items) {
     inner_wrapper.style.setProperty("direction", "ltr", "important");
     inner_wrapper.style.setProperty("align-items", "baseline", "important");
     inner_wrapper.style.setProperty("gap", "0", "important");
-    inner_wrapper.style.setProperty("padding", "2px 4px 2px 6px", "important");
+    inner_wrapper.style.setProperty("padding", "2px 4px", "important"); // To change after if a scrollbar is needed
     inner_wrapper.style.setProperty("margin", "0", "important");
     inner_wrapper.style.setProperty("width", "auto", "important");
     inner_wrapper.style.setProperty("max-width", "100%", "important");
@@ -685,6 +685,26 @@ function update_year_menu_drop_down_indicator() {
 
   const visible_height = year_menu_drop_down.clientHeight;
   const total_height = year_menu_drop_down.scrollHeight;
+
+const scrollbar_needed = total_height > visible_height;
+
+const is_mobile_portrait = window.matchMedia(
+  "( (max-width: 1000px) and (orientation: portrait) ) or ( (max-width: 1000px) and (orientation: landscape) )"
+).matches;
+
+const scrollbar_width = is_mobile_portrait ? 3 : 6;
+
+year_menu_drop_down
+  .querySelectorAll("div > div")
+  .forEach(inner_wrapper => {
+    inner_wrapper.style.setProperty(
+      "padding",
+      scrollbar_needed
+        ? `2px 4px 2px ${scrollbar_width}px`
+        : "2px 4px",
+      "important"
+    );
+  });
 
   // Hide when the menu is closed or scrolling is unnecessary
   if (
