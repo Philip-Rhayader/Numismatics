@@ -726,31 +726,30 @@ a, a:visited, a:hover, a:active {
 
 /* Style for scrollable image gallery */
 
-/* Custom horizontal scrollbar indicator */
-
-.scrollbar_indicator {
+.scrollable_img_gallery_indicator_track {
   position: relative;
   height: 4px;
-  margin: 6px 0.5% 2px;
-  background-color: #d9d9d9;
+  margin-top: 6px;
+  margin-bottom: 2px;
+  margin-inline: 0.5%;
+  background-color: #00000050;
   border-radius: 4px;
   overflow: hidden;
 }
 
-.scrollbar_indicator_thumb {
+.scrollable_img_gallery_indicator_track.no_overflow {
+  display: none;
+}
+
+.scrollable_img_gallery_indicator_thumb {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #777777;
+  background-color: #000000;
   border-radius: 4px;
-  transition: left 0.08s linear;
-}
-
-/* Hide the indicator when scrolling is unnecessary */
-.scrollbar_indicator.no_overflow {
-  display: none;
+  transition: left 0.1s linear;
 }
 
 .scrollable_img_gallery {
@@ -1053,6 +1052,10 @@ a, a:visited, a:hover, a:active {
 
 /* For smaller screens */
 
+.responsive_break {
+  display: none;
+}
+
 @media only screen and (max-width: 1000px) and (orientation: portrait){
   html, body {
     font-size: 0.8rem;
@@ -1065,6 +1068,9 @@ a, a:visited, a:hover, a:active {
   }
   .section {
     scroll-margin-top: 0px;
+  }
+  .responsive_break {
+    display: initial;
   }
 }
 @media only screen and (max-width: 1000px) and (orientation: landscape){
@@ -1079,5 +1085,8 @@ a, a:visited, a:hover, a:active {
   }
   .section {
     scroll-margin-top: 0px;
+  }
+  .responsive_break {
+    display: initial;
   }
 }
