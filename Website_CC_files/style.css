@@ -712,6 +712,15 @@ a, a:visited, a:hover, a:active {
   direction: rtl;
 }
 
+.year_menu_drop_down::-webkit-scrollbar-thumb {
+  background: #00000025;
+  border-radius: 4px;
+}
+
+.year_menu_drop_down::-webkit-scrollbar-thumb:hover {
+  background: #00000075;
+}
+
 .year_menu_drop_down a {
   display: inline-block;
   position: relative;
@@ -732,7 +741,7 @@ a, a:visited, a:hover, a:active {
   margin-top: 6px;
   margin-bottom: 2px;
   margin-inline: 0.5%;
-  background-color: #00000050;
+  background-color: #00000025;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -747,7 +756,7 @@ a, a:visited, a:hover, a:active {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000000;
+  background-color: #00000075;
   border-radius: 4px;
   transition: left 0.1s linear;
 }

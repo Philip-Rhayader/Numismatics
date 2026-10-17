@@ -451,6 +451,7 @@ function make_year_menu_drop_down(cell_id, items) {
   let year_menu_drop_down_is_opened = false;
   let year_menu_drop_down_timer = null;
   const year_menu_drop_down_timeout = 5000;
+  let year_menu_drop_down_pointer_inside = false;
 
   // Create the count indicator
   const year_menu_drop_down_count = document.createElement("sup");
@@ -651,18 +652,21 @@ function make_year_menu_drop_down(cell_id, items) {
   cell.style.position = "relative";
   cell.appendChild(year_menu_drop_down);
 
-  // Function to close the year menu drop-down and reset its state
+// Function to close the year menu drop-down and reset its state
   function close_year_menu_drop_down() {
     clearTimeout(year_menu_drop_down_timer);
     year_menu_drop_down_timer = null;
     year_menu_drop_down.style.display = "none";
     year_menu_drop_down_is_opened = false;
+    year_menu_drop_down_pointer_inside = false;
     year_menu_drop_down_count.setAttribute("aria-expanded", "false");
   }
   // Function to reset the year menu drop-down timer
   function reset_year_menu_drop_down_timer() {
     clearTimeout(year_menu_drop_down_timer);
+    year_menu_drop_down_timer = null;
     if (!year_menu_drop_down_is_opened) return;
+    if (year_menu_drop_down_pointer_inside) return;
     year_menu_drop_down_timer = setTimeout(() => {
       close_year_menu_drop_down();
     }, year_menu_drop_down_timeout);
@@ -681,7 +685,26 @@ function make_year_menu_drop_down(cell_id, items) {
   }
 
   // Interactions with the year menu drop-down
-  year_menu_drop_down_count.addEventListener("click", year_menu_drop_down_toggle);
+  year_menu_drop_down.addEventListener("pointerenter", () => {
+    year_menu_drop_down_pointer_inside = true;
+    clearTimeout(year_menu_drop_down_timer);
+    year_menu_drop_down_timer = null;
+  });
+  year_menu_drop_down.addEventListener("pointerleave", () => {
+    year_menu_drop_down_pointer_inside = false;
+    reset_year_menu_drop_down_timer();
+  });
+  ["pointerdown", "pointermove", "touchstart", "touchmove", "wheel", "scroll", "keydown", "focusin"].forEach(event_name => {
+    year_menu_drop_down.addEventListener(
+      event_name,
+      reset_year_menu_drop_down_timer,
+      { passive: event_name !== "keydown" }
+    );
+  });
+  year_menu_drop_down_count.addEventListener(
+    "click",
+    year_menu_drop_down_toggle
+  );
   year_menu_drop_down_count.addEventListener("keydown", function(event) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -690,8 +713,6 @@ function make_year_menu_drop_down(cell_id, items) {
       close_year_menu_drop_down();
     }
   });
-  year_menu_drop_down.addEventListener("mousemove", reset_year_menu_drop_down_timer);
-  year_menu_drop_down.addEventListener("keydown", reset_year_menu_drop_down_timer);
   document.addEventListener("click", function(event) {
     if (!cell.contains(event.target)) {
       close_year_menu_drop_down();
