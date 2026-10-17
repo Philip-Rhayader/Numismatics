@@ -694,16 +694,28 @@ function make_year_menu_drop_down(cell_id, items) {
     year_menu_drop_down_pointer_inside = false;
     reset_year_menu_drop_down_timer();
   });
-  ["pointerdown", "pointermove", "touchstart", "touchmove", "wheel", "scroll", "keydown", "focusin"].forEach(event_name => {
-    year_menu_drop_down.addEventListener(event_name, () => {
-        if (event_name === "pointermove" || event_name === "touchmove") {
-          year_menu_drop_down_pointer_inside = true;
-          clearTimeout(year_menu_drop_down_timer);
-          year_menu_drop_down_timer = null;
-        } else {
-          reset_year_menu_drop_down_timer();
-        }
-      },
+  year_menu_drop_down.addEventListener("pointermove", () => {
+    if (year_menu_drop_down_timer !== null) {
+      clearTimeout(year_menu_drop_down_timer);
+      year_menu_drop_down_timer = null;
+    }
+  });
+  year_menu_drop_down.addEventListener("touchstart", () => {
+    clearTimeout(year_menu_drop_down_timer);
+    year_menu_drop_down_timer = null;
+  }, { passive: true });
+  year_menu_drop_down.addEventListener("touchend", () => {
+    year_menu_drop_down_pointer_inside = false;
+    reset_year_menu_drop_down_timer();
+  }, { passive: true });
+  year_menu_drop_down.addEventListener("touchcancel", () => {
+    year_menu_drop_down_pointer_inside = false;
+    reset_year_menu_drop_down_timer();
+  }, { passive: true });
+  ["wheel", "scroll", "keydown", "focusin"].forEach(event_name => {
+    year_menu_drop_down.addEventListener(
+      event_name,
+      reset_year_menu_drop_down_timer,
       { passive: event_name !== "keydown" }
     );
   });
@@ -720,9 +732,7 @@ function make_year_menu_drop_down(cell_id, items) {
     }
   });
   document.addEventListener("click", function(event) {
-    if (!cell.contains(event.target)) {
-      close_year_menu_drop_down();
-    }
+    if (!cell.contains(event.target)) close_year_menu_drop_down();
   });
 }
 </script>
