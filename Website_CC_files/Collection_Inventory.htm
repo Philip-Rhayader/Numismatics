@@ -289,9 +289,15 @@ function make_year_menu_drop_down(cell_id, items) {
     reset_year_menu_drop_down_timer();
   });
   ["pointerdown", "pointermove", "touchstart", "touchmove", "wheel", "scroll", "keydown", "focusin"].forEach(event_name => {
-    year_menu_drop_down.addEventListener(
-      event_name,
-      reset_year_menu_drop_down_timer,
+    year_menu_drop_down.addEventListener(event_name, () => {
+        if (event_name === "pointermove" || event_name === "touchmove") {
+          year_menu_drop_down_pointer_inside = true;
+          clearTimeout(year_menu_drop_down_timer);
+          year_menu_drop_down_timer = null;
+        } else {
+          reset_year_menu_drop_down_timer();
+        }
+      },
       { passive: event_name !== "keydown" }
     );
   });
