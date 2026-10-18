@@ -390,11 +390,10 @@ year_menu_drop_down
     } else {
       year_menu_drop_down_is_opened = true;
       year_menu_drop_down.style.display = "block";
+      update_year_menu_drop_down_indicator();
       year_menu_drop_down_count.setAttribute("aria-expanded", "true");
       //hello3
-      requestAnimationFrame(
-        update_year_menu_drop_down_indicator
-      );
+      requestAnimationFrame(update_year_menu_drop_down_indicator);
       //hello3
       reset_year_menu_drop_down_timer();
     }

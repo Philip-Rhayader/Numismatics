@@ -1103,6 +1103,48 @@ a, a:visited, a:hover, a:active {
   .scrollable_img_gallery_indicator_track {
     height: 3px;
   }
+  .fancybox__content {
+    width: 65%;
+  }
+  .fancybox__caption {
+    width: 80%;
+  }
+  .fancybox--gold .fancybox__caption,
+  .fancybox--silver .fancybox__caption,
+  .fancybox--bronze .fancybox__caption,
+  .fancybox--rhodium .fancybox__caption {
+    width: 80%;
+  }
+  .fancybox__nav {
+    --f-button-width: 32px;
+    --f-button-height: 32px;
+    --f-button-svg-height: 13px;
+    --f-button-svg-width: 13px;
+  }
+  .fancybox--gold .fancybox__nav,
+  .fancybox--silver .fancybox__nav,
+  .fancybox--bronze .fancybox__nav,
+  .fancybox--rhodium .fancybox__nav {
+    --f-button-width: 32px;
+    --f-button-height: 32px;
+    --f-button-svg-height: 13px;
+    --f-button-svg-width: 13px;
+  }
+  .fancybox__thumbs.is-classic {
+    --f-thumb-width: 64px;
+    --f-thumb-height: 64px;
+    --f-thumb-gap: 24px;
+    --f-thumb-border-radius: 12px;
+  }
+  .fancybox--gold .fancybox__thumbs.is-classic,
+  .fancybox--silver .fancybox__thumbs.is-classic,
+  .fancybox--bronze .fancybox__thumbs.is-classic,
+  .fancybox--rhodium .fancybox__thumbs.is-classic {
+    --f-thumb-width: 64px;
+    --f-thumb-height: 64px;
+    --f-thumb-gap: 24px;
+    --f-thumb-border-radius: 12px;
+  }
 }
 @media only screen and (max-width: 1000px) and (orientation: landscape){
   html, body {
@@ -1125,5 +1167,47 @@ a, a:visited, a:hover, a:active {
   }
   .scrollable_img_gallery_indicator_track {
     height: 3px;
+  }
+  .fancybox__content {
+    width: 65%;
+  }
+  .fancybox__caption {
+    width: 80%;
+  }
+  .fancybox--gold .fancybox__caption,
+  .fancybox--silver .fancybox__caption,
+  .fancybox--bronze .fancybox__caption,
+  .fancybox--rhodium .fancybox__caption {
+    width: 80%;
+  }
+  .fancybox__nav {
+    --f-button-width: 32px;
+    --f-button-height: 32px;
+    --f-button-svg-height: 13px;
+    --f-button-svg-width: 13px;
+  }
+  .fancybox--gold .fancybox__nav,
+  .fancybox--silver .fancybox__nav,
+  .fancybox--bronze .fancybox__nav,
+  .fancybox--rhodium .fancybox__nav {
+    --f-button-width: 32px;
+    --f-button-height: 32px;
+    --f-button-svg-height: 13px;
+    --f-button-svg-width: 13px;
+  }
+  .fancybox__thumbs.is-classic {
+    --f-thumb-width: 64px;
+    --f-thumb-height: 64px;
+    --f-thumb-gap: 24px;
+    --f-thumb-border-radius: 12px;
+  }
+  .fancybox--gold .fancybox__thumbs.is-classic,
+  .fancybox--silver .fancybox__thumbs.is-classic,
+  .fancybox--bronze .fancybox__thumbs.is-classic,
+  .fancybox--rhodium .fancybox__thumbs.is-classic {
+    --f-thumb-width: 64px;
+    --f-thumb-height: 64px;
+    --f-thumb-gap: 24px;
+    --f-thumb-border-radius: 12px;
   }
 }
