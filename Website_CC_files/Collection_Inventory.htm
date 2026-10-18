@@ -42,7 +42,7 @@ function make_year_menu_drop_down(cell_id, items) {
     });
   if (!data.length) return;
 
-  let year_menu_drop_down_is_opened = false;
+  let year_menu_drop_down_opened = false;
   let year_menu_drop_down_timer = null;
   const year_menu_drop_down_timeout = 5000;
   let year_menu_drop_down_pointer_inside = false;
@@ -95,18 +95,18 @@ function make_year_menu_drop_down(cell_id, items) {
   data.forEach(([year, [href, class_name]]) => {
     const label = String(year);
     let final_label = label;
-    // Consider trailing symbols: ?, *, or both in either order
-    const symbols = [];
+    // Consider trailing label symbols: ?, *, or both in either order
+    const label_symbols = [];
     while (final_label.endsWith("?") || final_label.endsWith("*")) {
       if (final_label.endsWith("?")) {
         final_label = final_label.slice(0, -1);
-        symbols.push({symbol: "\u224B", color: "#ff0000"});
+        label_symbols.push({symbol: "\u224B", color: "#ff0000"});
       } else if (final_label.endsWith("*")) {
         final_label = final_label.slice(0, -1);
-        symbols.push({symbol: "⭑", color: "#3b95ff"});
+        label_symbols.push({symbol: "⭑", color: "#3b95ff"});
       }
     }
-    symbols.sort((symbol_1, symbol_2) =>
+    label_symbols.sort((symbol_1, symbol_2) =>
       symbol_1.symbol === "\u224B" ? -1 : symbol_2.symbol === "\u224B" ? 1 : 0
     );
     // Full-width row holding the background
@@ -156,7 +156,6 @@ function make_year_menu_drop_down(cell_id, items) {
     inner_wrapper.style.setProperty("direction", "ltr", "important");
     inner_wrapper.style.setProperty("align-items", "baseline", "important");
     inner_wrapper.style.setProperty("gap", "0", "important");
-    inner_wrapper.style.setProperty("padding", "2px 2px", "important"); // To change after if a scrollbar is needed
     inner_wrapper.style.setProperty("margin", "0", "important");
     inner_wrapper.style.setProperty("width", "auto", "important");
     inner_wrapper.style.setProperty("max-width", "100%", "important");
@@ -199,8 +198,8 @@ function make_year_menu_drop_down(cell_id, items) {
         }
       }
     });
-    // Insert symbols before the link, separated by a black comma if more than one symbol
-    symbols.forEach((symbol, symbol_index) => {
+    // Insert label symbols before the link, separated by a black comma if more than one symbol
+    label_symbols.forEach((symbol, symbol_index) => {
       // Black comma between symbols
       if (symbol_index > 0) {
         const comma = document.createElement("sup");
@@ -218,7 +217,7 @@ function make_year_menu_drop_down(cell_id, items) {
         comma.style.setProperty("flex", "0 0 auto", "important");
         inner_wrapper.appendChild(comma);
       }
-      // Superscript list of symbols
+      // Superscript list of label symbols
       const prefix = document.createElement("sup");
       prefix.textContent = symbol.symbol;
       prefix.style.setProperty("color", symbol.color, "important");
@@ -234,7 +233,7 @@ function make_year_menu_drop_down(cell_id, items) {
       prefix.style.setProperty("flex", "0 0 auto", "important");
       inner_wrapper.appendChild(prefix);
     });
-    // Append the content link immediately after the symbols
+    // Append the content link immediately after the label symbols
     inner_wrapper.appendChild(content_link);
     // Append the inner_wrapper to the row
     row.appendChild(inner_wrapper);
@@ -242,125 +241,70 @@ function make_year_menu_drop_down(cell_id, items) {
     year_menu_drop_down.appendChild(row);
   });
 
-//hello
-  // Create the custom scrollbar track
-  const year_menu_drop_down_indicator_track =
-    document.createElement("div");
-
-  year_menu_drop_down_indicator_track.className =
-    "year_menu_drop_down_indicator_track";
-
-  // Create the custom scrollbar thumb
-  const year_menu_drop_down_indicator_thumb =
-    document.createElement("div");
-
-  year_menu_drop_down_indicator_thumb.className =
-    "year_menu_drop_down_indicator_thumb";
-
-  year_menu_drop_down_indicator_track.appendChild(
-    year_menu_drop_down_indicator_thumb
-  );
+  // Create the scrollbar
+  const year_menu_drop_down_indicator_track = document.createElement("div");
+  year_menu_drop_down_indicator_track.className = "year_menu_drop_down_indicator_track";
+  const year_menu_drop_down_indicator_thumb = document.createElement("div");
+  year_menu_drop_down_indicator_thumb.className = "year_menu_drop_down_indicator_thumb";
+  year_menu_drop_down_indicator_track.appendChild(year_menu_drop_down_indicator_thumb);
 
   // Position the year menu drop-down relative to the cell
   cell.style.position = "relative";
   cell.appendChild(year_menu_drop_down);
 
-  // Add the scrollbar as a sibling so it stays in place while scrolling
+  // Add the scrollbar as a sibling
   cell.appendChild(year_menu_drop_down_indicator_track);
-//hello
 
-//hello2
-
-
-  // Update the custom scrollbar's position and size
-function update_year_menu_drop_down_indicator() {
-  const cell_rect = cell.getBoundingClientRect();
-  const menu_rect = year_menu_drop_down.getBoundingClientRect();
-
-  const visible_height = year_menu_drop_down.clientHeight;
-  const total_height = year_menu_drop_down.scrollHeight;
-
-const scrollbar_needed = total_height > visible_height;
-
-const is_mobile_portrait = window.matchMedia(
-  "( (max-width: 1000px) and (orientation: portrait) ) or ( (max-width: 1000px) and (orientation: landscape) )"
-).matches;
-
-const scrollbar_width = is_mobile_portrait ? 3 : 5;
-
-year_menu_drop_down
-  .querySelectorAll("div > div")
-  .forEach(inner_wrapper => {
-    inner_wrapper.style.setProperty(
-      "padding",
-      scrollbar_needed
-        ? `2px 2px 2px ${scrollbar_width}px`
-        : "2px 2px",
-      "important"
-    );
-  });
-
-  // Hide when the menu is closed or scrolling is unnecessary
-  if (
-    !year_menu_drop_down_is_opened ||
-    total_height <= visible_height ||
-    visible_height <= 0
-  ) {
-    year_menu_drop_down_indicator_track.style.display = "none";
-    return;
+  // Update the position and size of the scrollbar
+  function update_year_menu_drop_down_indicator() {
+    const year_menu_drop_down_visible_height = year_menu_drop_down.clientHeight;
+    const year_menu_drop_down_total_height = year_menu_drop_down.scrollHeight;
+    const year_menu_drop_down_max_scroll = year_menu_drop_down_total_height - year_menu_drop_down_visible_height;
+    const year_menu_drop_down_scrollbar_needed = year_menu_drop_down_total_height > year_menu_drop_down_visible_height;
+    const viewport_is_mobile = window.matchMedia(
+      "( (max-width: 1000px) and (orientation: portrait) ) or ( (max-width: 1000px) and (orientation: landscape) )"
+    ).matches;
+    const year_menu_drop_down_scrollbar_width = viewport_is_mobile ? 3 : 5;
+    year_menu_drop_down.querySelectorAll("div > div").forEach(inner_wrapper => {
+      inner_wrapper.style.setProperty(
+        "padding",
+        year_menu_drop_down_scrollbar_needed
+          ? `2px 2px 2px ${year_menu_drop_down_scrollbar_width}px`
+          : "2px 2px",
+        "important"
+      );
+    });
+    if (!year_menu_drop_down_opened || year_menu_drop_down_total_height <= year_menu_drop_down_visible_height || year_menu_drop_down_visible_height <= 0) {
+      year_menu_drop_down_indicator_track.style.display = "none";
+      return;
+    } else {
+      year_menu_drop_down_indicator_track.style.display = "block";
+      const cell_rectangle = cell.getBoundingClientRect();
+      const year_menu_drop_down_rectangle = year_menu_drop_down.getBoundingClientRect();
+      year_menu_drop_down_indicator_track.style.left = `${year_menu_drop_down_rectangle.left - cell_rectangle.left + 1}px`;
+      year_menu_drop_down_indicator_track.style.top = `${year_menu_drop_down_rectangle.top - cell_rectangle.top + 1}px`;
+      year_menu_drop_down_indicator_track.style.height = `${year_menu_drop_down_visible_height - 2}px`;
+      const year_menu_drop_down_indicator_track_height = year_menu_drop_down_indicator_track.clientHeight;
+      const year_menu_drop_down_indicator_thumb_height = Math.min(
+        year_menu_drop_down_indicator_track_height,
+        Math.max(20, year_menu_drop_down_indicator_track_height * year_menu_drop_down_visible_height / year_menu_drop_down_total_height)
+      );
+      const year_menu_drop_down_indicator_thumb_max_move = Math.max(
+        0,
+        year_menu_drop_down_indicator_track_height - year_menu_drop_down_indicator_thumb_height
+      );
+      const year_menu_drop_down_indicator_thumb_scroll_progress = year_menu_drop_down_max_scroll > 0
+        ? (year_menu_drop_down.scrollTop / year_menu_drop_down_max_scroll) * year_menu_drop_down_indicator_thumb_max_move
+        : 0;
+      year_menu_drop_down_indicator_thumb.style.height = `${year_menu_drop_down_indicator_thumb_height}px`;
+      year_menu_drop_down_indicator_thumb.style.transform = `translateY(${year_menu_drop_down_indicator_thumb_scroll_progress}px)`;
+    }
   }
-
-  year_menu_drop_down_indicator_track.style.display = "block";
-
-  year_menu_drop_down_indicator_track.style.left =
-    `${menu_rect.left - cell_rect.left + 1}px`;
-
-  year_menu_drop_down_indicator_track.style.top =
-    `${menu_rect.top - cell_rect.top + 1}px`;
-
-  year_menu_drop_down_indicator_track.style.height =
-    `${visible_height - 2}px`;
-
-  const actual_track_height =
-    year_menu_drop_down_indicator_track.clientHeight;
-
-  const thumb_height = Math.min(
-    actual_track_height,
-    Math.max(20, actual_track_height * visible_height / total_height)
-  );
-
-  const max_thumb_top = Math.max(
-    0,
-    actual_track_height - thumb_height
-  );
-
-  const max_scroll_top = total_height - visible_height;
-
-  const thumb_top = max_scroll_top > 0
-    ? (year_menu_drop_down.scrollTop / max_scroll_top) *
-      max_thumb_top
-    : 0;
-
-  year_menu_drop_down_indicator_thumb.style.height =
-    `${thumb_height}px`;
-
-  year_menu_drop_down_indicator_thumb.style.transform =
-    `translateY(${thumb_top}px)`;
-}
-
-  // Update the indicator whenever the menu scrolls
   year_menu_drop_down.addEventListener(
     "scroll",
     update_year_menu_drop_down_indicator,
     { passive: true }
   );
-
-
-//hello2
-
-  // // Position the year menu drop-down relative to the cell
-  // cell.style.position = "relative";
-  // cell.appendChild(year_menu_drop_down);
 
   // Function to close the year menu drop-down and reset its state
   function close_year_menu_drop_down() {
@@ -368,7 +312,7 @@ year_menu_drop_down
     year_menu_drop_down_timer = null;
     year_menu_drop_down.style.display = "none";
     year_menu_drop_down_indicator_track.style.display = "none";
-    year_menu_drop_down_is_opened = false;
+    year_menu_drop_down_opened = false;
     year_menu_drop_down_pointer_inside = false;
     year_menu_drop_down_count.setAttribute("aria-expanded", "false");
   }
@@ -376,7 +320,7 @@ year_menu_drop_down
   function reset_year_menu_drop_down_timer() {
     clearTimeout(year_menu_drop_down_timer);
     year_menu_drop_down_timer = null;
-    if (!year_menu_drop_down_is_opened) return;
+    if (!year_menu_drop_down_opened) return;
     if (year_menu_drop_down_pointer_inside) return;
     year_menu_drop_down_timer = setTimeout(() => {
       close_year_menu_drop_down();
@@ -385,16 +329,14 @@ year_menu_drop_down
   // Function to open or close the year menu drop-down
   function year_menu_drop_down_toggle(event) {
     event.stopPropagation();
-    if (year_menu_drop_down_is_opened) {
+    if (year_menu_drop_down_opened) {
       close_year_menu_drop_down();
     } else {
-      year_menu_drop_down_is_opened = true;
+      year_menu_drop_down_opened = true;
       year_menu_drop_down.style.display = "block";
       update_year_menu_drop_down_indicator();
       year_menu_drop_down_count.setAttribute("aria-expanded", "true");
-      //hello3
       requestAnimationFrame(update_year_menu_drop_down_indicator);
-      //hello3
       reset_year_menu_drop_down_timer();
     }
   }

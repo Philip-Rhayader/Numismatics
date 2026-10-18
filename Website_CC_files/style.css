@@ -802,7 +802,8 @@ a, a:visited, a:hover, a:active {
   display: none;
 }
 
-.scrollable_img_gallery_start_hidden_toggle_more_less {
+.scrollable_img_gallery_start_hidden_toggle_more_less,
+.more_less_button {
   display: block;
   width: 100%;
   flex: none;
@@ -886,6 +887,12 @@ a, a:visited, a:hover, a:active {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+/* Style for hidden record description */
+
+.record_description_hidden {
+  display: none;
 }
 
 /* Style for Fancybox */
@@ -1094,6 +1101,7 @@ a, a:visited, a:hover, a:active {
   .section {
     scroll-margin-top: 0px;
   }
+  /* Style for the year menu drop-down */
   .responsive_break {
     display: initial;
   }
@@ -1103,6 +1111,7 @@ a, a:visited, a:hover, a:active {
   .scrollable_img_gallery_indicator_track {
     height: 3px;
   }
+  /* Style for Fancybox */
   .fancybox__content {
     width: 65%;
   }
@@ -1159,6 +1168,7 @@ a, a:visited, a:hover, a:active {
   .section {
     scroll-margin-top: 0px;
   }
+  /* Style for the year menu drop-down */
   .responsive_break {
     display: initial;
   }
@@ -1168,6 +1178,7 @@ a, a:visited, a:hover, a:active {
   .scrollable_img_gallery_indicator_track {
     height: 3px;
   }
+  /* Style for Fancybox */
   .fancybox__content {
     width: 65%;
   }
