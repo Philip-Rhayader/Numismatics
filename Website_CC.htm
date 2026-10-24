@@ -600,12 +600,44 @@ function make_year_menu_drop_down(cell_id, items) {
       event.preventDefault();
       event.stopPropagation();
       close_year_menu_drop_down();
-      if (href) {
-        if (href.startsWith("#")) {
-          window.location.hash = href.substring(1);
-        } else {
-          window.location.href = href;
+      if (!href) return;
+      if (!href.startsWith("#")) {
+        window.location.href = href;
+        return;
+      }
+      const target_id = decodeURIComponent(href.substring(1));
+      const target_el = document.getElementById(target_id);
+      if (target_el) {
+        const match = target_id.match(/^(.+)_([^.]+)\.(\d+)$/);
+        if (match) {
+          const storage_number = match[1];
+          const seat_part_1 = match[2];
+          const seat_coin_number = Number(match[3]);
+          const is_coin_with_toggle_more_less =
+            (storage_number === "01B01" &&
+              seat_part_1 === "01" &&
+              seat_coin_number === 0) ||
+            (storage_number === "03A" &&
+              seat_part_1 === "05" &&
+              seat_coin_number === 0);
+          if (!is_coin_with_toggle_more_less) {
+            const gallery_id = "scrollable_img_gallery_" + storage_number.substring(0, 2);
+            const gallery_el = document.getElementById(gallery_id);
+            if (gallery_el && !gallery_el.classList.contains("show_hidden_flip_card")) {
+              const more_less_button = gallery_el.querySelector(
+                "button.scrollable_img_gallery_start_hidden_toggle_more_less"
+              );
+              if (more_less_button) more_less_button.click();
+            }
+          }
         }
+        window.location.hash = target_id;
+        requestAnimationFrame(() => {
+          const updated_target_el = document.getElementById(target_id);
+          if (updated_target_el) updated_target_el.scrollIntoView();
+        });
+      } else {
+        window.location.hash = target_id;
       }
     });
     // Insert label symbols before the link, separated by a black comma if more than one symbol
@@ -38860,7 +38892,7 @@ Unfortunately the emperor lived long enough to see the undoing of much of his ac
 </tr>
 <tr id="03A_05.06_record.features_Table_Row" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_full text"></p><p>This coin was submitted to NGC for grading. The grade that I expected it would receive was XF★; Strike: 4/5; Surface: 4/5 or, more realistically, XF; Strike: 4/5; Surface: 4/5. The grade that it received was Ch XF; Strike: 5/5; Surface: 4/5, which met my expectation.</p>
-<p>My original submission did not request that the pedigree "<b>Kampmann 75.7 (=this coin)</b>" be included on the certification label. <b>The holder has been sent to NGC with the request that the pedigree be included.</b></p></td>
+<p>My original submission did not request that the pedigree "<b>Kampmann 75.7 (=this coin)</b>" be included. The holder was sent to NGC with the request that this pedigree be included. This pedigree was included as "<b>Kampmann 75.7 (=this)</b>".</p></td>
 </tr>
 <tr id="03A_05.06_titles.edge_Table_Row" style="display: none;" class="show_hide">
   
@@ -39018,7 +39050,7 @@ Unfortunately the emperor lived long enough to see the undoing of much of his ac
 
 <tr id="03A_05.06_record.pedigree_Table_Row" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text" style="vertical-align: top;"><p><b>The CC Collection</b>, acquired at Münzzentrum Rheinland Auction 202: Ancient, German and World Coins, Medals, Banknotes - Part 1 on 9 October 2024 as Lot 231 (see <a href="https://www.biddr.com/auctions/muenzzentrum/browse?a=5005&l=6079742" target="_blank" style="max-width: 100%">https://www.biddr.com/auctions/muenzzentrum/browse?a=5005&l=6079742</a>)</p>
-<p><b>Kampmann 75.7 (=this coin)</b></p>
+<p><b>Kampmann 75.7 (=this)</b></p>
 <p>Ex Numismatik Lanz München Auction 112: Münzen der Antike - Part 2 on 26 November 2002, Lot 809, Starting price: EUR 60, Estimation: EUR 100, Price realised: Hammer price: EUR 160 + Buyer's premium (22%, incl. VAT): EUR 35.2 = EUR 195.2 ~ GBP 124 (see <a href="https://coryssa.org/coins/413479" target="_blank" style="max-width: 100%">https://coryssa.org/coins/413479</a>)</p></td>
 </tr>
 
@@ -46793,7 +46825,7 @@ Unfortunately the emperor lived long enough to see the undoing of much of his ac
    
 </tr>
 <tr id="03A_07.02_record.features_Table_Row" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_full text"></p><p>The front of the holder of this NGC-certified coin has a bad scratch, which I believe was caused by mishandling at the eBay International Shipping Hub. The layers of the original packaging must have been opened with a sharp object at the eBay International Shipping Hub, probably to check the contents. I subsequently contacted eBay to report this problem but eBay did not acknowledge any responsability. The only solution proposed by eBay was to return the item for a full refund. Since I had no intention to return the item as I would not be able to find a replacement, I kept the item as is. <b>The holder has been sent to NGC for reholdering.</b></p></td>
+  <td colspan="10" class="cell_full text"></p><p>The front of the holder of this NGC-certified coin has a bad scratch, which I believe was caused by mishandling at the eBay International Shipping Hub. The layers of the original packaging must have been opened with a sharp object at the eBay International Shipping Hub, probably to check the contents. I subsequently contacted eBay to report this problem but eBay did not acknowledge any responsability. The only solution proposed by eBay was to return the item for a full refund. Since I had no intention to return the item as I would not be able to find a replacement, I kept the item as is. The holder was sent to NGC for reholdering. The holder was replaced.</p></td>
 </tr>
 <tr id="03A_07.02_titles.edge_Table_Row" style="display: none;" class="show_hide">
   
@@ -48702,7 +48734,7 @@ Unfortunately the emperor lived long enough to see the undoing of much of his ac
    
 </tr>
 <tr id="03B_09.00_record.features_Table_Row" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_full text"></p><p>The front and back of the holder of this NGC-certified coin have several scratches, which I believe were caused by excessive handling. <b>The holder has been sent to NGC for reholdering.</b></p>
+  <td colspan="10" class="cell_full text"></p><p>The front and back of the holder of this NGC-certified coin have several scratches, which I believe were caused by excessive handling. The holder has been sent to NGC for reholdering. The holder was replaced.</p>
 <p>Tiberius' denarius coinage was limited to two reverse types, featuring either Tiberius in <b>quadriga</b> (this type) or a female figure seated on a throne (the "Tribute Penny”). This type is for some people (including my <b>son</b> Louis and me) more attractive than that of the "Tribute Penny".</p></td>
 </tr>
 <tr id="03B_09.00_titles.edge_Table_Row" style="display: none;" class="show_hide">

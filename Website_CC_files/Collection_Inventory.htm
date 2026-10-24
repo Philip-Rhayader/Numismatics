@@ -190,12 +190,44 @@ function make_year_menu_drop_down(cell_id, items) {
       event.preventDefault();
       event.stopPropagation();
       close_year_menu_drop_down();
-      if (href) {
-        if (href.startsWith("#")) {
-          window.location.hash = href.substring(1);
-        } else {
-          window.location.href = href;
+      if (!href) return;
+      if (!href.startsWith("#")) {
+        window.location.href = href;
+        return;
+      }
+      const target_id = decodeURIComponent(href.substring(1));
+      const target_el = document.getElementById(target_id);
+      if (target_el) {
+        const match = target_id.match(/^(.+)_([^.]+)\.(\d+)$/);
+        if (match) {
+          const storage_number = match[1];
+          const seat_part_1 = match[2];
+          const seat_coin_number = Number(match[3]);
+          const is_coin_with_toggle_more_less =
+            (storage_number === "01B01" &&
+              seat_part_1 === "01" &&
+              seat_coin_number === 0) ||
+            (storage_number === "03A" &&
+              seat_part_1 === "05" &&
+              seat_coin_number === 0);
+          if (!is_coin_with_toggle_more_less) {
+            const gallery_id = "scrollable_img_gallery_" + storage_number.substring(0, 2);
+            const gallery_el = document.getElementById(gallery_id);
+            if (gallery_el && !gallery_el.classList.contains("show_hidden_flip_card")) {
+              const more_less_button = gallery_el.querySelector(
+                "button.scrollable_img_gallery_start_hidden_toggle_more_less"
+              );
+              if (more_less_button) more_less_button.click();
+            }
+          }
         }
+        window.location.hash = target_id;
+        requestAnimationFrame(() => {
+          const updated_target_el = document.getElementById(target_id);
+          if (updated_target_el) updated_target_el.scrollIntoView();
+        });
+      } else {
+        window.location.hash = target_id;
       }
     });
     // Insert label symbols before the link, separated by a black comma if more than one symbol
