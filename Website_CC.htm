@@ -634,15 +634,16 @@ function make_year_menu_drop_down(cell_id, items) {
         history.pushState(null, "", "#" + target_id);
 
         requestAnimationFrame(() => {
-          const updated_target_el = document.getElementById(target_id);
+          requestAnimationFrame(() => {
+            const target = document.getElementById(target_id);
+            if (!target) return;
 
-          if (updated_target_el) {
-            updated_target_el.scrollIntoView({
+            target.scrollIntoView({
               behavior: "auto",
               block: "start",
               inline: "nearest"
             });
-          }
+          });
         });
       } else {
         window.location.hash = target_id;
