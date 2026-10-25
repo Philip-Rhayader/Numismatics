@@ -225,13 +225,17 @@ function make_year_menu_drop_down(cell_id, items) {
 
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            const target = document.getElementById(target_id);
-            if (!target) return;
+            const updated_target_el = document.getElementById(target_id);
+            if (!updated_target_el) return;
 
-            target.scrollIntoView({
-              behavior: "auto",
-              block: "start",
-              inline: "nearest"
+            const target_top =
+              updated_target_el.getBoundingClientRect().top +
+              window.scrollY;
+
+            window.scrollTo({
+              top: target_top,
+              left: window.scrollX,
+              behavior: "auto"
             });
           });
         });
