@@ -221,6 +221,25 @@ function make_year_menu_drop_down(cell_id, items) {
             }
           }
         }
+        history.pushState(null, "", "#" + target_id);
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const updated_target_el = document.getElementById(target_id);
+            if (!updated_target_el) return;
+
+            const target_top =
+              updated_target_el.getBoundingClientRect().top +
+              window.scrollY;
+
+            window.scrollTo({
+              top: target_top,
+              left: window.scrollX,
+              behavior: "auto"
+            });
+          });
+        });
+      } else {
         window.location.hash = target_id;
       }
     });
