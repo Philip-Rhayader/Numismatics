@@ -235,8 +235,8 @@ td.bg_does_not_exist:after {
   display: block;
   position: absolute;
   z-index: -10;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -252,315 +252,52 @@ td.bg_does_not_exist_multiple:after {
   display: block;
   position: absolute;
   z-index: -10;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
   background: linear-gradient(to right top, #ffffff00 48%, #00000075 50%, #ffffff00 52%);
 }
-td.bg_000_100_complete {
-  background: linear-gradient(to right, #00ff0075   0%, #ff000075   0%);
-}
-td.bg_001_100_complete {
-  background: linear-gradient(to right, #00ff0075   1%, #ff000075   1%);
-}
-td.bg_002_100_complete {
-  background: linear-gradient(to right, #00ff0075   2%, #ff000075   2%);
-}
-td.bg_003_100_complete {
-  background: linear-gradient(to right, #00ff0075   3%, #ff000075   3%);
-}
-td.bg_004_100_complete {
-  background: linear-gradient(to right, #00ff0075   4%, #ff000075   4%);
-}
-td.bg_005_100_complete {
-  background: linear-gradient(to right, #00ff0075   5%, #ff000075   5%);
-}
-td.bg_006_100_complete {
-  background: linear-gradient(to right, #00ff0075   6%, #ff000075   6%);
-}
-td.bg_007_100_complete {
-  background: linear-gradient(to right, #00ff0075   7%, #ff000075   7%);
-}
-td.bg_008_100_complete {
-  background: linear-gradient(to right, #00ff0075   8%, #ff000075   8%);
-}
-td.bg_009_100_complete {
-  background: linear-gradient(to right, #00ff0075   9%, #ff000075   9%);
-}
-td.bg_010_100_complete {
-  background: linear-gradient(to right, #00ff0075  10%, #ff000075  10%);
-}
-td.bg_011_100_complete {
-  background: linear-gradient(to right, #00ff0075  11%, #ff000075  11%);
-}
-td.bg_012_100_complete {
-  background: linear-gradient(to right, #00ff0075  12%, #ff000075  12%);
-}
-td.bg_013_100_complete {
-  background: linear-gradient(to right, #00ff0075  13%, #ff000075  13%);
-}
-td.bg_014_100_complete {
-  background: linear-gradient(to right, #00ff0075  14%, #ff000075  14%);
-}
-td.bg_015_100_complete {
-  background: linear-gradient(to right, #00ff0075  15%, #ff000075  15%);
-}
-td.bg_016_100_complete {
-  background: linear-gradient(to right, #00ff0075  16%, #ff000075  16%);
-}
-td.bg_017_100_complete {
-  background: linear-gradient(to right, #00ff0075  17%, #ff000075  17%);
-}
-td.bg_018_100_complete {
-  background: linear-gradient(to right, #00ff0075  18%, #ff000075  18%);
-}
-td.bg_019_100_complete {
-  background: linear-gradient(to right, #00ff0075  19%, #ff000075  19%);
-}
-td.bg_020_100_complete {
-  background: linear-gradient(to right, #00ff0075  20%, #ff000075  20%);
-}
-td.bg_021_100_complete {
-  background: linear-gradient(to right, #00ff0075  21%, #ff000075  21%);
-}
-td.bg_022_100_complete {
-  background: linear-gradient(to right, #00ff0075  22%, #ff000075  22%);
-}
-td.bg_023_100_complete {
-  background: linear-gradient(to right, #00ff0075  23%, #ff000075  23%);
-}
-td.bg_024_100_complete {
-  background: linear-gradient(to right, #00ff0075  24%, #ff000075  24%);
-}
-td.bg_025_100_complete {
-  background: linear-gradient(to right, #00ff0075  25%, #ff000075  25%);
-}
-td.bg_026_100_complete {
-  background: linear-gradient(to right, #00ff0075  26%, #ff000075  26%);
-}
-td.bg_027_100_complete {
-  background: linear-gradient(to right, #00ff0075  27%, #ff000075  27%);
-}
-td.bg_028_100_complete {
-  background: linear-gradient(to right, #00ff0075  28%, #ff000075  28%);
-}
-td.bg_029_100_complete {
-  background: linear-gradient(to right, #00ff0075  29%, #ff000075  29%);
-}
-td.bg_030_100_complete {
-  background: linear-gradient(to right, #00ff0075  30%, #ff000075  30%);
-}
-td.bg_031_100_complete {
-  background: linear-gradient(to right, #00ff0075  31%, #ff000075  31%);
-}
-td.bg_032_100_complete {
-  background: linear-gradient(to right, #00ff0075  32%, #ff000075  32%);
-}
-td.bg_033_100_complete {
-  background: linear-gradient(to right, #00ff0075  33%, #ff000075  33%);
-}
-td.bg_034_100_complete {
-  background: linear-gradient(to right, #00ff0075  34%, #ff000075  34%);
-}
-td.bg_035_100_complete {
-  background: linear-gradient(to right, #00ff0075  35%, #ff000075  35%);
-}
-td.bg_036_100_complete {
-  background: linear-gradient(to right, #00ff0075  36%, #ff000075  36%);
-}
-td.bg_037_100_complete {
-  background: linear-gradient(to right, #00ff0075  37%, #ff000075  37%);
-}
-td.bg_038_100_complete {
-  background: linear-gradient(to right, #00ff0075  38%, #ff000075  38%);
-}
-td.bg_039_100_complete {
-  background: linear-gradient(to right, #00ff0075  39%, #ff000075  39%);
-}
-td.bg_040_100_complete {
-  background: linear-gradient(to right, #00ff0075  40%, #ff000075  40%);
-}
-td.bg_041_100_complete {
-  background: linear-gradient(to right, #00ff0075  41%, #ff000075  41%);
-}
-td.bg_042_100_complete {
-  background: linear-gradient(to right, #00ff0075  42%, #ff000075  42%);
-}
-td.bg_043_100_complete {
-  background: linear-gradient(to right, #00ff0075  43%, #ff000075  43%);
-}
-td.bg_044_100_complete {
-  background: linear-gradient(to right, #00ff0075  44%, #ff000075  44%);
-}
-td.bg_045_100_complete {
-  background: linear-gradient(to right, #00ff0075  45%, #ff000075  45%);
-}
-td.bg_046_100_complete {
-  background: linear-gradient(to right, #00ff0075  46%, #ff000075  46%);
-}
-td.bg_047_100_complete {
-  background: linear-gradient(to right, #00ff0075  47%, #ff000075  47%);
-}
-td.bg_048_100_complete {
-  background: linear-gradient(to right, #00ff0075  48%, #ff000075  48%);
-}
-td.bg_049_100_complete {
-  background: linear-gradient(to right, #00ff0075  49%, #ff000075  49%);
-}
-td.bg_050_100_complete {
-  background: linear-gradient(to right, #00ff0075  50%, #ff000075  50%);
-}
-td.bg_051_100_complete {
-  background: linear-gradient(to right, #00ff0075  51%, #ff000075  51%);
-}
-td.bg_052_100_complete {
-  background: linear-gradient(to right, #00ff0075  52%, #ff000075  52%);
-}
-td.bg_053_100_complete {
-  background: linear-gradient(to right, #00ff0075  53%, #ff000075  53%);
-}
-td.bg_054_100_complete {
-  background: linear-gradient(to right, #00ff0075  54%, #ff000075  54%);
-}
-td.bg_055_100_complete {
-  background: linear-gradient(to right, #00ff0075  55%, #ff000075  55%);
-}
-td.bg_056_100_complete {
-  background: linear-gradient(to right, #00ff0075  56%, #ff000075  56%);
-}
-td.bg_057_100_complete {
-  background: linear-gradient(to right, #00ff0075  57%, #ff000075  57%);
-}
-td.bg_058_100_complete {
-  background: linear-gradient(to right, #00ff0075  58%, #ff000075  58%);
-}
-td.bg_059_100_complete {
-  background: linear-gradient(to right, #00ff0075  59%, #ff000075  59%);
-}
-td.bg_060_100_complete {
-  background: linear-gradient(to right, #00ff0075  60%, #ff000075  60%);
-}
-td.bg_061_100_complete {
-  background: linear-gradient(to right, #00ff0075  61%, #ff000075  61%);
-}
-td.bg_062_100_complete {
-  background: linear-gradient(to right, #00ff0075  62%, #ff000075  62%);
-}
-td.bg_063_100_complete {
-  background: linear-gradient(to right, #00ff0075  63%, #ff000075  63%);
-}
-td.bg_064_100_complete {
-  background: linear-gradient(to right, #00ff0075  64%, #ff000075  64%);
-}
-td.bg_065_100_complete {
-  background: linear-gradient(to right, #00ff0075  65%, #ff000075  65%);
-}
-td.bg_066_100_complete {
-  background: linear-gradient(to right, #00ff0075  66%, #ff000075  66%);
-}
-td.bg_067_100_complete {
-  background: linear-gradient(to right, #00ff0075  67%, #ff000075  67%);
-}
-td.bg_068_100_complete {
-  background: linear-gradient(to right, #00ff0075  68%, #ff000075  68%);
-}
-td.bg_069_100_complete {
-  background: linear-gradient(to right, #00ff0075  69%, #ff000075  69%);
-}
-td.bg_070_100_complete {
-  background: linear-gradient(to right, #00ff0075  70%, #ff000075  70%);
-}
-td.bg_071_100_complete {
-  background: linear-gradient(to right, #00ff0075  71%, #ff000075  71%);
-}
-td.bg_072_100_complete {
-  background: linear-gradient(to right, #00ff0075  72%, #ff000075  72%);
-}
-td.bg_073_100_complete {
-  background: linear-gradient(to right, #00ff0075  73%, #ff000075  73%);
-}
-td.bg_074_100_complete {
-  background: linear-gradient(to right, #00ff0075  74%, #ff000075  74%);
-}
-td.bg_075_100_complete {
-  background: linear-gradient(to right, #00ff0075  75%, #ff000075  75%);
-}
-td.bg_076_100_complete {
-  background: linear-gradient(to right, #00ff0075  76%, #ff000075  76%);
-}
-td.bg_077_100_complete {
-  background: linear-gradient(to right, #00ff0075  77%, #ff000075  77%);
-}
-td.bg_078_100_complete {
-  background: linear-gradient(to right, #00ff0075  78%, #ff000075  78%);
-}
-td.bg_079_100_complete {
-  background: linear-gradient(to right, #00ff0075  79%, #ff000075  79%);
-}
-td.bg_080_100_complete {
-  background: linear-gradient(to right, #00ff0075  80%, #ff000075  80%);
-}
-td.bg_081_100_complete {
-  background: linear-gradient(to right, #00ff0075  81%, #ff000075  81%);
-}
-td.bg_082_100_complete {
-  background: linear-gradient(to right, #00ff0075  82%, #ff000075  82%);
-}
-td.bg_083_100_complete {
-  background: linear-gradient(to right, #00ff0075  83%, #ff000075  83%);
-}
-td.bg_084_100_complete {
-  background: linear-gradient(to right, #00ff0075  84%, #ff000075  84%);
-}
-td.bg_085_100_complete {
-  background: linear-gradient(to right, #00ff0075  85%, #ff000075  85%);
-}
-td.bg_086_100_complete {
-  background: linear-gradient(to right, #00ff0075  86%, #ff000075  86%);
-}
-td.bg_087_100_complete {
-  background: linear-gradient(to right, #00ff0075  87%, #ff000075  87%);
-}
-td.bg_088_100_complete {
-  background: linear-gradient(to right, #00ff0075  88%, #ff000075  88%);
-}
-td.bg_089_100_complete {
-  background: linear-gradient(to right, #00ff0075  89%, #ff000075  89%);
-}
-td.bg_090_100_complete {
-  background: linear-gradient(to right, #00ff0075  90%, #ff000075  90%);
-}
-td.bg_091_100_complete {
-  background: linear-gradient(to right, #00ff0075  91%, #ff000075  91%);
-}
-td.bg_092_100_complete {
-  background: linear-gradient(to right, #00ff0075  92%, #ff000075  92%);
-}
-td.bg_093_100_complete {
-  background: linear-gradient(to right, #00ff0075  93%, #ff000075  93%);
-}
-td.bg_094_100_complete {
-  background: linear-gradient(to right, #00ff0075  94%, #ff000075  94%);
-}
-td.bg_095_100_complete {
-  background: linear-gradient(to right, #00ff0075  95%, #ff000075  95%);
-}
-td.bg_096_100_complete {
-  background: linear-gradient(to right, #00ff0075  96%, #ff000075  96%);
-}
-td.bg_097_100_complete {
-  background: linear-gradient(to right, #00ff0075  97%, #ff000075  97%);
-}
-td.bg_098_100_complete {
-  background: linear-gradient(to right, #00ff0075  98%, #ff000075  98%);
-}
-td.bg_099_100_complete {
-  background: linear-gradient(to right, #00ff0075  99%, #ff000075  99%);
-}
-td.bg_100_100_complete {
-  background: linear-gradient(to right, #00ff0075 100%, #ff000075 100%);
+td.bg_gpa_progress {
+  position: relative;
+  background: linear-gradient(to right, #00ff0075 0%, #00ff0075 var(--progress_value, 0%), #ff000075 var(--progress, 0%), #ff000075 100%);
+}
+td.bg_gpa_progress::after {
+  content: "";
+  display: var(--marker_display, none);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--marker_value, 0%);
+  border-left-color: #000000;
+  border-left-style: dotted;
+  border-left-width: 2px;
+  pointer-events: none;
+}
+td.bg_gpa_progress::before {
+  content: var(--marker_label, "");
+  visibility: var(--marker_visibility, hidden);
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: var(--marker_value, 0%);
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 0;
+  background: #ffffff75;
+  width: 0.95rem;
+  aspect-ratio: 1;
+  border-radius: 50%;    
+  line-height: 1;
+  text-align: center;
+  color: #000000;
+  font-size: 0.8rem;
+  font-weight: bold;
+  pointer-events: none;
 }
 
 td a {
@@ -1092,6 +829,10 @@ a, a:visited, a:hover, a:active {
   html, body {
     font-size: 0.8rem;
   }
+  td.bg_gpa_progress::before {
+    width: 0.8rem;
+    font-size: 0.65rem;
+  }
   .title_page {
     height: 80px;
   }
@@ -1158,6 +899,10 @@ a, a:visited, a:hover, a:active {
 @media only screen and (max-width: 1000px) and (orientation: landscape){
   html, body {
     font-size: 0.8rem;
+  }
+  td.bg_gpa_progress::before {
+    width: 0.8rem;
+    font-size: 0.65rem;
   }
   .title_page {
     height: 80px;

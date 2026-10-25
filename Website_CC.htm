@@ -279,7 +279,7 @@
         <a id="collection_link" href="#Collection"><b>THE CC COLLECTION</b></a>
         <div class="collection_drop_down_list">
           
-          <a href="#Inventory" onClick="toggle_table_row_show_only('Project_Table_Row', true, 1);toggle_table_row_show_only('Inventory_Table_Row', true, 34);toggle_show_hide_show_only('Preamble_Show_Hide');toggle_table_row_show_only('Inventory_Table_Row_1');toggle_table_row_show_only('Inventory_Table_Row_2');toggle_table_row_show_only('Inventory_Table_Row_3');toggle_table_row_show_only('Inventory_Table_Row_4');toggle_table_row_show_only('Inventory_Table_Row_5');toggle_table_row_show_only('Inventory_Table_Row_6');toggle_table_row_show_only('Inventory_Table_Row_7');toggle_table_row_show_only('Inventory_Table_Row_8');toggle_table_row_show_only('Inventory_Table_Row_9');toggle_table_row_show_only('Inventory_Table_Row_10');toggle_table_row_show_only('Inventory_Table_Row_11');toggle_table_row_show_only('Inventory_Table_Row_12');toggle_table_row_show_only('Inventory_Table_Row_13');toggle_table_row_show_only('Inventory_Table_Row_14');toggle_table_row_show_only('Inventory_Table_Row_15');toggle_table_row_show_only('Inventory_Table_Row_16');toggle_table_row_show_only('Inventory_Table_Row_17');toggle_show_hide_show_only('Inventory_Show_Hide')"><b>Inventaire</b></a>
+          <a href="#Inventory" onClick="toggle_table_row_show_only('Project_Table_Row', true, 1);toggle_table_row_show_only('Inventory_Table_Row', true, 34);toggle_show_hide_show_only('Preamble_Show_Hide');toggle_table_row_show_only('Inventory_Table_Row_1');toggle_table_row_show_only('Inventory_Table_Row_2');toggle_table_row_show_only('Inventory_Table_Row_3');toggle_table_row_show_only('Inventory_Table_Row_4');toggle_table_row_show_only('Inventory_Table_Row_5');toggle_table_row_show_only('Inventory_Table_Row_6');toggle_table_row_show_only('Inventory_Table_Row_7');toggle_table_row_show_only('Inventory_Table_Row_8');toggle_table_row_show_only('Inventory_Table_Row_9');toggle_table_row_show_only('Inventory_Table_Row_10');toggle_table_row_show_only('Inventory_Table_Row_11');toggle_table_row_show_only('Inventory_Table_Row_12');toggle_table_row_show_only('Inventory_Table_Row_13');toggle_table_row_show_only('Inventory_Table_Row_14');toggle_table_row_show_only('Inventory_Table_Row_15');toggle_table_row_show_only('Inventory_Table_Row_16');toggle_table_row_show_only('Inventory_Table_Row_17');toggle_table_row_show_only('Inventory_Table_Row_18');toggle_table_row_show_only('Inventory_Table_Row_19');toggle_table_row_show_only('Inventory_Table_Row_20');toggle_show_hide_show_only('Inventory_Show_Hide')"><b>Inventaire</b></a>
           
           <a href="#01"><b>Boîte n<sup>o</sup> 01</b></a>
           <a href="#02"><b>Boîte n<sup>o</sup> 02</b></a>
@@ -414,13 +414,13 @@ function make_year_menu_drop_down(cell_id, items) {
   if (!cell) return;
   // Sort items
   const data = items
-    .filter(([year, link_and_color]) =>
+    .filter(([year, link_and_colour_and_weight]) =>
       String(year).trim() !== "" &&
-      Array.isArray(link_and_color) &&
-      typeof link_and_color[0] === "string" &&
-      link_and_color[0].trim() !== ""
+      Array.isArray(link_and_colour_and_weight) &&
+      typeof link_and_colour_and_weight[0] === "string" &&
+      link_and_colour_and_weight[0].trim() !== ""
     )
-    .sort(([year_1, link_and_color_1], [year_2, link_and_color_2]) => {
+    .sort(([year_1, link_and_colour_and_weight_1], [year_2, link_and_colour_and_weight_2]) => {
       const label_1 = String(year_1).trim();
       const label_2 = String(year_2).trim();
       const is_label_1_BC = /\bBC\b/i.test(label_1);
@@ -432,10 +432,10 @@ function make_year_menu_drop_down(cell_id, items) {
         const number_1 = match_1 ? Number(match_1[0]) : 0;
         const number_2 = match_2 ? Number(match_2[0]) : 0;
         if (number_1 !== number_2) return number_1 - number_2;
-        return link_and_color_1[0].localeCompare(link_and_color_2[0]) || label_1.localeCompare(label_2);
+        return link_and_colour_and_weight_1[0].localeCompare(link_and_colour_and_weight_2[0]) || label_1.localeCompare(label_2);
       }
-      // List BC years before non-BC years
-      if (is_label_1_BC !== is_label_2_BC) return is_label_1_BC ? -1 : 1;
+      // List non-BC years before BC years
+      if (is_label_1_BC !== is_label_2_BC) return is_label_1_BC ? 1 : -1;
       // List labels with years before labels with text only
       const match_1 = label_1.match(/\d+/);
       const match_2 = label_2.match(/\d+/);
@@ -443,12 +443,12 @@ function make_year_menu_drop_down(cell_id, items) {
       const is_label_2_year = match_2 !== null;
       if (is_label_1_year !== is_label_2_year) return is_label_1_year ? -1 : 1;
       // List labels with text only in alphabetical order, and link order for identical labels
-      if (!is_label_1_year && !is_label_2_year) return label_1.localeCompare(label_2) || link_and_color_1[0].localeCompare(link_and_color_2[0]);
+      if (!is_label_1_year && !is_label_2_year) return label_1.localeCompare(label_2) || link_and_colour_and_weight_1[0].localeCompare(link_and_colour_and_weight_2[0]);
       // List non-BC years in order, and link order for identical labels
       const number_1 = Number(match_1[0]);
       const number_2 = Number(match_2[0]);
       if (number_1 !== number_2) return number_2 - number_1;
-      return link_and_color_1[0].localeCompare(link_and_color_2[0]) || label_1.localeCompare(label_2);
+      return link_and_colour_and_weight_1[0].localeCompare(link_and_colour_and_weight_2[0]) || label_1.localeCompare(label_2);
     });
   if (!data.length) return;
 
@@ -502,7 +502,7 @@ function make_year_menu_drop_down(cell_id, items) {
       probe.remove();
     }
   }
-  data.forEach(([year, [href, class_name]]) => {
+  data.forEach(([year, [href, class_name, weight]]) => {
     const label = String(year);
     let final_label = label;
     // Consider trailing label symbols: ?, *, or both in either order
@@ -586,6 +586,9 @@ function make_year_menu_drop_down(cell_id, items) {
     } else {
       content_link.textContent = final_label;
     }
+    if (weight === "normal" || weight === "bold") {
+      content_link.style.setProperty("font-weight", weight, "important");
+    }
     content_link.style.setProperty("display", "inline-block", "important");
     content_link.style.setProperty("position", "relative", "important");
     content_link.style.setProperty("direction", "ltr", "important");
@@ -631,25 +634,6 @@ function make_year_menu_drop_down(cell_id, items) {
             }
           }
         }
-        history.pushState(null, "", "#" + target_id);
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            const updated_target_el = document.getElementById(target_id);
-            if (!updated_target_el) return;
-
-            const target_top =
-              updated_target_el.getBoundingClientRect().top +
-              window.scrollY;
-
-            window.scrollTo({
-              top: target_top,
-              left: window.scrollX,
-              behavior: "auto"
-            });
-          });
-        });
-      } else {
         window.location.hash = target_id;
       }
     });
@@ -850,7 +834,7 @@ function make_year_menu_drop_down(cell_id, items) {
 </script>
 <tr id="Inventory_Table_Row" style="display: none;" class="show_hide">
 
-  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
+  <td id="Inventory" colspan="10" class="cell_left title bg_rhodium_50 section"><span onClick="toggle_table_row('Inventory_Table_Row_1');toggle_table_row('Inventory_Table_Row_2');toggle_table_row('Inventory_Table_Row_3');toggle_table_row('Inventory_Table_Row_4');toggle_table_row('Inventory_Table_Row_5');toggle_table_row('Inventory_Table_Row_6');toggle_table_row('Inventory_Table_Row_7');toggle_table_row('Inventory_Table_Row_8');toggle_table_row('Inventory_Table_Row_9');toggle_table_row('Inventory_Table_Row_10');toggle_table_row('Inventory_Table_Row_11');toggle_table_row('Inventory_Table_Row_12');toggle_table_row('Inventory_Table_Row_13');toggle_table_row('Inventory_Table_Row_14');toggle_table_row('Inventory_Table_Row_15');toggle_table_row('Inventory_Table_Row_16');toggle_table_row('Inventory_Table_Row_17');toggle_table_row('Inventory_Table_Row_18');toggle_table_row('Inventory_Table_Row_19');toggle_table_row('Inventory_Table_Row_20');toggle_show_hide('Inventory_Show_Hide')"><b><span id="Inventory_Show_Hide" class="toggle_show_hide">+</span> <b>Inventaire :</b></span></td>
 
 </tr>
 <tr id="Inventory_Table_Row_1" style="display: none;" class="show_hide">
@@ -859,13 +843,23 @@ function make_year_menu_drop_down(cell_id, items) {
   </td>
 </tr>
 <tr id="Inventory_Table_Row_2" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#01"><b>Boîte n<sup>o</sup> 01 :</b></a></td>
+  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#01"><b>Niveaux de complétion :</b></a></td>
 </tr>
 <tr id="Inventory_Table_Row_3" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#01A"><b>→ Époque contemporaine (de la fin de la Seconde Guerre mondiale en 1945 à nos jours) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_100_100_complete">02/02 = <b>100% complete</b></td>
+  <td colspan="3" class="cell_left text"><b>Cœur de la collection : </b></td>
+  <td colspan="7" class="cell_right text bg_gpa_progress" style="--progress_value: 96.0%;">Taux de complétion = 40 / 41 or <b>98%</b></td>
 </tr>
 <tr id="Inventory_Table_Row_4" style="display: none;" class="show_hide">
+  <td colspan="3" class="cell_left text"><b>1 Franc, dit « Semeuse » : </b></td>
+  <td colspan="7" class="cell_right text bg_gpa_progress" style="--progress_value: 92.0%; --marker_display: block; --marker_visibility: visible; --marker_label: '65'; --marker_value: 92.85714285714286%;">Grade moyen = <b>64.21 / 70 </b></td>
+</tr>
+<tr id="Inventory_Table_Row_5" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#01"><b>Boîte n<sup>o</sup> 01 :</b></a></td>
+</tr>
+<tr id="Inventory_Table_Row_6" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text"><a href="#01A"><b>→ Époque contemporaine (de la fin de la Seconde Guerre mondiale en 1945 à nos jours) :</b></a></td>
+</tr>
+<tr id="Inventory_Table_Row_7" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
@@ -903,14 +897,13 @@ function make_year_menu_drop_down(cell_id, items) {
     ]);
   </script>
 </tr>
-<tr id="Inventory_Table_Row_5" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_8" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text"><a href="#01B"><b>→ Époque moderne (de la fin de l'Empire byzantin en 1453 à la fin de la Seconde Guerre mondiale en 1945) :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_6" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#01B01">— Époque moderne tardive (de la révolution française en 1789 jusqu'à la fin de la Seconde Guerre mondiale en 1945) :</a></td>
-  <td colspan="2" align="right" class="cell_right text bg_100_100_complete">03/03 = <b>100% complete</b></td>
+<tr id="Inventory_Table_Row_9" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text"><a href="#01B01">— Époque moderne tardive (de la révolution française en 1789 jusqu'à la fin de la Seconde Guerre mondiale en 1945) :</a></td>
 </tr>
-<tr id="Inventory_Table_Row_7" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_10" style="display: none;" class="show_hide">
   <td id="1928" colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_n_silver_y_bronze_n">
   <sup style="color: #ff0000">&#8778;</sup><br class="responsive_break"/><!--<a href="#01B01_01.00"><b>1928</b></a>--><b>1928</b>
   </td>
@@ -925,21 +918,21 @@ function make_year_menu_drop_down(cell_id, items) {
       ["1914",  ["#01B01_01.06", "bg_gold_n_silver_y_bronze_n"]],
       ["1914C", ["#01B01_01.07", "bg_gold_n_silver_y_bronze_n"]],
       ["1913",  ["#01B01_01.08", "bg_gold_n_silver_y_bronze_n"]],
-      ["1912",  ["#01B01_01.09", "bg_gold_n_silver_y_bronze_n"]],
+      ["1912",  ["#01B01_01.09", "bg_gold_n_silver_y_bronze_n", "normal"]],
       ["1911",  ["#01B01_01.10", "bg_gold_n_silver_y_bronze_n"]],
       ["1910",  ["#01B01_01.11", "bg_gold_n_silver_y_bronze_n"]],
       ["1909",  ["#01B01_01.12", "bg_gold_n_silver_y_bronze_n"]],
-      ["1908",  ["#01B01_01.13", "bg_gold_n_silver_y_bronze_n"]],
+      ["1908",  ["#01B01_01.13", "bg_gold_n_silver_y_bronze_n", "normal"]],
       ["1907",  ["#01B01_01.14", "bg_gold_n_silver_y_bronze_n"]],
       ["1906",  ["#01B01_01.15", "bg_gold_n_silver_y_bronze_n"]],
       ["1905",  ["#01B01_01.16", "bg_gold_n_silver_y_bronze_n"]],
       ["1904",  ["#01B01_01.17", "bg_gold_n_silver_y_bronze_n"]],
-      ["1903",  ["#01B01_01.18", "bg_gold_n_silver_y_bronze_n"]],
+      ["1903",  ["#01B01_01.18", "bg_gold_n_silver_y_bronze_n", "normal"]],
       ["1902",  ["#01B01_01.19", "bg_gold_n_silver_y_bronze_n"]],
       ["1901",  ["#01B01_01.20", "bg_gold_n_silver_y_bronze_n"]],
       ["1900",  ["#01B01_01.21", "bg_gold_n_silver_y_bronze_n"]],
       ["1899",  ["#01B01_01.22", "bg_gold_n_silver_y_bronze_n"]],
-      ["1898",  ["#01B01_01.23", "bg_gold_n_silver_y_bronze_n"]]
+      ["1898",  ["#01B01_01.23", "bg_gold_n_silver_y_bronze_n", "normal"]]
     ]);
   </script>
   <td id="1878" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_y_silver_y_bronze_n">
@@ -976,18 +969,20 @@ function make_year_menu_drop_down(cell_id, items) {
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
-  <td colspan="2" align="right" class="cell_right text bg_099_100_complete">1 Fr Semeuse GPA = <b>64.21</b></td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
 </tr>
-<tr id="Inventory_Table_Row_8" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#02"><b>Boîte n<sup>o</sup> 02 :</b></a></td>
+<tr id="Inventory_Table_Row_11" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#02"><b>Boîte n<sup>o</sup> 02 :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_9" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#02A">— Époque moderne tôtive (de la fin de l'Empire byzantin en 1453 jusqu'à la révolution française en 1789) :</a></td>
-  <td colspan="2" align="right" class="cell_right text bg_100_100_complete">07/07 = <b>100% complete</b></td>
+<tr id="Inventory_Table_Row_12" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text"><a href="#02A">— Époque moderne tôtive (de la fin de l'Empire byzantin en 1453 jusqu'à la révolution française en 1789) :</a></td>
 </tr>
-<tr id="Inventory_Table_Row_10" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_13" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid_no_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
@@ -1023,11 +1018,10 @@ function make_year_menu_drop_down(cell_id, items) {
   <sup style="color: #ff0000">&#8778;</sup><a href="#02A_07.00"><b>1478</b></a>
   </td>
 </tr>
-<tr id="Inventory_Table_Row_11" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#02B"><b>→ Moyen Âge (de la fin de l'Empire romain d'Occident en 476 jusqu'à la fin de l'Empire byzantin en 1453) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_095_100_complete">19/20 = <b>095% complete</b></td>
+<tr id="Inventory_Table_Row_14" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text"><a href="#02B"><b>→ Moyen Âge (de la fin de l'Empire romain d'Occident en 476 jusqu'à la fin de l'Empire byzantin en 1453) :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_12" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_15" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
   <sup style="color: #ff0000">&#8778;</sup><a href="#02B_08.00"><b>1428</b></a>
   </td>
@@ -1059,7 +1053,7 @@ function make_year_menu_drop_down(cell_id, items) {
   <sup style="color: #ff0000">&#8778;</sup><a href="#02B_17.00"><b>978</b></a>
   </td>
 </tr>
-<tr id="Inventory_Table_Row_13" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_16" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
   <sup style="color: #ff0000">&#8778;</sup><a href="#02B_18.00"><b>928</b></a>
   </td>
@@ -1091,14 +1085,13 @@ function make_year_menu_drop_down(cell_id, items) {
   <sup style="color: #ff0000">&#8778;</sup><a href="#02B_27.00"><b>478</b></a>
   </td>
 </tr>
-<tr id="Inventory_Table_Row_14" style="display: none;" class="show_hide">
-  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#03"><b>Boîte n<sup>o</sup> 03 :</b></a></td>
+<tr id="Inventory_Table_Row_17" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text bg_rhodium_50"><a href="#03"><b>Boîte n<sup>o</sup> 03 :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_15" style="display: none;" class="show_hide">
-  <td colspan="8" class="cell_left text"><a href="#03A"><b>→ Antiquité (du début de la civilisation historique jusqu'à la fin de l'Empire romain d'Occident en 476) :</b></a></td>
-  <td colspan="2" align="right" class="cell_right text bg_100_100_complete">10/10 = <b>100% complete</b></td>
+<tr id="Inventory_Table_Row_18" style="display: none;" class="show_hide">
+  <td colspan="10" class="cell_left text"><a href="#03A"><b>→ Antiquité (du début de la civilisation historique jusqu'à la fin de l'Empire romain d'Occident en 476) :</b></a></td>
 </tr>
-<tr id="Inventory_Table_Row_16" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_19" style="display: none;" class="show_hide">
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_left text bg_gold_y_silver_n_bronze_n">
   <sup style="color: #ff0000">&#8778;</sup><a href="#03A_01.00"><b>428</b></a>
   </td>
@@ -1158,22 +1151,22 @@ function make_year_menu_drop_down(cell_id, items) {
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
   <a href="#03B_08.00"><b>78</b></a>
   </td>
-  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#03B_09.00"><b>28</b></a>
-  </td>
-  <td id="23 BC" colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_y_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><br class="responsive_break"/><b>BC</b>
+  <td id="28" colspan="1" align="right" style="vertical-align: bottom;" class="cell_mid text bg_gold_n_silver_y_bronze_n">
+  <sup style="color: #ff0000">&#8778;</sup><sup>,</sup><sup style="color: #3b95ff">⭑</sup><br class="responsive_break"/><!--<a href="#03B_09.00"><b>28...</b></a>--><b>28...</b>
   </td>
   <script type="text/javascript">
-    make_year_menu_drop_down("23 BC", [
+    make_year_menu_drop_down("28", [
+      ["15",     ["#03B_09.00", "bg_gold_n_silver_y_bronze_n"]],
       ["13 BC*", ["#03B_10.00", "bg_gold_n_silver_y_bronze_n"]],
       ["48 BC",  ["#03B_10.01", "bg_gold_n_silver_y_bronze_n"]],
       ["49 BC*", ["#03B_10.02", "bg_gold_n_silver_y_bronze_n"]]
     ]);
   </script>
+  <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_n_bronze_n bg_does_not_exist">
+  </td>
 </tr>
 
-<tr id="Inventory_Table_Row_17" style="display: none;" class="show_hide">
+<tr id="Inventory_Table_Row_20" style="display: none;" class="show_hide">
   <td colspan="10" class="cell_left text">
   <sup style="color: #ff0000">(n)</sup>n coins are available for this year, or for different years within &#177;24 years of this year.
   <br/>
