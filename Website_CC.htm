@@ -631,10 +631,18 @@ function make_year_menu_drop_down(cell_id, items) {
             }
           }
         }
-        window.location.hash = target_id;
+        history.pushState(null, "", "#" + target_id);
+
         requestAnimationFrame(() => {
           const updated_target_el = document.getElementById(target_id);
-          if (updated_target_el) updated_target_el.scrollIntoView();
+
+          if (updated_target_el) {
+            updated_target_el.scrollIntoView({
+              behavior: "auto",
+              block: "start",
+              inline: "nearest"
+            });
+          }
         });
       } else {
         window.location.hash = target_id;
@@ -1043,7 +1051,7 @@ function make_year_menu_drop_down(cell_id, items) {
   <sup style="color: #ff0000">&#8778;</sup><a href="#02B_16.00"><b>1028</b></a>
   </td>
   <td colspan="1" align="right" style="vertical-align: bottom;" class="cell_right text bg_gold_n_silver_y_bronze_n">
-  <sup style="color: #ff0000">&#8778;</sup><a href="#01D_17.00"><b>978</b></a>
+  <sup style="color: #ff0000">&#8778;</sup><a href="#02B_17.00"><b>978</b></a>
   </td>
 </tr>
 <tr id="Inventory_Table_Row_13" style="display: none;" class="show_hide">
