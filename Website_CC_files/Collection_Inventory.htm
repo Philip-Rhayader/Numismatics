@@ -206,14 +206,16 @@ function make_year_menu_drop_down(cell_id, items) {
           const storage_number = match[1];
           const seat_part_1 = match[2];
           const seat_coin_number = Number(match[3]);
-          const is_coin_with_toggle_more_less =
+          const is_coin_that_toggles_more_less =
             (storage_number === "01B01" &&
               seat_part_1 === "01" &&
-              seat_coin_number === 0) ||
+              seat_coin_number >= 1 &&
+              seat_coin_number <= 23) ||
             (storage_number === "03A" &&
               seat_part_1 === "05" &&
-              seat_coin_number === 0);
-          if (!is_coin_with_toggle_more_less) {
+              seat_coin_number >= 1 &&
+              seat_coin_number <= 22);
+          if (is_coin_that_toggles_more_less) {
             const gallery_id = "scrollable_img_gallery_" + storage_number.substring(0, 2);
             const gallery_el = document.getElementById(gallery_id);
             if (gallery_el && !gallery_el.classList.contains("show_hidden_flip_card")) {
@@ -224,7 +226,11 @@ function make_year_menu_drop_down(cell_id, items) {
             }
           }
         }
-        window.location.hash = target_id;
+        if (window.location.hash === "#" + target_id) {
+          target_el.scrollIntoView();
+        } else {
+          window.location.hash = target_id;
+        }
       }
     });
     // Insert label symbols before the link, separated by a black comma if more than one symbol
