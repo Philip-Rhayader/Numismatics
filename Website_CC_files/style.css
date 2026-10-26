@@ -925,7 +925,7 @@ a, a:visited, a:hover, a:active {
   }
   /* Style for Fancybox */
   .fancybox__content {
-    width: 35%;
+    width: 20%;
   }
   .fancybox__caption {
     width: 50%;
@@ -934,7 +934,7 @@ a, a:visited, a:hover, a:active {
   .fancybox--silver .fancybox__caption,
   .fancybox--bronze .fancybox__caption,
   .fancybox--rhodium .fancybox__caption {
-    width: 65%;
+    width: 50%;
   }
   .fancybox__nav {
     --f-button-width: 32px;
