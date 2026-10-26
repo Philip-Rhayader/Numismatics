@@ -456,7 +456,7 @@ a, a:visited, a:hover, a:active {
   position: absolute;
   z-index: 200;
   right: -1px;
-  top: 100%;
+  top: -1px;
   width: max-content;
   min-width: calc(100% + 2px);
   max-width: calc(200% + 4px);
@@ -914,9 +914,9 @@ a, a:visited, a:hover, a:active {
     scroll-margin-top: 0px;
   }
   /* Style for the year menu drop-down */
-  .responsive_break {
+  /*.responsive_break {
     display: initial;
-  }
+  }*/
   .year_menu_drop_down_indicator_track {
     width: 3px;
   }
@@ -924,7 +924,7 @@ a, a:visited, a:hover, a:active {
     height: 3px;
   }
   /* Style for Fancybox */
-  .fancybox__content {
+  /*.fancybox__content {
     width: 65%;
   }
   .fancybox__caption {
@@ -935,7 +935,7 @@ a, a:visited, a:hover, a:active {
   .fancybox--bronze .fancybox__caption,
   .fancybox--rhodium .fancybox__caption {
     width: 80%;
-  }
+  }*/
   .fancybox__nav {
     --f-button-width: 32px;
     --f-button-height: 32px;
