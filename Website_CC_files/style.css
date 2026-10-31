@@ -967,3 +967,28 @@ a, a:visited, a:hover, a:active {
     --f-thumb-border-radius: 12px;
   }
 }
+
+/* Hide records that don't match */
+.record.search-no-match {
+    display: none !important;
+}
+
+/* Show matching records, even if More/Less hid them */
+.record.search-match {
+    display: flex !important;
+}
+
+/* Override hidden descriptions inside matching records */
+.record.search-match.record_description_hidden,
+.record.search-match .record_description_hidden {
+    display: revert !important;
+}
+
+#item_search::placeholder {
+    color: #000000C7;
+    opacity: 1;
+}
+
+body.search_active .hide_button_when_using_search {
+    display: none !important;
+}
