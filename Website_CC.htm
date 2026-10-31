@@ -3399,9 +3399,9 @@ L'attaque terroriste contre Charlie Hebdo : <b>2015</b>.
   <td id="Collection" colspan="10" class="cell_left section" bgcolor="#a4c1d9"><b>THE CC COLLECTION :</b></td>
 </tr>
 <tr>
-  <td colspan="10" class="cell_left section" style="background-color:#a4c1d975;">
+  <td colspan="10" class="cell_left section" style="background-color:#a4c1d950;">
     <span style="display:flex; align-items:center; width:100%;">
-      <input type="text" id="item_search" placeholder="Search by year, country, denomination, or ruler..." oninput="filter_items()" style="flex: 1; min-width: 0; padding: 0; box-sizing: border-box; border: none; outline: none; background :transparent; font: inherit; font-style: italic;"><button type="button" onclick="document.getElementById('item_search').value=''; filter_items();" style="position: relative; top: 1px; right: -2px; padding-left: 4px; border: none; background: transparent; font: inherit; cursor: pointer;"><b>×</b></button>
+      <span style="padding-right:4px;"><b>⌕</b></span><input type="text" id="item_search" placeholder="Search by year, country, denomination, or ruler..." oninput="filter_items()" style="flex: 1; min-width: 0; padding: 0; box-sizing: border-box; border: none; outline: none; background :transparent; font: inherit; font-style: italic;"><button type="button" onclick="document.getElementById('item_search').value=''; filter_items();" style="position: relative; top: 1px; right: -2px; padding-left: 4px; border: none; background: transparent; font: inherit; cursor: pointer;"><b>×</b></button>
     </span>
   </td>
 </tr>
@@ -7571,7 +7571,7 @@ L'attaque terroriste contre Charlie Hebdo : <b>2015</b>.
 
 
 
-<button type="button" class="more_less_button hide_button_when_using_search" aria-expanded="false" onclick="scrollable_img_gallery_toggle_more_less(this, 'scrollable_img_gallery_01')">More</button>
+<button type="button" class="more_less_button hide_more_less_button_when_using_search" aria-expanded="false" onclick="scrollable_img_gallery_toggle_more_less(this, 'scrollable_img_gallery_01')">More</button>
 
 
 <div class="record record_description_hidden row">
@@ -36949,7 +36949,7 @@ Unfortunately the emperor lived long enough to see the undoing of much of his ac
 
 
 
-<button type="button" class="more_less_button hide_button_when_using_search" aria-expanded="false" onclick="scrollable_img_gallery_toggle_more_less(this, 'scrollable_img_gallery_03')">More</button>
+<button type="button" class="more_less_button hide_more_less_button_when_using_search" aria-expanded="false" onclick="scrollable_img_gallery_toggle_more_less(this, 'scrollable_img_gallery_03')">More</button>
 
 
 <div class="record record_description_hidden row">
@@ -50739,8 +50739,8 @@ function scrollable_img_gallery_toggle_more_less(button, id) {
     if (!filter) state_when_using_search = null;
     records.forEach(function(record) {
       const cell_contents = record.querySelector('.search')?.textContent.toLowerCase() ?? '';
-      record.classList.remove('search-match', 'search-no-match');
-      if (filter) record.classList.add(cell_contents.includes(filter) ? 'search-match' : 'search-no-match');
+      record.classList.remove('search_match', 'search_no_match');
+      if (filter) record.classList.add(cell_contents.includes(filter) ? 'search_match' : 'search_no_match');
     });
   }
 </script>

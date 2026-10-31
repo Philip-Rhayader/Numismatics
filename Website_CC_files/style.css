@@ -418,6 +418,35 @@ a, a:visited, a:hover, a:active {
   text-align: left;
 }
 
+/* Style for the search bar */
+
+#item_search {
+  font-weight: bold !important;
+}
+
+#item_search::placeholder {
+  color: #000000C7;
+  opacity: 1;
+  font-weight: normal;
+}
+
+.record.search_no_match {
+  display: none !important;
+}
+
+.record.search_match {
+  display: flex !important;
+}
+
+.record.search_match.record_description_hidden,
+.record.search_match .record_description_hidden {
+  display: revert !important;
+}
+
+body.search_active .hide_more_less_button_when_using_search {
+  display: none !important;
+}
+
 /* Style for the year menu drop-down */
 
 .year_menu_drop_down_indicator_track {
@@ -966,29 +995,4 @@ a, a:visited, a:hover, a:active {
     --f-thumb-gap: 24px;
     --f-thumb-border-radius: 12px;
   }
-}
-
-/* Hide records that don't match */
-.record.search-no-match {
-    display: none !important;
-}
-
-/* Show matching records, even if More/Less hid them */
-.record.search-match {
-    display: flex !important;
-}
-
-/* Override hidden descriptions inside matching records */
-.record.search-match.record_description_hidden,
-.record.search-match .record_description_hidden {
-    display: revert !important;
-}
-
-#item_search::placeholder {
-    color: #000000C7;
-    opacity: 1;
-}
-
-body.search_active .hide_button_when_using_search {
-    display: none !important;
 }
