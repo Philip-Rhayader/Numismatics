@@ -420,11 +420,20 @@ a, a:visited, a:hover, a:active {
 
 /* Style for the search bar */
 
-#item_search {
-  font-weight: bold !important;
+.input_search_bar {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  background :transparent;
+  font: inherit;
+  font-style: italic;
+  font-weight: bold;
 }
 
-#item_search::placeholder {
+.input_search_bar::placeholder {
   color: #000000C7;
   opacity: 1;
   font-weight: normal;
@@ -443,8 +452,24 @@ a, a:visited, a:hover, a:active {
   display: revert !important;
 }
 
-body.search_active .hide_more_less_button_when_using_search {
+body.search_active .hide_more_less_button_when_using_search,
+body.search_active .hide_row_when_using_search {
   display: none !important;
+}
+
+.clear_search_button {
+  position: static;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 4px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  font: inherit;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* Style for the year menu drop-down */
