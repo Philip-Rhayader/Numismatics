@@ -50390,6 +50390,7 @@ RCC1 noted 57 obverse dies and 63 reverse dies. The question of the number of co
   function toggle_search_clear_search(id) {
     const item_search = document.getElementById('item_search');
     const toggle = document.getElementById(id);
+    const target = document.getElementById('Practical_Information');
     if (toggle.innerHTML === "⌕") {
       item_search.focus();
     } else {
@@ -50398,6 +50399,7 @@ RCC1 noted 57 obverse dies and 63 reverse dies. The question of the number of co
       toggle.innerHTML = "⌕";
       item_search.focus();
     }
+    target.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 </script>
 
