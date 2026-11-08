@@ -291,7 +291,7 @@
       | <span onClick="toggle_search_clear_search('Search_Clear_search')" style="cursor:pointer;"><b><span id="Search_Clear_search">⌕</span></b></span>
       <br/>
       <br/>
-      <span onClick="toggle_show_hide_all('Show_Hide_All')" style="cursor:pointer;"><u><b><span id="Show_Hide_All">Show</span> ALL descriptions</b></u></span>
+      <span onClick="toggle_show_hide_all('Show_Hide_All')" style="cursor:pointer;"><u><b><span id="Show_Hide_All">Show</span> ALL</b></u></span> | <span onclick="collapse_all_opened()" style="cursor:pointer;"><u><b>Collapse OPEN</b></u></span>
     </td>
   </tr>
   <tr>
@@ -50816,6 +50816,14 @@ RCC1 noted 57 obverse dies and 63 reverse dies. The question of the number of co
         toggle[i].innerHTML = "+";
       }  
     }
+  }
+  function collapse_all_opened() {
+    document.querySelectorAll('.toggle_show_hide').forEach(function(toggle) {
+      if (toggle.innerHTML.trim() !== '+') {
+        toggle.parentElement?.click();
+      }
+    });
+    document.getElementById('Practical_Information')?.scrollIntoView({behavior:'auto', block:'start'});
   }
 </script>
 
