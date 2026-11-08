@@ -51179,7 +51179,13 @@ function scrollable_img_gallery_toggle_more_less(button, id) {
 <script type="text/javascript">
   let state_when_using_search = null;
   function filter_items() {
-    const filter = document.getElementById('item_search').value.toLowerCase().trim();
+    function normalise_text(text) {
+      return text
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    }
+    const filter = normalise_text(document.getElementById('item_search').value.trim());
     document.body.classList.toggle('search_active', filter !== '');
     const records = document.querySelectorAll('.record');
     if (filter && state_when_using_search === null) {
@@ -51196,7 +51202,7 @@ function scrollable_img_gallery_toggle_more_less(button, id) {
     }
     if (!filter) state_when_using_search = null;
     records.forEach(function(record) {
-      const cell_contents = Array.from(record.querySelectorAll('.search')).map(cell => cell.textContent.toLowerCase().split('designer')[0]).join(' ');
+      const cell_contents = Array.from(record.querySelectorAll('.search')).map(cell => normalise_text(cell.textContent).split('designer')[0]).join(' ');
       record.classList.remove('search_match', 'search_no_match');
       if (filter) {
         const matches = filter.split(/\s+/).every(word => cell_contents.includes(word));
