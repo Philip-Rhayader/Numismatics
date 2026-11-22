@@ -1,4 +1,5 @@
-<div class="row title_page">
+<div class="title_page all_coins">
+<div class="row">
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tbody>
   <tr style="height: 1px">
@@ -23,11 +24,8 @@
       </div>
     </td>    
     <td colspan="4" align="right" class="cell_right" bgcolor="#a4c1d9">
-      <a href="#Practical_Information"><b>INFORMATIONS PRATIQUES</b></a>
-      <br/>
-      <br/>
       <div id="collection_drop_down" class="collection_drop_down">
-        <a id="collection_link" href="#Collection"><b>CC COLLECTION</b></a>
+        <a id="collection_link" href="#01"><b>CC COLLECTION</b></a>
         <div class="collection_drop_down_list">
           {% if pk.set_private() == 'True' %}
           <a href="#Inventory" onClick="toggle_table_row_show_only('Project_Table_Row', true, 1);toggle_table_row_show_only('Inventory_Table_Row', true, 34);toggle_table_row_show_only('Summary_Table_Row', true, 1);toggle_show_hide_show_only('Preamble_Show_Hide');toggle_table_row_show_only('Inventory_Table_Row_1');toggle_table_row_show_only('Inventory_Table_Row_2');toggle_table_row_show_only('Inventory_Table_Row_3');toggle_table_row_show_only('Inventory_Table_Row_4');toggle_table_row_show_only('Inventory_Table_Row_5');toggle_table_row_show_only('Inventory_Table_Row_6');toggle_table_row_show_only('Inventory_Table_Row_7');toggle_table_row_show_only('Inventory_Table_Row_8');toggle_table_row_show_only('Inventory_Table_Row_9');toggle_table_row_show_only('Inventory_Table_Row_10');toggle_table_row_show_only('Inventory_Table_Row_11');toggle_table_row_show_only('Inventory_Table_Row_12');toggle_table_row_show_only('Inventory_Table_Row_13');toggle_table_row_show_only('Inventory_Table_Row_14');toggle_table_row_show_only('Inventory_Table_Row_15');toggle_table_row_show_only('Inventory_Table_Row_16');toggle_table_row_show_only('Inventory_Table_Row_17');toggle_table_row_show_only('Inventory_Table_Row_18');toggle_table_row_show_only('Inventory_Table_Row_19');toggle_table_row_show_only('Inventory_Table_Row_20');toggle_table_row_show_only('Inventory_Table_Row_21');toggle_table_row_show_only('Inventory_Table_Row_22');toggle_table_row_show_only('Inventory_Table_Row_23');toggle_show_hide_show_only('Inventory_Show_Hide')"><b>Inventaire</b></a>
@@ -43,6 +41,9 @@
       <br/>
       <br/>
       <span onClick="toggle_show_hide_all('Show_Hide_All')" style="cursor:pointer;"><u><b><span id="Show_Hide_All">Show</span> ALL</b></u></span> | <span onclick="collapse_all_opened()" style="cursor:pointer;"><u><b>Collapse OPEN</b></u></span>
+      <br/>
+      <br/>
+      <a href="#Practical_Information"><b>INFORMATIONS PRATIQUES</b></a>      
     </td>
   </tr>
   <tr>
@@ -50,6 +51,86 @@
   </tr>
   </tbody>
   </table>
+</div>
+<div class="row">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+  <tr style="height: 1px">
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+  </tr>
+  <tr>
+    <td colspan="10" class="cell_left section" style="background-color:#a4c1d950;">
+      <span style="display:flex; align-items:center; width:100%;">
+        <span style="padding-right:4px;"><b>⌕</b></span><input id="item_search" type="text" class="input_search_bar" placeholder="Search by year, country, denomination, ruler, description, reference, series..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" oninput="filter_items(); document.getElementById('Search_Clear_search').innerHTML = this.value.trim() ? '⌕ ×' : '⌕';"><button type="button" class="clear_search_button" onclick="document.getElementById('item_search').value=''; filter_items(); document.getElementById('Search_Clear_search').innerHTML='⌕'; document.getElementById('01')?.scrollIntoView({behavior:'auto', block:'start'});">×</button>
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="10" class="cell_bottom"></td>
+  </tr>
+  </tbody>
+  </table>
+</div>
+<div class="row">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+  <tr style="height: 1px">
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+  </tr>
+  <tr>
+    <td colspan="10" class="cell_full section historical_timeline" data-default-year="1978"></td>
+  </tr>
+  <tr>
+    <td colspan="10" class="cell_bottom"></td>
+  </tr>
+  <tr>
+    <td colspan="10" class="timeline_labels_row"><div class="timeline_labels"></div></td>
+  </tr>
+  </tbody>
+  </table>
+</div>
+<div class="row">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+  <tr style="height: 1px">
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+  </tr>
+  <tr>
+    <td id="Collection" colspan="10" class="cell_left section" bgcolor="#a4c1d9"><b>CC COLLECTION :</b></td>
+  </tr>
+  <tr>
+    <td colspan="10" class="cell_bottom"></td>
+  </tr>
+  </tbody>
+  </table>
+</div>
 </div>
 
 <p class="breakhere"></p>
