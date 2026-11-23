@@ -334,7 +334,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .all_coins {
-  height: 197px;
+  height: 167px;
 }
 .single_coin {
   height: 100px;
@@ -351,7 +351,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .section {
-  scroll-margin-top: 201px;
+  scroll-margin-top: 251px;
 }
 
 #preloader {
@@ -1097,7 +1097,7 @@ td.timeline_labels_row .timeline_label::before {
     font-size: 0.65rem;
   }
   .all_coins {
-    height: 197px;
+    height: 167px;
   }
   .single_coin {
     height: 80px;
@@ -1106,7 +1106,7 @@ td.timeline_labels_row .timeline_label::before {
     max-height: 69px;
   }
   .section {
-    scroll-margin-top: 201px;
+    scroll-margin-top: 251px;
   }
   td.historical_timeline .timeline_cursor_label {
     font-size: 0.65rem;
@@ -1174,7 +1174,7 @@ td.timeline_labels_row .timeline_label::before {
     font-size: 0.65rem;
   }
   .all_coins {
-    height: 197px;
+    height: 167px;
   }
   .single_coin {
     height: 80px;
@@ -1183,7 +1183,7 @@ td.timeline_labels_row .timeline_label::before {
     max-height: 69px;
   }
   .section {
-    scroll-margin-top: 201px;
+    scroll-margin-top: 251px;
   }
   td.historical_timeline .timeline_cursor_label {
     font-size: 0.65rem;
