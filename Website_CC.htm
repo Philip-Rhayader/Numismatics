@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>CC NUMISMATICS</title>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
-  <link rel="stylesheet" type="text/css" href="Website_CC_files/style.css?v=26">
+  <link rel="stylesheet" type="text/css" href="Website_CC_files/style.css">
   <link rel="icon" type="image/png" sizes="96x96" href="Website_CC_files/favicon_96x96.png"/>
   <link rel="icon" type="image/png" sizes="32x32" href="Website_CC_files/favicon_32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="Website_CC_files/favicon_16x16.png"/>
@@ -51638,7 +51638,7 @@ function scrollable_img_gallery_toggle_more_less(button, id) {
     if (!window.matchMedia("(max-width: 1000px)").matches) {
       return;
     }
-    const offset = 84;
+    const offset = 172;
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener("click", function (e) {
         const id = this.getAttribute("href").substring(1);
