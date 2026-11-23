@@ -1106,7 +1106,7 @@ td.timeline_labels_row .timeline_label::before {
     max-height: 69px;
   }
   .section {
-    scroll-margin-top: 171px;
+    scroll-margin-top: 201px;
   }
   td.historical_timeline .timeline_cursor_label {
     font-size: 0.65rem;
@@ -1183,7 +1183,7 @@ td.timeline_labels_row .timeline_label::before {
     max-height: 69px;
   }
   .section {
-    scroll-margin-top: 171px;
+    scroll-margin-top: 201px;
   }
   td.historical_timeline .timeline_cursor_label {
     font-size: 0.65rem;
