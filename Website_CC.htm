@@ -50885,241 +50885,249 @@ function scrollable_img_gallery_toggle_more_less(button, id) {
   }
 </script>
 
-<script>
+<script type="text/javascript">
+  function createHistoricalTimeline(td, historicalDates) {
 
+    const startYear = -128;
+    const endYear = 2128;
+    const defaultYear = Number(td.dataset.defaultYear);
 
-function createHistoricalTimeline(td, historicalDates) {
-
-  const startYear = -128;
-  const endYear = 2128;
-  const defaultYear = Number(td.dataset.defaultYear);
-
-  // Convert a year into a horizontal percentage
-  function position(year) {
-    return ((year - startYear) / (endYear - startYear)) * 100;
-  }
-
-  // Sort historical dates chronologically
-  const dates = [...historicalDates].sort((a, b) => a[0] - b[0]);
-
-  // Invisible text establishes natural cell height
-  const spacer = document.createElement("span");
-  spacer.className = "timeline_spacer";
-  spacer.innerHTML = "<b>CC COLLECTION :</b>";
-  td.appendChild(spacer);
-
-  // Find nearest historical date
-  function nearestDate(percentage) {
-    return dates.reduce((nearest, date) =>
-      Math.abs(position(date[0]) - percentage) <
-      Math.abs(position(nearest[0]) - percentage)
-        ? date
-        : nearest
-    );
-  }
-
-  // Create red cursor and date label
-  const cursor = document.createElement("div");
-  cursor.className = "timeline_cursor";
-
-  const cursorLabel = document.createElement("span");
-  cursorLabel.className = "timeline_cursor_label";
-
-  cursor.appendChild(cursorLabel);
-  td.appendChild(cursor);
-
-  // Set cursor position and date label
-  function setCursor(year) {
-
-    cursor.style.left = position(year) + "%";
-
-    const dateText = year < 1
-      ? `${1 - year} BC`
-      : String(year);
-
-    cursor.title = dateText;
-    cursorLabel.textContent = dateText;
-  }
-
-  // Initial cursor position
-  const initialDate = nearestDate(position(defaultYear));
-  setCursor(initialDate[0]);
-
-
-  // ========================================
-  // PREVIOUS / NEXT TIMELINE CONTROLS
-  // ========================================
-
-  const previousButton = document.createElement("div");
-  previousButton.className = "timeline_previous";
-  previousButton.title = "Previous date";
-  previousButton.textContent = "❮";
-  td.appendChild(previousButton);
-
-  const nextButton = document.createElement("div");
-  nextButton.className = "timeline_next";
-  nextButton.title = "Next date";
-  nextButton.textContent = "❯";
-  td.appendChild(nextButton);
-
-  function moveToAdjacentDate(direction) {
-
-    const currentYear = nearestDate(
-      parseFloat(cursor.style.left)
-    )[0];
-
-    const currentIndex = dates.findIndex(
-      date => date[0] === currentYear
-    );
-
-    const nextIndex = Math.max(
-      0,
-      Math.min(dates.length - 1, currentIndex + direction)
-    );
-
-    const [year, url] = dates[nextIndex];
-
-    setCursor(year);
-
-    if (url) {
-      window.location.hash = url;
-    }
-  }
-
-  previousButton.addEventListener("click", function() {
-    moveToAdjacentDate(-1);
-  });
-
-  nextButton.addEventListener("click", function() {
-    moveToAdjacentDate(1);
-  });
-
-
-  // ========================================
-  // DRAGGING FUNCTIONALITY
-  // ========================================
-
-  let dragging = false;
-
-  cursor.addEventListener("pointerdown", function(event) {
-
-    dragging = true;
-
-    cursor.setPointerCapture(event.pointerId);
-
-    event.preventDefault();
-  });
-
-  cursor.addEventListener("pointermove", function(event) {
-
-    if (!dragging) return;
-
-    const rect = td.getBoundingClientRect();
-
-    let x = event.clientX - rect.left;
-
-    x = Math.max(0, Math.min(x, rect.width));
-
-    const percentage = (x / rect.width) * 100;
-
-    cursor.style.left = percentage + "%";
-  });
-
-  // Snap to nearest historical date when released
-  function finishDragging() {
-
-    if (!dragging) return;
-
-    dragging = false;
-
-    const percentage = parseFloat(cursor.style.left);
-
-    const nearest = nearestDate(percentage);
-
-    const [year, url] = nearest;
-
-    setCursor(year);
-
-    if (url) {
-      window.location.hash = url;
-    }
-  }
-
-  cursor.addEventListener("pointerup", finishDragging);
-  cursor.addEventListener("pointercancel", finishDragging);
-
-
-  // ========================================
-  // CREATE HISTORICAL DATE MARKERS
-  // ========================================
-
-  dates.forEach(([year, url, option]) => {
-
-    const line = document.createElement("div");
-
-    line.className = "timeline_date";
-
-    // Red marker when the optional argument is "missing"
-    if (option === "missing") {
-      line.classList.add("timeline_date_missing");
+    // Convert a year into a horizontal percentage
+    function position(year) {
+      return ((year - startYear) / (endYear - startYear)) * 100;
     }
 
-    line.title = year < 1
-      ? `${1 - year} BC`
-      : String(year);
+    // Sort chronologically, reversing the original order only within duplicate-year groups.
+    const dates = [...historicalDates]
+      .map((date, index) => ({ date, index }))
+      .sort((a, b) => a.date[0] - b.date[0] || b.index - a.index)
+      .map(item => item.date);
 
-    line.style.left = position(year) + "%";
+    // Invisible text establishes natural cell height
+    const spacer = document.createElement("span");
+    spacer.className = "timeline_spacer";
+    spacer.innerHTML = "<b>CC COLLECTION :</b>";
+    td.appendChild(spacer);
 
-    td.appendChild(line);
-  });
-
-
-  // ========================================
-  // CREATE YEAR LABELS IN SEPARATE ROW
-  // ========================================
-
-  let labelsRow = td.parentElement.nextElementSibling;
-
-  while (
-    labelsRow &&
-    !labelsRow.querySelector(".timeline_labels")
-  ) {
-    labelsRow = labelsRow.nextElementSibling;
-  }
-
-  const labelsContainer = labelsRow
-    ? labelsRow.querySelector(".timeline_labels")
-    : null;
-
-  if (labelsContainer) {
-
-    const labelSpacer = document.createElement("span");
-    labelSpacer.className = "timeline_labels_spacer";
-    labelSpacer.innerHTML = "<b>CC COLLECTION :</b>";
-
-    labelsContainer.parentElement.appendChild(labelSpacer);
-
-    // Create year labels
-    for (let year = 28; year <= endYear; year += 250) {
-
-      const label = document.createElement("span");
-
-      label.className = "timeline_label";
-
-      label.textContent = String(year);
-
-      label.style.left = position(year) + "%";
-
-      labelsContainer.appendChild(label);
+    // Find nearest historical date
+    function nearestDate(percentage) {
+      return dates.reduce((nearest, date) =>
+        Math.abs(position(date[0]) - percentage) <
+        Math.abs(position(nearest[0]) - percentage)
+          ? date
+          : nearest
+      );
     }
-  }
+
+    // Track the active entry index.
+    // This is essential when multiple entries have the same year.
+    let activeDateIndex = 0;
+
+    // Create red cursor and date label
+    const cursor = document.createElement("div");
+    cursor.className = "timeline_cursor";
+
+    const cursorLabel = document.createElement("span");
+    cursorLabel.className = "timeline_cursor_label";
+
+    cursor.appendChild(cursorLabel);
+    td.appendChild(cursor);
+
+    // Set cursor position and date label
+    function setCursor(year) {
+
+      cursor.style.left = position(year) + "%";
+
+      const dateText = year < 1
+        ? `${1 - year} BC`
+        : String(year);
+
+      cursor.title = dateText;
+      cursorLabel.textContent = dateText;
+    }
+
+    // Initial cursor position
+    const initialDate = nearestDate(position(defaultYear));
+
+    activeDateIndex = dates.indexOf(initialDate);
+
+    setCursor(initialDate[0]);
 
 
-  // ========================================
-  // AUTOMATIC CURSOR MOVEMENT ON SCROLL
-  // ========================================
+    // ========================================
+    // PREVIOUS / NEXT TIMELINE CONTROLS
+    // ========================================
 
-  function updateCursorFromScroll() {
+    const previousButton = document.createElement("div");
+    previousButton.className = "timeline_previous";
+    previousButton.title = "Previous date";
+    previousButton.textContent = "❮";
+    td.appendChild(previousButton);
+
+    const nextButton = document.createElement("div");
+    nextButton.className = "timeline_next";
+    nextButton.title = "Next date";
+    nextButton.textContent = "❯";
+    td.appendChild(nextButton);
+
+    function moveToAdjacentDate(direction) {
+
+      const nextIndex = Math.max(
+        0,
+        Math.min(
+          dates.length - 1,
+          activeDateIndex + direction
+        )
+      );
+
+      activeDateIndex = nextIndex;
+
+      const [year, url] = dates[activeDateIndex];
+
+      setCursor(year);
+
+      if (url) {
+        window.location.hash = url;
+      }
+    }
+
+    previousButton.addEventListener("click", function() {
+      moveToAdjacentDate(-1);
+    });
+
+    nextButton.addEventListener("click", function() {
+      moveToAdjacentDate(1);
+    });
+
+
+    // ========================================
+    // DRAGGING FUNCTIONALITY
+    // ========================================
+
+    let dragging = false;
+
+    cursor.addEventListener("pointerdown", function(event) {
+
+      dragging = true;
+
+      cursor.setPointerCapture(event.pointerId);
+
+      event.preventDefault();
+    });
+
+    cursor.addEventListener("pointermove", function(event) {
+
+      if (!dragging) return;
+
+      const rect = td.getBoundingClientRect();
+
+      let x = event.clientX - rect.left;
+
+      x = Math.max(0, Math.min(x, rect.width));
+
+      const percentage = (x / rect.width) * 100;
+
+      cursor.style.left = percentage + "%";
+    });
+
+    // Snap to nearest historical date when released
+    function finishDragging() {
+
+      if (!dragging) return;
+
+      dragging = false;
+
+      const percentage = parseFloat(cursor.style.left);
+
+      const nearest = nearestDate(percentage);
+
+      // Set the active entry index, not just the year
+      activeDateIndex = dates.indexOf(nearest);
+
+      const [year, url] = nearest;
+
+      setCursor(year);
+
+      if (url) {
+        window.location.hash = url;
+      }
+    }
+
+    cursor.addEventListener("pointerup", finishDragging);
+    cursor.addEventListener("pointercancel", finishDragging);
+
+
+    // ========================================
+    // CREATE HISTORICAL DATE MARKERS
+    // ========================================
+
+    dates.forEach(([year, url, option]) => {
+
+      const line = document.createElement("div");
+
+      line.className = "timeline_date";
+
+      // Red marker when the optional argument is "missing"
+      if (option === "missing") {
+        line.classList.add("timeline_date_missing");
+      }
+
+      line.title = year < 1
+        ? `${1 - year} BC`
+        : String(year);
+
+      line.style.left = position(year) + "%";
+
+      td.appendChild(line);
+    });
+
+
+    // ========================================
+    // CREATE YEAR LABELS IN SEPARATE ROW
+    // ========================================
+
+    let labelsRow = td.parentElement.nextElementSibling;
+
+    while (
+      labelsRow &&
+      !labelsRow.querySelector(".timeline_labels")
+    ) {
+      labelsRow = labelsRow.nextElementSibling;
+    }
+
+    const labelsContainer = labelsRow
+      ? labelsRow.querySelector(".timeline_labels")
+      : null;
+
+    if (labelsContainer) {
+
+      const labelSpacer = document.createElement("span");
+      labelSpacer.className = "timeline_labels_spacer";
+      labelSpacer.innerHTML = "<b>CC COLLECTION :</b>";
+
+      labelsContainer.parentElement.appendChild(labelSpacer);
+
+      // Create year labels
+      for (let year = 28; year <= endYear; year += 250) {
+
+        const label = document.createElement("span");
+
+        label.className = "timeline_label";
+
+        label.textContent = String(year);
+
+        label.style.left = position(year) + "%";
+
+        labelsContainer.appendChild(label);
+      }
+    }
+
+
+    // ========================================
+    // AUTOMATIC CURSOR MOVEMENT ON SCROLL
+    // ========================================
+
+    function updateCursorFromScroll() {
 
       if (dragging) return;
 
@@ -51130,12 +51138,17 @@ function createHistoricalTimeline(td, historicalDates) {
         : 0;
 
       let closestDate = null;
+      let closestIndex = -1;
 
       let smallestDistance = Infinity;
 
-      dates.forEach(([year, url]) => {
+      dates.forEach(([year, url], index) => {
 
-        const targetId = decodeURIComponent(url.substring(1));
+        if (!url) return;
+
+        const targetId = decodeURIComponent(
+          url.substring(1)
+        );
 
         const target = document.getElementById(targetId);
 
@@ -51143,155 +51156,189 @@ function createHistoricalTimeline(td, historicalDates) {
 
         const targetPosition = target.getBoundingClientRect().top;
 
-        const distance = Math.abs(targetPosition - headerBottom);
+        const distance = Math.abs(
+          targetPosition - headerBottom
+        );
 
         if (distance < smallestDistance) {
 
           smallestDistance = distance;
 
-          closestDate = year;
+          closestDate = dates[index];
+          closestIndex = index;
         }
       });
 
-      // First date is 49 BC because dates are sorted ascending
-      const finalDate = dates[0];
+      // First date in the timeline
+      const firstDate = dates[0];
 
-      const finalTargetId = decodeURIComponent(
-        finalDate[1].substring(1)
+      const firstTargetId = decodeURIComponent(
+        firstDate[1].substring(1)
       );
 
-      const finalTarget = document.getElementById(finalTargetId);
+      const firstTarget = document.getElementById(firstTargetId);
 
       if (
-          finalTarget &&
-          finalTarget.getBoundingClientRect().top <= headerBottom
+        firstTarget &&
+        firstTarget.getBoundingClientRect().top <= headerBottom
       ) {
-          setCursor(finalDate[0]);
+
+        activeDateIndex = 0;
+
+        setCursor(firstDate[0]);
+
       } else if (closestDate !== null) {
-          setCursor(closestDate);
+
+        // Store the exact entry, even when its year is duplicated
+        activeDateIndex = closestIndex;
+
+        setCursor(closestDate[0]);
       }
+    }
+
+    window.addEventListener(
+      "scroll",
+      updateCursorFromScroll,
+      { passive: true }
+    );
+
+    window.addEventListener("resize", updateCursorFromScroll);
+
+    updateCursorFromScroll();
   }
 
-  window.addEventListener(
-    "scroll",
-    updateCursorFromScroll,
-    { passive: true }
-  );
 
-  window.addEventListener("resize", updateCursorFromScroll);
+  // ========================================
+  // HISTORICAL DATES
+  // ========================================
 
-  updateCursorFromScroll();
-}
-
-
-// ========================================
-// HISTORICAL DATES
-// ========================================
-
-const historicalDates = [
-  [ 2026, "#01A_01.00"],
-  [ 2024, "#01A_01.01"],
-  [ 2023, "#01A_01.02"],
-  [ 1978, "#01A_02.00"],
-  [ 1972, "#01A_02.01"],
-  [ 1967, "#01A_02.02"],
-  [ 1920, "#01B01_01.00"],
-  [ 1919, "#01B01_01.01"],
-  [ 1918, "#01B01_01.02"],
-  [ 1917, "#01B01_01.03"],
-  [ 1916, "#01B01_01.04"],
-  [ 1915, "#01B01_01.05"],
-  [ 1914, "#01B01_01.06"],
-  [ 1913, "#01B01_01.08"],
-  [ 1912, "#01B01_01.09"],
-  [ 1911, "#01B01_01.10"],
-  [ 1910, "#01B01_01.11"],
-  [ 1909, "#01B01_01.12"],
-  [ 1908, "#01B01_01.13"],
-  [ 1907, "#01B01_01.14"],
-  [ 1906, "#01B01_01.15"],
-  [ 1905, "#01B01_01.16"],
-  [ 1904, "#01B01_01.17"],
-  [ 1903, "#01B01_01.18"],
-  [ 1902, "#01B01_01.19"],
-  [ 1901, "#01B01_01.20"],
-  [ 1900, "#01B01_01.21"],
-  [ 1899, "#01B01_01.22"],
-  [ 1898, "#01B01_01.23"],
-  [ 1872, "#01B01_02.00"],
-  [ 1866, "#01B01_02.01"],
-  [ 1863, "#01B01_02.02"],
-  [ 1858, "#01B01_02.03"],
-  [ 1852, "#01B01_02.04"],
-  [ 1850, "#01B01_02.05"],
-  [ 1841, "#01B01_02.06"],
-  [ 1825, "#01B01_03.00"],
-  [ 1824, "#01B01_03.01"],
-  [ 1808, "#01B01_03.02"],
-  [ 1804, "#01B01_03.03"],
-  [ 1791, "#02A_01.00"],
-  [ 1728, "#02A_02.00"],
-  [ 1670, "#02A_03.00"],
-  [ 1640, "#02A_04.00"],
-  [ 1578, "#02A_05.00"],
-  [ 1551, "#02A_06.00"],
-  [ 1550, "#02A_06.01"],
-  [ 1508, "#02A_06.02"],
-  [ 1478, "#02A_07.00"],
-  [ 1417, "#02B_08.00"],
-  [ 1365, "#02B_09.00"],
-  [ 1348, "#02B_10.00"],
-  [ 1262, "#02B_11.00"],
-  [ 1252, "#02B_12.00"],
-  [ 1178, "#02B_13.00", "missing"],
-  [ 1128, "#02B_14.00", "missing"],
-  [ 1083, "#02B_15.00"],
-  [ 1030, "#02B_16.00"],
-  [  987, "#02B_17.00"],
-  [  928, "#02B_18.00", "missing"],
-  [  878, "#02B_19.00"],
-  [  819, "#02B_20.00"],
-  [  778, "#02B_21.00"],
-  [  728, "#02B_22.00"],
-  [  678, "#02B_23.00"],
-  [  610, "#02B_24.00"],
-  [  578, "#02B_25.00"],
-  [  522, "#02B_26.00"],
-  [  476, "#02B_27.00"],
-  [  416, "#03A_01.00"],
-  [  388, "#03A_02.00"],
-  [  321, "#03A_03.00"],
-  [  276, "#03A_04.00"],
-  [  248, "#03A_05.00"],
-  [  212, "#03A_05.26"],
-  [  162, "#03A_06.00"],
-  [  143, "#03A_07.00"],
-  [  133, "#03A_07.01"],
-  [  122, "#03A_07.02"],
-  [   78, "#03B_08.00"],
-  [   15, "#03B_09.00"],
-  [  -12, "#03B_10.00"],
-  [  -47, "#03B_10.01"],
-  [  -48, "#03B_10.02"]
-];
-
-
-// ========================================
-// INITIALISE TIMELINE
-// ========================================
-
-document.addEventListener("DOMContentLoaded", function() {
-
-  document.querySelectorAll("td.historical_timeline")
-    .forEach(function(td) {
-
-      createHistoricalTimeline(td, historicalDates);
-
-    });
-
-});
+  const historicalDates = [
+    [ 2026, "#01A_01.00"],
+    [ 2024, "#01A_01.01"],
+    [ 2023, "#01A_01.02"],
+    [ 1978, "#01A_02.00"],
+    [ 1972, "#01A_02.01"],
+    [ 1967, "#01A_02.02"],
+    [ 1920, "#01B01_01.00"],
+    [ 1919, "#01B01_01.01"],
+    [ 1918, "#01B01_01.02"],
+    [ 1917, "#01B01_01.03"],
+    [ 1916, "#01B01_01.04"],
+    [ 1915, "#01B01_01.05"],
+    [ 1914, "#01B01_01.06"],
+    [ 1913, "#01B01_01.08"],
+    [ 1912, "#01B01_01.09"],
+    [ 1911, "#01B01_01.10"],
+    [ 1910, "#01B01_01.11"],
+    [ 1909, "#01B01_01.12"],
+    [ 1908, "#01B01_01.13"],
+    [ 1907, "#01B01_01.14"],
+    [ 1906, "#01B01_01.15"],
+    [ 1905, "#01B01_01.16"],
+    [ 1904, "#01B01_01.17"],
+    [ 1903, "#01B01_01.18"],
+    [ 1902, "#01B01_01.19"],
+    [ 1901, "#01B01_01.20"],
+    [ 1900, "#01B01_01.21"],
+    [ 1899, "#01B01_01.22"],
+    [ 1898, "#01B01_01.23"],
+    [ 1872, "#01B01_02.00"],
+    [ 1866, "#01B01_02.01"],
+    [ 1863, "#01B01_02.02"],
+    [ 1858, "#01B01_02.03"],
+    [ 1852, "#01B01_02.04"],
+    [ 1850, "#01B01_02.05"],
+    [ 1841, "#01B01_02.06"],
+    [ 1825, "#01B01_03.00"],
+    [ 1824, "#01B01_03.01"],
+    [ 1808, "#01B01_03.02"],
+    [ 1804, "#01B01_03.03"],
+    [ 1791, "#02A_01.00"],
+    [ 1728, "#02A_02.00"],
+    [ 1670, "#02A_03.00"],
+    [ 1640, "#02A_04.00"],
+    [ 1578, "#02A_05.00"],
+    [ 1551, "#02A_06.00"],
+    [ 1550, "#02A_06.01"],
+    [ 1508, "#02A_06.02"],
+    [ 1478, "#02A_07.00"],
+    [ 1417, "#02B_08.00"],
+    [ 1365, "#02B_09.00"],
+    [ 1348, "#02B_10.00"],
+    [ 1262, "#02B_11.00"],
+    [ 1252, "#02B_12.00"],
+    [ 1178, "#02B_13.00", "missing"],
+    [ 1128, "#02B_14.00", "missing"],
+    [ 1083, "#02B_15.00"],
+    [ 1030, "#02B_16.00"],
+    [  987, "#02B_17.00"],
+    [  928, "#02B_18.00", "missing"],
+    [  878, "#02B_19.00"],
+    [  819, "#02B_20.00"],
+    [  778, "#02B_21.00"],
+    [  728, "#02B_22.00"],
+    [  678, "#02B_23.00"],
+    [  610, "#02B_24.00"],
+    [  578, "#02B_25.00"],
+    [  522, "#02B_26.00"],
+    [  476, "#02B_27.00"],
+    [  416, "#03A_01.00"],
+    [  388, "#03A_02.00"],
+    [  321, "#03A_03.00"],
+    [  276, "#03A_04.00"],
+    [  248, "#03A_05.00"],
+    [  248, "#03A_05.01"],
+    [  248, "#03A_05.02"],
+    [  248, "#03A_05.03"],
+    [  248, "#03A_05.04"],
+    [  248, "#03A_05.05"],
+    [  248, "#03A_05.06"],
+    [  248, "#03A_05.07"],
+    [  248, "#03A_05.08"],
+    [  248, "#03A_05.09"],
+    [  248, "#03A_05.10"],
+    [  248, "#03A_05.11"],
+    [  248, "#03A_05.12"],
+    [  248, "#03A_05.13"],
+    [  248, "#03A_05.14"],
+    [  248, "#03A_05.15"],
+    [  248, "#03A_05.16"],
+    [  248, "#03A_05.17"],
+    [  248, "#03A_05.18"],
+    [  248, "#03A_05.19"],
+    [  248, "#03A_05.20"],
+    [  248, "#03A_05.21"],
+    [  248, "#03A_05.22"],
+    [  248, "#03A_05.23"],
+    [  248, "#03A_05.24"],
+    [  248, "#03A_05.25"],
+    [  212, "#03A_05.26"],
+    [  162, "#03A_06.00"],
+    [  143, "#03A_07.00"],
+    [  133, "#03A_07.01"],
+    [  122, "#03A_07.02"],
+    [   78, "#03B_08.00"],
+    [   15, "#03B_09.00"],
+    [  -12, "#03B_10.00"],
+    [  -47, "#03B_10.01"],
+    [  -48, "#03B_10.02"]
+  ];
 
 
+  // ========================================
+  // INITIALISE TIMELINE
+  // ========================================
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    document.querySelectorAll("td.historical_timeline")
+      .forEach(function(td) {
+
+        createHistoricalTimeline(td, historicalDates);
+
+      });
+
+  });
 </script>
 
 </body>
